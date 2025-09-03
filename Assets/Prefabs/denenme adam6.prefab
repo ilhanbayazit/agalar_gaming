@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6618276030819213326
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.27725562
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.14790064
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1264501
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12635922
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.073292375
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      propertyPath: m_Name
+      value: denenme adam6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5470331977092700323}
+  m_SourcePrefab: {fileID: 100100000, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+--- !u!1 &6276257759041887583 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5efad6ba97dac9845872a40363f9b824, type: 3}
+  m_PrefabInstance: {fileID: 6618276030819213326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5470331977092700323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6276257759041887583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19e78357d139ea40ab37b3bf1c9575c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DusmanSc
+  speed: 3
+  arriveDistance: 0.5
