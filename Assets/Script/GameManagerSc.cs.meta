@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 803fae32f0d9c5a439aa59f46ff7633e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Dusman: {fileID: 5856400528948444148, guid: 2d6c4f98bb6a26a499fdd831b36f2d4f, type: 3}
+  - SpawnPoint: {instanceID: 0}
+  - Dusmanlar: {instanceID: 0}
+  - Player: {fileID: 7514581957024410005, guid: e97eaa58bcefa984b95c0eb3d9263739, type: 3}
+  - SpawnPointPlayer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
