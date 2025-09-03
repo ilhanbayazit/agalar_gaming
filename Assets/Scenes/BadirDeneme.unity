@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803fae32f0d9c5a439aa59f46ff7633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerSc
-  Dusman: {fileID: 5856400528948444148, guid: 2d6c4f98bb6a26a499fdd831b36f2d4f, type: 3}
+  Dusman: {fileID: 8054917200643301604, guid: cf8f80103ec0fec45a302749d51f65ee, type: 3}
   SpawnPoint: {fileID: 728194836}
   Dusmanlar: {fileID: 618723327}
   Player: {fileID: 7514581957024410005, guid: e97eaa58bcefa984b95c0eb3d9263739, type: 3}
