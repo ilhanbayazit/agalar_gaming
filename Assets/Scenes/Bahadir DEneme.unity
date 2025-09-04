@@ -2004,6 +2004,8 @@ MonoBehaviour:
   Dusmanlar: {fileID: 618723327}
   Player: {fileID: 7514581957024410005, guid: e97eaa58bcefa984b95c0eb3d9263739, type: 3}
   SpawnPointPlayer: {fileID: 423635157}
+  spawnDelay: 2
+  minSpawnDelay: 0.25
 --- !u!4 &1854717352
 Transform:
   m_ObjectHideFlags: 0
