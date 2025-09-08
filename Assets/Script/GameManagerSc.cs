@@ -39,7 +39,7 @@ public class GameManagerSc : MonoBehaviour
     void PlayerSpawn()
     {
         Instantiate(Player, SpawnPointPlayer.position, Quaternion.identity);
-        Debug.Log("oyuncu olusturuldu");
+     // Debug.Log("oyuncu olusturuldu");
     }
 
     void DusmanSpawnHizlandirma()
