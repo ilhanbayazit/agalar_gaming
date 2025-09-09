@@ -16,10 +16,8 @@ public class DostSc : MonoBehaviour
 
     void Start()
     {
-
         Waypointbul();
-       
-        int nearestIndex = FindNearestWaypoint();
+        int nearestIndex = FindNearestWaypoint(); // <-- DEĞİŞTİ
         OlusturTersListe(nearestIndex);
 
         // İlk hedef
@@ -43,6 +41,7 @@ public class DostSc : MonoBehaviour
 
         }
     }
+
     void HedefeGit(Vector3 hedefKonumu) // 🔹 Hedefe doğru hareket eden fonksiyon
     {
         transform.position = Vector3.MoveTowards(transform.position, hedefKonumu, speed * Time.deltaTime);
@@ -68,46 +67,17 @@ public class DostSc : MonoBehaviour
         }
     }
 
-    int FindNearestWaypoint()
-    {
-        float minDistance = Mathf.Infinity;
-        int nearestIndex = 0;
-
-        for (int i = 0; i < waypoints.Count; i++)
-        {
-            float distance = Vector3.Distance(transform.position, waypoints[i].position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearestIndex = i;
-            }
-        }
-
-        return nearestIndex;
-    }
-
     void OlusturTersListe(int nearestIndex)
     {
-        tersListe.Clear(); // Önce temizle
+        tersListe.Clear(); // Once temizle
 
         for (int i = nearestIndex; i >= 0; i--)
             tersListe.Add(waypoints[i]);
     }
 
-
-    void TersListeYazdir()
-    {
-
-        // DEBUG: Ters listeyi konsola yaz
-        Debug.Log("Ters Liste:");
-        for (int i = 0; i < tersListe.Count; i++)
-            Debug.Log($"Index {i} -> {tersListe[i].name}");
-
-    }
-
     void Waypointbul()   // WaypointParent'ı bul ve waypointleri al
     {
-      
+
         GameObject parent = GameObject.Find(waypointParentName);
         if (parent == null)
         {
@@ -127,6 +97,38 @@ public class DostSc : MonoBehaviour
         }
     }
 
+    int FindNearestWaypoint() // <-- YENİ
+    {
+        if (waypoints.Count == 1) return 0;
 
- 
+        float best = float.PositiveInfinity;
+        int bestSegLower = 0;
+
+        for (int i = 0; i < waypoints.Count - 1; i++)
+        {
+            Vector3 a = waypoints[i].position;
+            Vector3 b = waypoints[i + 1].position;
+            Vector3 p = ClosestPointOnSegment(transform.position, a, b);
+            float d2 = (transform.position - p).sqrMagnitude;
+            if (d2 < best)
+            {
+                best = d2;
+                bestSegLower = i; // segmentin alt indexi
+            }
+        }
+
+        return bestSegLower;
+    }
+
+    Vector3 ClosestPointOnSegment(Vector3 p, Vector3 a, Vector3 b) // <-- YENİ
+    {
+        Vector3 ab = b - a;
+        float t = Vector3.Dot(p - a, ab) / ab.sqrMagnitude;
+        t = Mathf.Clamp01(t);
+        return a + ab * t;
+    }
+
+
+
+
 }

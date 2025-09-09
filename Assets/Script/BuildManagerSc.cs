@@ -7,7 +7,7 @@ public class BuildManagerSc : MonoBehaviour
     [SerializeField] GameObject Cannon;
     [SerializeField] GameObject Ev;
     [SerializeField] GameObject canvas;
-
+    bool BosMu=true;
 
 
     //public float beklemeSuresi = 3f;
@@ -41,11 +41,11 @@ public class BuildManagerSc : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (canvas.activeSelf)
+        if (canvas.activeSelf )
         {
             canvas.SetActive(false);
         }
-        else
+        else if(BosMu)
         {
             canvas.SetActive(true);
         }
@@ -56,12 +56,13 @@ public class BuildManagerSc : MonoBehaviour
     {
         Instantiate(Ev, transform.position, Quaternion.identity);
         canvas.SetActive(false);
-
+        BosMu = false;
     }
     public void SpawnCannon()
     {
         Instantiate(Cannon, transform.position, Quaternion.identity);
         canvas.SetActive(false);
+        BosMu = false;
 
     }
 
