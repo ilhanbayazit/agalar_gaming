@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -48,8 +49,18 @@ public class BuildManagerSc : MonoBehaviour
         else if(BosMu)
         {
             canvas.SetActive(true);
+            StopAllCoroutines(); 
+            StartCoroutine(CanvasKapat());
         }
 
+    }
+    IEnumerator CanvasKapat()
+    {
+        yield return new WaitForSeconds(1.2f); 
+        if (canvas.activeSelf)             
+        {
+            canvas.SetActive(false);
+        }
     }
 
     public void SpawnEv()

@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0542633722a06b40ab6d20205c4f5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildManagerSc
-  Cannon: {fileID: 8054917200643301604, guid: cf8f80103ec0fec45a302749d51f65ee, type: 3}
+  Cannon: {fileID: 2899745969416164161, guid: ee3002999612db442945bb1568989227, type: 3}
   Ev: {fileID: 5923919862806875928, guid: 5f93424886cb6164995f69ac465cb8c3, type: 3}
   canvas: {fileID: 4756347217390792245}
 --- !u!1 &6420678068170215636

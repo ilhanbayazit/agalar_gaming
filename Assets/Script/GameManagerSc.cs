@@ -32,13 +32,13 @@ public class GameManagerSc : MonoBehaviour
 
     void DusmanSpawn()
     {
-        Instantiate(Dusman, SpawnPoint.position, Quaternion.identity, Dusmanlar.transform);
+        Instantiate(Dusman, SpawnPoint.position, Dusman.transform.localRotation, Dusmanlar.transform);
       //  Debug.Log("Dusman Olusturuldu.");
     }
 
     void PlayerSpawn()
     {
-        Instantiate(Player, SpawnPointPlayer.position, Quaternion.identity);
+        Instantiate(Player, SpawnPointPlayer.position, Player.transform.localRotation);
      // Debug.Log("oyuncu olusturuldu");
     }
 
