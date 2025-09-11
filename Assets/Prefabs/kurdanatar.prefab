@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.64
+      value: -4.7338457
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00018193055
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4
+      value: 5.904744
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalRotation.w
@@ -96,20 +96,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9645886
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.26375932
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6343913699545291146, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 30.587
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02383d84c4f07e344ace4ed9a1f60d34, type: 3}
       propertyPath: m_Name
@@ -149,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CannonSc
   range: 15
-  fireRate: 10
+  fireRate: 1
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
   firePoint: {fileID: 8956093903464958409}
   rotationSpeed: 5

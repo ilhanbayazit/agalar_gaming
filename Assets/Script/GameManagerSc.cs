@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public class GameManagerSc : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class GameManagerSc : MonoBehaviour
 
     [Header("Spawn Ayarları")]
     [SerializeField] float spawnDelay = 2f;       // Başlangıç spawn süresi
-    [SerializeField] float minSpawnDelay ;  // Minimum spawn süresi
+    [SerializeField] float minSpawnDelay;  // Minimum spawn süresi
 
     float zaman = 0f;            // Geçen süre
 
@@ -28,18 +29,19 @@ public class GameManagerSc : MonoBehaviour
     private void Update()
     {
         DusmanSpawnHizlandirma();
+        OyunHizlandirma();
     }
 
     void DusmanSpawn()
     {
         Instantiate(Dusman, SpawnPoint.position, Dusman.transform.localRotation, Dusmanlar.transform);
-      //  Debug.Log("Dusman Olusturuldu.");
+        //  Debug.Log("Dusman Olusturuldu.");
     }
 
     void PlayerSpawn()
     {
         Instantiate(Player, SpawnPointPlayer.position, Player.transform.localRotation);
-     // Debug.Log("oyuncu olusturuldu");
+        // Debug.Log("oyuncu olusturuldu");
     }
 
     void DusmanSpawnHizlandirma()
@@ -55,6 +57,22 @@ public class GameManagerSc : MonoBehaviour
             // Her spawn sonrası hızı biraz arttır
             if (spawnDelay > minSpawnDelay)
                 spawnDelay -= 0.1f;
+        }
+    }
+
+    void OyunHizlandirma()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            ++Time.timeScale;
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            if (Time.timeScale>=1)
+            {
+                --Time.timeScale;
+
+            }
         }
     }
 }

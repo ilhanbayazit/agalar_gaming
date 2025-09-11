@@ -14,25 +14,26 @@ public class CannonSc : MonoBehaviour
     private Transform currentTarget;
 
 
+
+    private void Start()
+    {
+
+    }
     void Update()
     {
-    
+
         FindClosestEnemy();
-     
+
         if (currentTarget != null)
         {
             LookAtTarget();
             Fire();
         }
 
+    
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Fire();
-        }
     }
 
-    // Menzildeki en yakın düşmanı bulma
     void FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -52,14 +53,12 @@ public class CannonSc : MonoBehaviour
         }
 
         currentTarget = closestEnemy;
+        // Menzildeki en yakın düşmanı bulma
     }
 
-    // Topun hedefe dönmesini sağlar
-    Quaternion targetRotation;
-    void LookAtTarget()
+    void LookAtTarget()    // Topun hedefe dönmesini sağlar
     {
         if (currentTarget == null) return;
-
         Vector3 hedefPos = currentTarget.position;
         hedefPos.y = transform.position.y;
 
@@ -86,13 +85,14 @@ public class CannonSc : MonoBehaviour
         float hedefZ = Mathf.Atan2(bar.y, bar.x) * Mathf.Rad2Deg;
         float turretY = transform.eulerAngles.y;
 
-        Quaternion finalRot = Quaternion.Euler(0, turretY, -hedefZ+90);
+        Quaternion finalRot = Quaternion.Euler(0, turretY, -hedefZ + 90);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
 
         // Rigidbody üzerinden hedefe doğru kuvvet uygula
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
+
             // Hedefe doğru yön vektörü
             Vector3 dir = (currentTarget.position - firePoint.position).normalized;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,12 @@ public class DusmanSc : MonoBehaviour
 
 
     [Header("Can Ayarları")]
-    [SerializeField] int maxCan = 100;
-    [SerializeField] int can = 100;
+    [SerializeField] float maxCan = 100;
+    [SerializeField] float can = 100;
     private float hedefFill;
 
     [Header("UI")]
+    [SerializeField] GameObject canvas;  // Anında değişen bar
     [SerializeField] Image KirmiziBar;  // Anında değişen bar
     [SerializeField] Image BeyazBar;    // Yavaş değişen bar
 
@@ -28,12 +30,14 @@ public class DusmanSc : MonoBehaviour
         {
             WayPoints.Add(WayPointsParent.transform.GetChild(i));
         }
+
     }
 
     private void Update()
     {
         HedefeGit();
         GuncelleBarlar();
+        HedefeBak();
     }
 
     private void HedefeGit()
@@ -53,12 +57,29 @@ public class DusmanSc : MonoBehaviour
             if (currentIndex >= WayPoints.Count)
             {
                 Destroy(gameObject);
+                return;
             }
         }
     }
-
-    public void HasarAl(int hasar)
+   
+    void HedefeBak()
     {
+        int rotationSpeed = 5;
+        if (WayPoints.Count == 0) return;
+        if (currentIndex >= WayPoints.Count) return;
+        Vector3 hedef = WayPoints[currentIndex].position;
+
+        Vector3 hedefPos = new Vector3(hedef.x, transform.position.y, hedef.z);
+        Quaternion hedefRot = Quaternion.LookRotation(hedefPos - transform.position);
+        hedefRot *= Quaternion.Euler(0f, 180f, 0f);
+
+        transform.rotation = Quaternion.Slerp( transform.rotation,hedefRot,rotationSpeed * Time.deltaTime);
+    }
+
+
+    public void HasarAl(float hasar)
+    {
+        CanvasAc();
         can -= hasar;
         can = Mathf.Clamp(can, 0, maxCan);
 
@@ -70,9 +91,21 @@ public class DusmanSc : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void GuncelleBarlar()
     {
         BeyazBar.fillAmount = Mathf.Lerp(BeyazBar.fillAmount, hedefFill, Time.deltaTime * 3f);
     }
+
+    void CanvasAc()
+    {
+
+        if (!canvas.activeSelf)
+        {
+            canvas.SetActive(true);
+        }
+     
+    }
+
 
 }
