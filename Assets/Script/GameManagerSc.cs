@@ -64,13 +64,13 @@ public class GameManagerSc : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
-            ++Time.timeScale;
+            Time.timeScale+=0.5f;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             if (Time.timeScale>=1)
             {
-                --Time.timeScale;
+                Time.timeScale -= 0.5f;
 
             }
         }
