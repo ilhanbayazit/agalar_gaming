@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BuildManagerSc : MonoBehaviour
 {
-    [SerializeField] GameObject Cannon;
-    [SerializeField] GameObject Ev;
+    [SerializeField] GameObject KurdanAtar;
+    [SerializeField] GameObject Tuzluk;
     [SerializeField] GameObject canvas;
     bool BosMu=true;
 
@@ -65,13 +65,13 @@ public class BuildManagerSc : MonoBehaviour
 
     public void SpawnEv()
     {
-        Instantiate(Ev, transform.position, Quaternion.identity);
+        Instantiate(Tuzluk, transform.position, Quaternion.identity);
         canvas.SetActive(false);
         BosMu = false;
     }
     public void SpawnCannon()
     {
-        Instantiate(Cannon, transform.position, Quaternion.identity);
+        Instantiate(KurdanAtar, transform.position, Quaternion.identity);
         canvas.SetActive(false);
         BosMu = false;
 

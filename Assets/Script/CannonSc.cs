@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CannonSc : MonoBehaviour
 {
@@ -7,18 +8,19 @@ public class CannonSc : MonoBehaviour
     public float fireRate = 1f;            // Ateş etme aralığı (saniye)
     public GameObject bulletPrefab;        // Mermi prefabı
     public Transform firePoint;            // Merminin çıkış noktası
-    public float rotationSpeed = 5f;       // Hedefe dönüş hızı
+    public float DonusHizi = 5f;       // Hedefe dönüş hızı
     [SerializeField] float okHizi = 10f;
+
+    public Transform Rotator;
+    public Vector3 AciOfset;
 
     private float fireTimer = 0f;
     private Transform currentTarget;
 
+       
 
+ 
 
-    private void Start()
-    {
-
-    }
     void Update()
     {
 
@@ -59,45 +61,41 @@ public class CannonSc : MonoBehaviour
     void LookAtTarget()    // Topun hedefe dönmesini sağlar
     {
         if (currentTarget == null) return;
-        Vector3 hedefPos = currentTarget.position;
-        hedefPos.y = transform.position.y;
 
-        Quaternion hedefRot = Quaternion.LookRotation(hedefPos - transform.position);
-        hedefRot *= Quaternion.Euler(0, 90f, 0);
+        Vector3 dir = currentTarget.position - Rotator.position;
+        if (dir.sqrMagnitude < 0.0001f) return;
 
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            hedefRot,
-            rotationSpeed * Time.deltaTime
-        );
+        Quaternion hedefRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
+        hedefRot *= Quaternion.Euler(AciOfset);
+        Rotator.rotation = Quaternion.Slerp(Rotator.rotation, hedefRot, DonusHizi * Time.deltaTime);
     }
 
 
-
+    [SerializeField] Vector3 MermiOfSet;
     void Fire()
     {
         fireTimer += Time.deltaTime;
         if (fireTimer < fireRate || currentTarget == null) return; // ✅ Hedef yoksa ateş etme
         fireTimer = 0f;
 
-        Vector3 hedefPos = currentTarget.position;
-        Vector3 bar = hedefPos - bulletPrefab.transform.position;
-        float hedefZ = Mathf.Atan2(bar.y, bar.x) * Mathf.Rad2Deg;
-        float turretY = transform.eulerAngles.y;
+        Vector3 dir = currentTarget.position - firePoint.position;
+        if (dir.sqrMagnitude < 0.0001f) return;
 
-        Quaternion finalRot = Quaternion.Euler(0, turretY, -hedefZ + 90);
+        Quaternion finalRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
 
+        finalRot *= Quaternion.Euler(MermiOfSet);
+   
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
 
         // Rigidbody üzerinden hedefe doğru kuvvet uygula
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
-
-            // Hedefe doğru yön vektörü
-            Vector3 dir = (currentTarget.position - firePoint.position).normalized;
+            Vector3 dir1 = currentTarget.position - Rotator.position;
+            dir1.Normalize();
 
             // Hedefe doğru kuvvet uygula
-            rb.AddForce(dir * okHizi, ForceMode.VelocityChange);
+            rb.AddForce(dir1 * okHizi, ForceMode.VelocityChange);
+
         }
     }
 
