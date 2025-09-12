@@ -4,14 +4,15 @@ using UnityEngine;
 public class GameManagerSc : MonoBehaviour
 {
 
-    [SerializeField] GameObject Dusman;
+    [SerializeField] GameObject Karinca;
+
+    [SerializeField] GameObject Kene;
+
 
     [SerializeField] Transform SpawnPoint;
-
     [SerializeField] GameObject Dusmanlar;
 
     [SerializeField] GameObject Player;
-
     [SerializeField] Transform SpawnPointPlayer;
 
 
@@ -34,8 +35,19 @@ public class GameManagerSc : MonoBehaviour
 
     void DusmanSpawn()
     {
-        Instantiate(Dusman, SpawnPoint.position, Dusman.transform.localRotation, Dusmanlar.transform);
-        //  Debug.Log("Dusman Olusturuldu.");
+        int sayi = Random.Range(1, 3);
+        switch (sayi)
+        {
+            case 1:
+                Instantiate(Kene, SpawnPoint.position, Kene.transform.localRotation, Dusmanlar.transform);
+                return;
+            case 2:
+                Instantiate(Karinca, SpawnPoint.position, Karinca.transform.localRotation, Dusmanlar.transform);
+                return;
+            default:
+                return;
+        }
+
     }
 
     void PlayerSpawn()

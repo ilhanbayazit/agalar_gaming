@@ -1784,6 +1784,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524839748}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1557577820
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2821972740483190359, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_Name
+      value: TuzAtar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.403
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000019073486
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198252744484213997, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acb7c7a84198fef48a807a367a14956d, type: 3}
 --- !u!1 &1706264466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,7 +2168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803fae32f0d9c5a439aa59f46ff7633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerSc
-  Dusman: {fileID: 8942673923917481795, guid: 8cdf7453ddeb82d488ac6c0879d7a858, type: 3}
+  Karinca: {fileID: 8942673923917481795, guid: 8cdf7453ddeb82d488ac6c0879d7a858, type: 3}
+  Kene: {fileID: 6596755686486509380, guid: 88f4a9bbb652d2c41936111b70e7b346, type: 3}
   SpawnPoint: {fileID: 728194836}
   Dusmanlar: {fileID: 618723327}
   Player: {fileID: 7514581957024410005, guid: e97eaa58bcefa984b95c0eb3d9263739, type: 3}
@@ -2522,3 +2580,4 @@ SceneRoots:
   - {fileID: 1854717352}
   - {fileID: 618723328}
   - {fileID: 19881210}
+  - {fileID: 1557577820}
