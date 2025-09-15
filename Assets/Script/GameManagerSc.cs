@@ -5,17 +5,18 @@ public class GameManagerSc : MonoBehaviour
 {
 
     [SerializeField] GameObject Karinca;
-
     [SerializeField] GameObject Kene;
+    [SerializeField] GameObject Sivri;
+    [SerializeField] GameObject Orumcek;
 
 
     [SerializeField] Transform SpawnPoint;
+    [SerializeField] Transform FlySpawnPoint;
+
     [SerializeField] GameObject Dusmanlar;
 
     [SerializeField] GameObject Player;
     [SerializeField] Transform SpawnPointPlayer;
-
-
 
     [Header("Spawn Ayarları")]
     [SerializeField] float spawnDelay = 2f;       // Başlangıç spawn süresi
@@ -23,19 +24,19 @@ public class GameManagerSc : MonoBehaviour
 
     float zaman = 0f;            // Geçen süre
 
-    private void Start()
-    {
-        PlayerSpawn();
-    }
     private void Update()
     {
         DusmanSpawnHizlandirma();
         OyunHizlandirma();
+        if (Input.GetKeyDown(KeyCode.F)) 
+        {
+            PlayerSpawn();
+        }
     }
 
     void DusmanSpawn()
     {
-        int sayi = Random.Range(1, 3);
+        int sayi = Random.Range(1, 5);
         switch (sayi)
         {
             case 1:
@@ -43,6 +44,12 @@ public class GameManagerSc : MonoBehaviour
                 return;
             case 2:
                 Instantiate(Karinca, SpawnPoint.position, Karinca.transform.localRotation, Dusmanlar.transform);
+                return;
+            case 3:
+                Instantiate(Sivri, FlySpawnPoint.position, Sivri.transform.localRotation, Dusmanlar.transform);
+                return;
+            case 4:
+                Instantiate(Orumcek, SpawnPoint.position, Orumcek.transform.localRotation, Dusmanlar.transform);
                 return;
             default:
                 return;
@@ -53,7 +60,6 @@ public class GameManagerSc : MonoBehaviour
     void PlayerSpawn()
     {
         Instantiate(Player, SpawnPointPlayer.position, Player.transform.localRotation);
-        // Debug.Log("oyuncu olusturuldu");
     }
 
     void DusmanSpawnHizlandirma()
@@ -74,20 +80,23 @@ public class GameManagerSc : MonoBehaviour
 
     void OyunHizlandirma()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Time.timeScale = 1f;
+
+        }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             Time.timeScale+=0.5f;
-            ++Time.timeScale;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
-            if (Time.timeScale>=1)
-            {
+            if (Time.timeScale < 0.6) return;
 
-                Time.timeScale -= 0.5f;
-                --Time.timeScale;
-
-            }
+            Time.timeScale -= 0.5f;
+        
         }
     }
+
+
 }

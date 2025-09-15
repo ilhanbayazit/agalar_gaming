@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 924eaad538f7d6f4aa8dcafa446c9744, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.013
+      value: -0.282
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 924eaad538f7d6f4aa8dcafa446c9744, type: 3}
       propertyPath: m_LocalRotation.w
@@ -457,11 +457,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DusmanSc
   speed: 1.8
   arriveDistance: 0.5
-  maxCan: 100
-  can: 100
+  maxCan: 50
+  can: 50
   canvas: {fileID: 5389269421841697673}
   KirmiziBar: {fileID: 1514461504524321295}
   BeyazBar: {fileID: 5008520524282599684}
+  lookOffsetEuler: {x: 0, y: 180, z: 0}
+  IsFly: 0
 --- !u!65 &7711060531531813379
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -477,7 +479,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

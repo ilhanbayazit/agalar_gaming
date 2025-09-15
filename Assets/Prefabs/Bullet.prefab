@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7102969bfc65a458e9c0cee4f81eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSc
-  bulletSpeed: 20
+  Damage: 50
   lifeTime: 3
 --- !u!136 &6033769701410959607
 CapsuleCollider:

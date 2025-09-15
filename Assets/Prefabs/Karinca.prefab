@@ -446,6 +446,8 @@ MonoBehaviour:
   canvas: {fileID: 8883783906701094693}
   KirmiziBar: {fileID: 6776138335712801100}
   BeyazBar: {fileID: 2574557817959390197}
+  lookOffsetEuler: {x: 0, y: 180, z: 0}
+  IsFly: 0
 --- !u!65 &-8824037549556312775
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -461,9 +463,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6354061, y: 1, z: 1}
-  m_Center: {x: 0.013460845, y: 0, z: 0}
+  m_Size: {x: 1.1364517, y: 0.5565969, z: 1}
+  m_Center: {x: -0.0220114, y: 0.22170156, z: 0}

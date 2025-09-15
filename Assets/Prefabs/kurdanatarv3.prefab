@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469beed4dd974c04abea6f613bd92533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CannonSc
-  range: 15
-  fireRate: 1
+  range: 7
+  shotsPerSecond: 0.8
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
   firePoint: {fileID: 6755792591755038352}
   DonusHizi: 5
@@ -164,6 +164,11 @@ MonoBehaviour:
   Rotator: {fileID: 7248467920255828107}
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 90, y: 0, z: 0}
+  sekmeObjesi: {fileID: 7248467920255828107}
+  yerelEksen: {x: 90, y: 0, z: 0}
+  sekmeMesafesi: 0.3
+  ileriSure: 0.15
+  donusSure: 0.3
 --- !u!4 &7248467920255828107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5817704008849113770, guid: 6eb5e3230078d9c4cb157c1fd1cc89da, type: 3}

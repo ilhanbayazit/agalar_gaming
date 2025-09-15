@@ -22,6 +22,10 @@ public class DusmanSc : MonoBehaviour
     [SerializeField] Image KirmiziBar;  // Anında değişen bar
     [SerializeField] Image BeyazBar;    // Yavaş değişen bar
 
+
+    [SerializeField] Vector3 lookOffsetEuler = new Vector3(0f, 0f, 0f);
+    [SerializeField] bool IsFly;
+
     private void Start()
     {
         hedefFill = (float)can / maxCan;
@@ -45,6 +49,10 @@ public class DusmanSc : MonoBehaviour
         if (WayPoints.Count == 0) return;
 
         Vector3 hedef = WayPoints[currentIndex].position;
+        if (IsFly)
+        {
+            hedef.y += 2;
+        }
 
         transform.position = Vector3.MoveTowards(transform.position, hedef, speed * Time.deltaTime);
 
@@ -61,7 +69,9 @@ public class DusmanSc : MonoBehaviour
             }
         }
     }
-   
+
+
+
     void HedefeBak()
     {
         int rotationSpeed = 5;
@@ -69,11 +79,17 @@ public class DusmanSc : MonoBehaviour
         if (currentIndex >= WayPoints.Count) return;
         Vector3 hedef = WayPoints[currentIndex].position;
 
+        if (IsFly)
+        {
+            hedef.y += 2;
+        }
+
         Vector3 hedefPos = new Vector3(hedef.x, transform.position.y, hedef.z);
         Quaternion hedefRot = Quaternion.LookRotation(hedefPos - transform.position);
-        hedefRot *= Quaternion.Euler(0f, 180f, 0f);
 
-        transform.rotation = Quaternion.Slerp( transform.rotation,hedefRot,rotationSpeed * Time.deltaTime);
+        hedefRot *= Quaternion.Euler(lookOffsetEuler);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, hedefRot, rotationSpeed * Time.deltaTime);
     }
 
 
@@ -104,8 +120,32 @@ public class DusmanSc : MonoBehaviour
         {
             canvas.SetActive(true);
         }
-     
+
     }
+
+
+    public void YoldaSek(float kuvvet,float SekmeSuresi)
+    {
+        Debug.Log("cagrildim");
+        if (!gameObject.activeInHierarchy) return;
+
+        StartCoroutine(Sekme());
+
+        IEnumerator Sekme()
+        {
+            Debug.Log("cagrildim");
+            float old = speed;
+            speed = -speed * kuvvet;          // hızı -kuvvet ile çarp
+            yield return new WaitForSeconds(SekmeSuresi); // 0.5 sn böyle kalsın
+            speed = old;                       // normale dön
+        }
+    }
+
+
+
+
+
+
 
 
 }
