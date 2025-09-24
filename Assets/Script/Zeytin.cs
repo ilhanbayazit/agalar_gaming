@@ -12,9 +12,8 @@ public class Zeytim : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        var other = collision.collider;
         if ( other.CompareTag("Enemy") && !DegdiMi)
         {
             DegdiMi = true;

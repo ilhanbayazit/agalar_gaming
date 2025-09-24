@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class TuzAtarSc : MonoBehaviour
 {
@@ -78,6 +79,11 @@ public class TuzAtarSc : MonoBehaviour
                 x.AtTuzToplu();
             }
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Handles.DrawWireDisc(transform.position, Vector3.up, range);
     }
 
     #region Sekme

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DusmanSc : MonoBehaviour
 {
     GameObject WayPointsParent;
-    List<Transform> WayPoints = new List<Transform>();
+  [SerializeField]  List<Transform> WayPoints = new List<Transform>();
     int currentIndex = 0;                // Şu anki hedef waypoint
     public float speed = 3f;             // Hız
     public float arriveDistance = 0.5f;  // Hedefe yaklaşma mesafesi
@@ -24,17 +25,66 @@ public class DusmanSc : MonoBehaviour
 
 
     [SerializeField] Vector3 lookOffsetEuler = new Vector3(0f, 0f, 0f);
-    [SerializeField] bool IsFly;
+    [SerializeField] public bool IsFly;
+
+    [Header("Stats")]
+    GameObject Stats;
+    [SerializeField] int Odul;
+    [SerializeField] int Hasar;
+
+    Vector3 spawnStart;
 
     private void Start()
     {
+        spawnStart = transform.position;
+        Stats = GameObject.Find("OyuncuBilgileriCanvas");
         hedefFill = (float)can / maxCan;
-        WayPointsParent = GameObject.Find("WaypointParent");
-        for (int i = 0; i < WayPointsParent.transform.childCount; i++)
+        //if (IsFly)
+        //{
+        //    WayPointsParent = GameObject.Find("FlyWaypointParent");
+
+        //}
+        //else
+        //{         
+        //    WayPointsParent = GameObject.Find("WaypointParent");
+        //}
+        //for (int i = 0; i < WayPointsParent.transform.childCount; i++)
+        //{
+        //    WayPoints.Add(WayPointsParent.transform.GetChild(i));
+        //}
+
+    }
+
+    public void WaypointleriAyarla(List<Transform> wp)
+    {
+        WayPoints = wp;
+        currentIndex = 0;
+    }
+
+
+    public float IlerlemeSkoru()
+    {
+        if (WayPoints == null || WayPoints.Count == 0) return float.NegativeInfinity;
+
+        int idx = Mathf.Clamp(currentIndex, 0, WayPoints.Count - 1);
+        float t = 0f; // [0,1] arası segment ilerleme
+
+        if (idx == 0)
         {
-            WayPoints.Add(WayPointsParent.transform.GetChild(i));
+            float seg = Vector3.Distance(spawnStart, WayPoints[0].position);
+            float rem = Vector3.Distance(transform.position, WayPoints[0].position);
+            t = seg > 0.0001f ? 1f - Mathf.Clamp01(rem / seg) : 0f;
+        }
+        else
+        {
+            Vector3 a = WayPoints[idx - 1].position;
+            Vector3 b = WayPoints[idx].position;
+            float seg = Vector3.Distance(a, b);
+            float rem = Vector3.Distance(transform.position, b);
+            t = seg > 0.0001f ? 1f - Mathf.Clamp01(rem / seg) : 0f;
         }
 
+        return idx + t; // büyük olan daha ileride
     }
 
     private void Update()
@@ -49,10 +99,6 @@ public class DusmanSc : MonoBehaviour
         if (WayPoints.Count == 0) return;
 
         Vector3 hedef = WayPoints[currentIndex].position;
-        if (IsFly)
-        {
-            hedef.y += 2;
-        }
 
         transform.position = Vector3.MoveTowards(transform.position, hedef, speed * Time.deltaTime);
 
@@ -64,12 +110,12 @@ public class DusmanSc : MonoBehaviour
 
             if (currentIndex >= WayPoints.Count)
             {
+                Stats.GetComponent<PlayerStats>().CanSayisiAzal(Hasar);
                 Destroy(gameObject);
                 return;
             }
         }
     }
-
 
 
     void HedefeBak()
@@ -79,10 +125,6 @@ public class DusmanSc : MonoBehaviour
         if (currentIndex >= WayPoints.Count) return;
         Vector3 hedef = WayPoints[currentIndex].position;
 
-        if (IsFly)
-        {
-            hedef.y += 2;
-        }
 
         Vector3 hedefPos = new Vector3(hedef.x, transform.position.y, hedef.z);
         Quaternion hedefRot = Quaternion.LookRotation(hedefPos - transform.position);
@@ -104,6 +146,7 @@ public class DusmanSc : MonoBehaviour
 
         if (can <= 0)
         {
+            Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
             Destroy(gameObject);
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class FindikAtar : MonoBehaviour
 {
@@ -30,7 +31,6 @@ public class FindikAtar : MonoBehaviour
     void FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
 
@@ -78,7 +78,6 @@ public class FindikAtar : MonoBehaviour
 
     }
     // Ayarlar
-    [SerializeField] float TepeYukseklik = 6f; // merminin çıkıştan sonra ulaşacağı ekstra tepe yüksekliği
     [SerializeField] float AtesAciDeg = 45f;   // Senin belirlediğin yükseklik açısı (derece)
     [SerializeField] float MinHiz = 1f;        // Güvenlik / alt sınır
     [SerializeField] float MaxHiz = 120f;      // Güvenlik / üst sınır
@@ -131,6 +130,9 @@ public class FindikAtar : MonoBehaviour
             rb.AddForce(v0 * rb.mass, ForceMode.Impulse);
         }
     }
-
+    void OnDrawGizmosSelected()
+    {
+        Handles.DrawWireDisc(transform.position, Vector3.up, range);
+    }
 
 }

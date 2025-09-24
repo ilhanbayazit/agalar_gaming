@@ -17,12 +17,12 @@ public class CannonSc : MonoBehaviour
     public Vector3 AciOfset;
 
     private float fireTimer = 0f;
-    private Transform currentTarget;
+    Transform currentTarget;
     [SerializeField] Vector3 MermiOfSet;
 
     void Update()
     {
-        FindClosestEnemy();
+        FindUzakEnemy();
 
         if (currentTarget != null)
         {
@@ -32,39 +32,54 @@ public class CannonSc : MonoBehaviour
 
     }
 
-    void FindClosestEnemy()
+    void FindUzakEnemy()
     {
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] flyingEnemies = GameObject.FindGameObjectsWithTag("FlyingEnemy");
 
-        Transform closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
+        Transform best = null;
+        float bestScore = float.NegativeInfinity;
+        float rangeSqr = range * range;
 
-        foreach (GameObject enemy in enemies)
+        foreach (var e in flyingEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= range && distance < closestDistance)
+            // opsiyonel menzil
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+
+            var sc = e.GetComponent<DusmanSc>();
+            if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s > bestScore)
             {
-                closestDistance = distance;
-                closestEnemy = enemy.transform;
+                bestScore = s;
+                best = e.transform;
             }
         }
 
-        foreach (GameObject enemy in flyingEnemies) // ikinci listen
+        foreach (var e in enemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= range && distance < closestDistance)
+            // opsiyonel menzil
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+
+            var sc = e.GetComponent<DusmanSc>();
+            if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s > bestScore)
             {
-                closestDistance = distance;
-                closestEnemy = enemy.transform;
+                bestScore = s;
+                best = e.transform;
             }
+
+
+            currentTarget = best;
+            // Menzildeki en yakın düşmanı bulma
         }
 
-        currentTarget = closestEnemy;
-        // Menzildeki en yakın düşmanı bulma
+        currentTarget = best;
     }
-
 
     void LookAtTarget()    // Topun hedefe dönmesini sağlar
     {
@@ -79,12 +94,12 @@ public class CannonSc : MonoBehaviour
     }
 
 
-  
+
     void Fire()
     {
         if (currentTarget == null) return;
 
-        fireTimer += Time.deltaTime; 
+        fireTimer += Time.deltaTime;
         float interval = 1f / Mathf.Max(0.0001f, shotsPerSecond);
 
         while (fireTimer >= interval)
@@ -114,7 +129,6 @@ public class CannonSc : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
 
-        // Rigidbody üzerinden hedefe doğru kuvvet uygula
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
             Vector3 dir1 = currentTarget.position - Rotator.position;
@@ -122,11 +136,11 @@ public class CannonSc : MonoBehaviour
 
             // Hedefe doğru kuvvet uygula
             rb.AddForce(dir1 * okHizi, ForceMode.VelocityChange);
-
         }
     }
 
     #region Sekme
+    [Header("Sekme Animasyonu")]
     [SerializeField] Transform sekmeObjesi;      // Geri tepecek parça (child)
     [SerializeField] Vector3 yerelEksen = Vector3.left; // Sekme yönü (sekmeObjesi'ne göre)
     [SerializeField] float sekmeMesafesi = 0.06f;

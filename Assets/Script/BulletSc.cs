@@ -14,7 +14,7 @@ public class BulletSc : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if ((other.CompareTag("FlyingEnemy") || other.CompareTag("Enemy"))&&!DegdiMi)
+        if ((other.CompareTag("FlyingEnemy") || other.CompareTag("Enemy")) && !DegdiMi)
         {
             DegdiMi = true;
             if (other.GetComponent<DusmanSc>() != null)
@@ -22,8 +22,9 @@ public class BulletSc : MonoBehaviour
                 other.GetComponent<DusmanSc>().HasarAl(Damage);
             }
             Destroy(gameObject);
-       
+
         }
     }
+
 
 }

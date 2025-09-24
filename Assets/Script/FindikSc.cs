@@ -35,6 +35,17 @@ public class FindikSc : MonoBehaviour
     [SerializeField] float YayilimYaricapi = 0.25f;
     [SerializeField] Vector2 ItkiAraligi = new Vector2(3f, 6f);
     [SerializeField] float YukariBias = 0.3f;
+
+
+    Transform FindikParcalariParent;
+    Transform GetirVeyaOlusturFindikParcalariParentParent()
+    {
+        var obj = GameObject.Find("FindikParcalari");
+        if (obj) return obj.transform;
+
+        var yeni = new GameObject("FindikParcalari");
+        return yeni.transform;
+    }
     public void Parcalan()
     {
         Vector3 pos = transform.position;
@@ -45,8 +56,13 @@ public class FindikSc : MonoBehaviour
             var prefab = ParcaPrefabs[i];
             if (prefab == null) continue;
             Vector3 spawnPos = pos + Random.insideUnitSphere * YayilimYaricapi;
-            Debug.Log("olustu");
+
+
+
             GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity);
+            if (FindikParcalariParent == null)
+            { FindikParcalariParent = GetirVeyaOlusturFindikParcalariParentParent(); }
+            go.transform.SetParent(FindikParcalariParent,true);
 
             if (go.TryGetComponent<Rigidbody>(out var rb))
             {

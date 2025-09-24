@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class CekirdekAtar : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class CekirdekAtar : MonoBehaviour
 
     void Update()
     {
-        FindClosestEnemy();
+        FindUzakEnemy();
 
         if (currentTarget != null)
         {
@@ -36,37 +37,53 @@ public class CekirdekAtar : MonoBehaviour
 
     }
 
-    void FindClosestEnemy()
+    void FindUzakEnemy()
     {
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] flyingEnemies = GameObject.FindGameObjectsWithTag("FlyingEnemy");
 
-        Transform closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
+        Transform best = null;
+        float bestScore = float.NegativeInfinity;
+        float rangeSqr = range * range;
 
-        foreach (GameObject enemy in enemies)
+        foreach (var e in flyingEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= range && distance < closestDistance)
+            // opsiyonel menzil
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+
+            var sc = e.GetComponent<DusmanSc>();
+            if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s > bestScore)
             {
-                closestDistance = distance;
-                closestEnemy = enemy.transform;
+                bestScore = s;
+                best = e.transform;
             }
         }
 
-        foreach (GameObject enemy in flyingEnemies) // ikinci listen
+        foreach (var e in enemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= range && distance < closestDistance)
+            // opsiyonel menzil
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+
+            var sc = e.GetComponent<DusmanSc>();
+            if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s > bestScore)
             {
-                closestDistance = distance;
-                closestEnemy = enemy.transform;
+                bestScore = s;
+                best = e.transform;
             }
+
+
+            currentTarget = best;
+            // Menzildeki en yakın düşmanı bulma
         }
 
-        currentTarget = closestEnemy;
-        // Menzildeki en yakın düşmanı bulma
+        currentTarget = best;
     }
 
 
@@ -133,6 +150,9 @@ public class CekirdekAtar : MonoBehaviour
     }
 
 
-
+    void OnDrawGizmosSelected()
+    {
+        Handles.DrawWireDisc(transform.position, Vector3.up, range);
+    }
 
 }

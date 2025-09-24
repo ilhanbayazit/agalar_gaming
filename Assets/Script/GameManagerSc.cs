@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManagerSc : MonoBehaviour
@@ -10,13 +11,7 @@ public class GameManagerSc : MonoBehaviour
     [SerializeField] GameObject Orumcek;
 
 
-    [SerializeField] Transform SpawnPoint;
-    [SerializeField] Transform FlySpawnPoint;
-
-    [SerializeField] GameObject Dusmanlar;
-
-    [SerializeField] GameObject Player;
-    [SerializeField] Transform SpawnPointPlayer;
+    Transform DusmanlarParent;
 
     [Header("Spawn Ayarları")]
     [SerializeField] float spawnDelay = 2f;       // Başlangıç spawn süresi
@@ -24,42 +19,238 @@ public class GameManagerSc : MonoBehaviour
 
     float zaman = 0f;            // Geçen süre
 
+    void Awake()
+    {
+        foreach (var r in Routes)
+            SeritleriOlustur(r);  
+    }
+
+
+    private void Start()
+    {
+        DusmanlarParent = GetirVeyaOlusturDusmanlarParent();
+    }
     private void Update()
     {
-        DusmanSpawnHizlandirma();
+   //     DusmanSpawnHizlandirma();
+        dusmanspawnkontrol();
         OyunHizlandirma();
-        if (Input.GetKeyDown(KeyCode.F)) 
+
+        if (araBekleme)
         {
-            PlayerSpawn();
+            DalgaArasiBekle();
+        }
+        else
+        {
+            //  Level1();
+            //    Level2();
+        }
+    }
+    Transform GetirVeyaOlusturDusmanlarParent()
+    {
+        var obj = GameObject.Find("Dusmanlar");
+        if (obj) return obj.transform;
+
+        var yeni = new GameObject("Dusmanlar");
+        return yeni.transform;
+    }
+
+    #region Spawn
+    public void KarincaSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Karinca, r.SpawnPoint.position, Karinca.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
+
+    public void KeneSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Kene, r.SpawnPoint.position, Kene.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
+
+    public void OrumcekSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Orumcek, r.SpawnPoint.position, Orumcek.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
+
+    public void SivriSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Sivri, r.SpawnPoint.position, Sivri.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, true));
+    }
+
+    #endregion
+
+
+
+    #region YolOlusturma
+    [Header("Merkez Yol")]
+    public List<RouteConfig> Routes = new List<RouteConfig>(); // Inspector'da 2 yol ekle
+    [SerializeField] float seritGenisligi = 1.6f; // şerit aralığı
+    [SerializeField] int seritSayisi = 3;      // >= 1, Inspector’dan ayarlanır
+    int RastgeleSeritNotRepeat(RouteConfig r)
+    {
+        int n = Mathf.Max(1, seritSayisi);
+
+        if (n == 1)
+        {
+            r.lastLane = 0;
+            return 0;
+        }
+
+        if (r.lastLane < 0)
+        {
+            r.lastLane = Random.Range(0, n);
+            return r.lastLane;
+        }
+
+        int pick;
+        do { pick = Random.Range(0, n); } while (pick == r.lastLane);
+
+        r.lastLane = pick;
+        return pick;
+    }
+
+    void SeritleriOlustur(RouteConfig r)
+    {
+        if (r.lanesRoot == null)
+        {
+            r.lanesRoot = new GameObject($"{r.Ad}_LanesRoot").transform;
+            r.lanesRoot.SetPositionAndRotation(r.MerkezWaypointParent.position, r.MerkezWaypointParent.rotation);
+        }
+
+        var merkez = CocuklariListele(r.MerkezWaypointParent);
+
+        r.lanes.Clear();
+        r.lanesFly.Clear();
+
+        // Şerit indeksini merkeze göre simetrik dağıt:
+        // i=0..N-1 için ofsetKatsayi = (i - (N-1)/2f)
+        for (int i = 0; i < seritSayisi; i++)
+        {
+            float ofsetKatsayi = i - (seritSayisi - 1) * 0.5f;
+            float lateral = ofsetKatsayi * seritGenisligi;
+
+            // Yer şeridi
+            var lane = KlonlaVeKopyala(merkez, $"{r.Ad}_Lane_{i}", lateral, 0f, r.lanesRoot);
+            r.lanes.Add(lane);
+
+            // Uçan şeridi
+            var laneFly = KlonlaVeKopyala(merkez, $"{r.Ad}_LaneFly_{i}", lateral, r.flyHeight, r.lanesRoot);
+            r.lanesFly.Add(laneFly);
         }
     }
 
+    List<Transform> SeciliLane(RouteConfig r, int idx, bool isFly)
+    {
+        if (r.lanes.Count == 0) return null;
+
+        idx = Mathf.Clamp(idx, 0, r.lanes.Count - 1);
+        return isFly ? r.lanesFly[idx] : r.lanes[idx];
+    }
+
+    List<Transform> CocuklariListele(Transform parent)
+    {
+        var list = new List<Transform>(parent.childCount);
+        for (int i = 0; i < parent.childCount; i++)
+            list.Add(parent.GetChild(i));
+        return list;
+    }
+    List<Transform> KlonlaVeKopyala(List<Transform> merkez, string ad, float lateralOffset, float yOffset, Transform root)
+    {
+        var holder = new GameObject(ad).transform;
+        holder.SetParent(root, false);
+
+        var sonuc = new List<Transform>(merkez.Count);
+        for (int i = 0; i < merkez.Count; i++)
+        {
+            Vector3 pos = merkez[i].position;
+            Vector3 sag = HesaplaSagVektor(merkez, i);
+            if (Mathf.Abs(lateralOffset) > 0f) pos += sag * lateralOffset;
+            if (Mathf.Abs(yOffset) > 0f) pos += Vector3.up * yOffset;
+
+            var empty = new GameObject($"{ad}_WP_{i}").transform;
+            empty.position = pos;
+            empty.rotation = merkez[i].rotation;
+            empty.SetParent(holder, true);
+
+            sonuc.Add(empty);
+        }
+        return sonuc;
+    }
+
+    Vector3 HesaplaSagVektor(List<Transform> merkez, int i)
+    {
+        Vector3 ileri;
+        if (i == 0) ileri = (merkez[1].position - merkez[0].position);
+        else if (i == merkez.Count - 1) ileri = (merkez[i].position - merkez[i - 1].position);
+        else
+        {
+            var prev = (merkez[i].position - merkez[i - 1].position).normalized;
+            var next = (merkez[i + 1].position - merkez[i].position).normalized;
+            ileri = (prev + next);
+        }
+        ileri = (ileri.sqrMagnitude > 0.0001f) ? ileri.normalized : Vector3.forward;
+        return Vector3.Cross(Vector3.up, ileri).normalized;
+    }
+    #endregion
+
+
+
+    void dusmanspawnkontrol()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            KarincaSpawn(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            KeneSpawn(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SivriSpawn(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OrumcekSpawn(1);
+        }
+    }
     void DusmanSpawn()
     {
         int sayi = Random.Range(1, 5);
         switch (sayi)
         {
             case 1:
-                Instantiate(Kene, SpawnPoint.position, Kene.transform.localRotation, Dusmanlar.transform);
+                KarincaSpawn(1);
                 return;
             case 2:
-                Instantiate(Karinca, SpawnPoint.position, Karinca.transform.localRotation, Dusmanlar.transform);
+                KeneSpawn(0);
                 return;
             case 3:
-                Instantiate(Sivri, FlySpawnPoint.position, Sivri.transform.localRotation, Dusmanlar.transform);
+                SivriSpawn(1);
                 return;
             case 4:
-                Instantiate(Orumcek, SpawnPoint.position, Orumcek.transform.localRotation, Dusmanlar.transform);
+                OrumcekSpawn(1);
                 return;
             default:
                 return;
         }
 
-    }
-
-    void PlayerSpawn()
-    {
-        Instantiate(Player, SpawnPointPlayer.position, Player.transform.localRotation);
     }
 
     void DusmanSpawnHizlandirma()
@@ -87,16 +278,159 @@ public class GameManagerSc : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
-            Time.timeScale+=0.5f;
+            Time.timeScale += 0.5f;
         }
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             if (Time.timeScale < 0.6) return;
 
             Time.timeScale -= 0.5f;
-        
+
+        }
+    }
+
+    #region Leveller
+    int sayacAdet = 0;
+    float sayacZaman = 0f;  
+    int wave = 1;
+
+    bool araBekleme = false;
+    float araSayac = 0f;    // Dalgalar arası 3 sn sayaç
+
+    float atisAraligi = 3f;
+    float dalgaArasiSure = 5f;
+
+    void Level1()
+    {
+        sayacZaman += Time.deltaTime;
+
+        if (wave == 1)
+        {
+            if (sayacZaman >= atisAraligi && sayacAdet < 5)
+            {
+                KarincaSpawn(1);
+                sayacAdet++;
+                sayacZaman = 0f;
+
+                if (sayacAdet == 5)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+
+        else if (wave == 2)
+        {
+            atisAraligi = 2f;
+            if (sayacZaman >= atisAraligi && sayacAdet < 10)
+            {
+                KarincaSpawn(1);
+                sayacAdet++;
+                sayacZaman = 0f;
+                if (sayacAdet == 10)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+        else if (wave == 3)
+        {
+            atisAraligi = 1f;
+            if (sayacZaman >= atisAraligi && sayacAdet < 20)
+            {
+                KarincaSpawn(1);
+                sayacAdet++;
+                sayacZaman = 0f;
+                if (sayacAdet == 20)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+        else if (wave == 4)
+        {
+            atisAraligi = 0.5f;
+            if (sayacZaman >= atisAraligi && sayacAdet < 30)
+            {
+                KarincaSpawn(1);
+                sayacAdet++;
+                sayacZaman = 0f;
+                if (sayacAdet == 30)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+
+    }
+
+
+    void Level2()
+    {
+
+        sayacZaman += Time.deltaTime;
+
+        if (wave == 1)
+        {
+            if (sayacZaman >= atisAraligi && sayacAdet < 6)
+            {
+                if (sayacAdet < 2)
+                {
+                    KarincaSpawn(1);
+                }
+                else
+                {
+                    atisAraligi = 2f;
+                    SivriSpawn(1);
+                }
+                sayacAdet++;
+                sayacZaman = 0f;
+
+                if (sayacAdet == 6)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+        if (wave == 2)
+        {
+            if (sayacZaman >= atisAraligi && sayacAdet < 12)
+            {
+                atisAraligi = 1f;
+                if (sayacAdet == 4 || sayacAdet == 7)
+                {
+                    KarincaSpawn(1);
+                }
+                SivriSpawn(1);
+                sayacAdet++;
+                sayacZaman = 0f;
+
+                if (sayacAdet == 12)
+                {
+                    araBekleme = true;
+                    araSayac = 0f;
+                }
+            }
+        }
+    }
+ 
+    void DalgaArasiBekle()
+    {
+        araSayac += Time.deltaTime;
+        if (araSayac >= dalgaArasiSure)
+        {
+            ++wave;
+            araBekleme = false;
+            sayacAdet = 0;
+            sayacZaman = 0f;
         }
     }
 
 
+    #endregion
 }
