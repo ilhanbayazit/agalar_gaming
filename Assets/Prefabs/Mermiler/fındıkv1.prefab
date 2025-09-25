@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba16e8289a31065459c2609b91a10beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikSc
-  Damage: 75
+  Damage: 90
   lifeTime: 4
   ParcaPrefabs:
   - {fileID: 5046105071223592571, guid: 214a6a4455a480a4289217e6ef0b1a7c, type: 3}
@@ -155,6 +155,6 @@ MonoBehaviour:
   - {fileID: 4662040477401613784, guid: 66236ce44690ddf4cb9a443956882238, type: 3}
   - {fileID: 2941524053688431404, guid: 5004e95226452e94296314f72c2eb280, type: 3}
   - {fileID: 2131868619933645575, guid: 3596f1079db0b8949b4a9375dee0b998, type: 3}
-  YayilimYaricapi: 0.5
+  YayilimYaricapi: 0.54
   ItkiAraligi: {x: 2, y: 2}
   YukariBias: 1.03

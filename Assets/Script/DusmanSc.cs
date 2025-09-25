@@ -15,7 +15,7 @@ public class DusmanSc : MonoBehaviour
 
     [Header("Can Ayarları")]
     [SerializeField] float maxCan = 100;
-    [SerializeField] float can = 100;
+    [SerializeField] public float can = 100;
     private float hedefFill;
 
     [Header("UI")]
@@ -39,19 +39,7 @@ public class DusmanSc : MonoBehaviour
         spawnStart = transform.position;
         Stats = GameObject.Find("OyuncuBilgileriCanvas");
         hedefFill = (float)can / maxCan;
-        //if (IsFly)
-        //{
-        //    WayPointsParent = GameObject.Find("FlyWaypointParent");
-
-        //}
-        //else
-        //{         
-        //    WayPointsParent = GameObject.Find("WaypointParent");
-        //}
-        //for (int i = 0; i < WayPointsParent.transform.childCount; i++)
-        //{
-        //    WayPoints.Add(WayPointsParent.transform.GetChild(i));
-        //}
+ 
 
     }
 
@@ -169,19 +157,18 @@ public class DusmanSc : MonoBehaviour
 
     public void YoldaSek(float kuvvet,float SekmeSuresi)
     {
-        Debug.Log("cagrildim");
         if (!gameObject.activeInHierarchy) return;
 
         StartCoroutine(Sekme());
 
         IEnumerator Sekme()
         {
-            Debug.Log("cagrildim");
             float old = speed;
             speed = -speed * kuvvet;          // hızı -kuvvet ile çarp
             yield return new WaitForSeconds(SekmeSuresi); // 0.5 sn böyle kalsın
-            speed = old;                       // normale dön
+            speed = old;                      // normale dön
         }
+
     }
 
 

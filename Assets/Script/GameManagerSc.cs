@@ -9,6 +9,7 @@ public class GameManagerSc : MonoBehaviour
     [SerializeField] GameObject Kene;
     [SerializeField] GameObject Sivri;
     [SerializeField] GameObject Orumcek;
+    [SerializeField] GameObject HamamBocegi;
 
 
     Transform DusmanlarParent;
@@ -22,7 +23,7 @@ public class GameManagerSc : MonoBehaviour
     void Awake()
     {
         foreach (var r in Routes)
-            SeritleriOlustur(r);  
+            SeritleriOlustur(r);
     }
 
 
@@ -32,19 +33,10 @@ public class GameManagerSc : MonoBehaviour
     }
     private void Update()
     {
-   //     DusmanSpawnHizlandirma();
+        //     DusmanSpawnHizlandirma();
         dusmanspawnkontrol();
         OyunHizlandirma();
 
-        if (araBekleme)
-        {
-            DalgaArasiBekle();
-        }
-        else
-        {
-            //  Level1();
-            //    Level2();
-        }
     }
     Transform GetirVeyaOlusturDusmanlarParent()
     {
@@ -91,7 +83,14 @@ public class GameManagerSc : MonoBehaviour
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, serit, true));
     }
-
+    public void HamamBocegiSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(HamamBocegi, r.SpawnPoint.position, HamamBocegi.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
     #endregion
 
 
@@ -229,6 +228,10 @@ public class GameManagerSc : MonoBehaviour
         {
             OrumcekSpawn(1);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            HamamBocegiSpawn(0);
+        }
     }
     void DusmanSpawn()
     {
@@ -247,6 +250,9 @@ public class GameManagerSc : MonoBehaviour
             case 4:
                 OrumcekSpawn(1);
                 return;
+            case 5:
+                HamamBocegiSpawn(1);
+                break;
             default:
                 return;
         }
@@ -289,148 +295,5 @@ public class GameManagerSc : MonoBehaviour
         }
     }
 
-    #region Leveller
-    int sayacAdet = 0;
-    float sayacZaman = 0f;  
-    int wave = 1;
 
-    bool araBekleme = false;
-    float araSayac = 0f;    // Dalgalar arası 3 sn sayaç
-
-    float atisAraligi = 3f;
-    float dalgaArasiSure = 5f;
-
-    void Level1()
-    {
-        sayacZaman += Time.deltaTime;
-
-        if (wave == 1)
-        {
-            if (sayacZaman >= atisAraligi && sayacAdet < 5)
-            {
-                KarincaSpawn(1);
-                sayacAdet++;
-                sayacZaman = 0f;
-
-                if (sayacAdet == 5)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-
-        else if (wave == 2)
-        {
-            atisAraligi = 2f;
-            if (sayacZaman >= atisAraligi && sayacAdet < 10)
-            {
-                KarincaSpawn(1);
-                sayacAdet++;
-                sayacZaman = 0f;
-                if (sayacAdet == 10)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-        else if (wave == 3)
-        {
-            atisAraligi = 1f;
-            if (sayacZaman >= atisAraligi && sayacAdet < 20)
-            {
-                KarincaSpawn(1);
-                sayacAdet++;
-                sayacZaman = 0f;
-                if (sayacAdet == 20)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-        else if (wave == 4)
-        {
-            atisAraligi = 0.5f;
-            if (sayacZaman >= atisAraligi && sayacAdet < 30)
-            {
-                KarincaSpawn(1);
-                sayacAdet++;
-                sayacZaman = 0f;
-                if (sayacAdet == 30)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-
-    }
-
-
-    void Level2()
-    {
-
-        sayacZaman += Time.deltaTime;
-
-        if (wave == 1)
-        {
-            if (sayacZaman >= atisAraligi && sayacAdet < 6)
-            {
-                if (sayacAdet < 2)
-                {
-                    KarincaSpawn(1);
-                }
-                else
-                {
-                    atisAraligi = 2f;
-                    SivriSpawn(1);
-                }
-                sayacAdet++;
-                sayacZaman = 0f;
-
-                if (sayacAdet == 6)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-        if (wave == 2)
-        {
-            if (sayacZaman >= atisAraligi && sayacAdet < 12)
-            {
-                atisAraligi = 1f;
-                if (sayacAdet == 4 || sayacAdet == 7)
-                {
-                    KarincaSpawn(1);
-                }
-                SivriSpawn(1);
-                sayacAdet++;
-                sayacZaman = 0f;
-
-                if (sayacAdet == 12)
-                {
-                    araBekleme = true;
-                    araSayac = 0f;
-                }
-            }
-        }
-    }
- 
-    void DalgaArasiBekle()
-    {
-        araSayac += Time.deltaTime;
-        if (araSayac >= dalgaArasiSure)
-        {
-            ++wave;
-            araBekleme = false;
-            sayacAdet = 0;
-            sayacZaman = 0f;
-        }
-    }
-
-
-    #endregion
 }

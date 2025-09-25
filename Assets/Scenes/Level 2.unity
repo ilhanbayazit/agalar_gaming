@@ -1756,6 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   gamemngr: {fileID: 1952753272}
   Level: 1
+  aktifYolSayisi: 2
 --- !u!1 &1399876549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,6 +3149,7 @@ MonoBehaviour:
   Kene: {fileID: 6596755686486509380, guid: 88f4a9bbb652d2c41936111b70e7b346, type: 3}
   Sivri: {fileID: 4155381756006756480, guid: 441b2192b52e8294eabd8c10afe47785, type: 3}
   Orumcek: {fileID: 6048158074086913661, guid: 871674cc10e6ea144ae24790b31b17dc, type: 3}
+  HamamBocegi: {fileID: 5679296776675540834, guid: 460dc2cf32b2f334fb466ec3f9f71d24, type: 3}
   spawnDelay: 2
   minSpawnDelay: 1
   Routes:
@@ -3156,26 +3158,15 @@ MonoBehaviour:
     SpawnPoint: {fileID: 180630724}
     flyHeight: 1.3
     lanesRoot: {fileID: 0}
-    lane0: []
-    lane1: []
-    lane2: []
-    lane0Fly: []
-    lane1Fly: []
-    lane2Fly: []
     lastLane: 0
   - Ad: Yol 2
     MerkezWaypointParent: {fileID: 780388265}
     SpawnPoint: {fileID: 1008872186}
     flyHeight: 1.3
     lanesRoot: {fileID: 0}
-    lane0: []
-    lane1: []
-    lane2: []
-    lane0Fly: []
-    lane1Fly: []
-    lane2Fly: []
     lastLane: 0
   seritGenisligi: 1
+  seritSayisi: 3
 --- !u!1 &2115020139
 GameObject:
   m_ObjectHideFlags: 0

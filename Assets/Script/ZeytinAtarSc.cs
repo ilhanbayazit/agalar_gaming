@@ -14,6 +14,7 @@ public class ZeytinAtarSc : MonoBehaviour
 
     private float fireTimer = 0f;
     private Transform currentTarget;
+    Transform targetAimPoint;
 
     [Header("Mermi Ayarlari")]
     [SerializeField] Vector3 MermiOfSet;
@@ -48,18 +49,44 @@ public class ZeytinAtarSc : MonoBehaviour
             }
         }
         currentTarget = closestEnemy;
-        // Menzildeki en yakın düşmanı bulma
+        targetAimPoint = ResolveAimPoint(currentTarget);
     }
 
-    void LookAtTarget()    // Topun hedefe dönmesini sağlar
+    Transform ResolveAimPoint(Transform t)
+    {
+        if (t == null) return null;
+
+        // 1) DusmanSc içinde public Transform AimPoint varsa kullan
+        var ds = t.GetComponent<DusmanSc>();
+        if (ds != null)
+        {
+            var f = ds.GetType().GetField("AimPoint");
+            if (f != null)
+            {
+                var val = f.GetValue(ds) as Transform;
+                if (val != null) return val;
+            }
+        }
+
+        // 2) Çocuklardan adı "AimPoint" olanı ara
+        foreach (var tr in t.GetComponentsInChildren<Transform>(true))
+            if (tr.name == "AimPoint")
+                return tr;
+
+        // 3) Bulunamadı -> null (LookAtTarget fallback kullanacak)
+        return null;
+    }
+
+    void LookAtTarget()
     {
         if (currentTarget == null) return;
 
-        Vector3 dir = currentTarget.position - Rotator.position;
-        if (dir.sqrMagnitude < 0.0001f) return;
+        Vector3 hedefPos = targetAimPoint.position;
 
-        Quaternion hedefRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
-        hedefRot *= Quaternion.Euler(AciOfset);
+        Vector3 dir = hedefPos - Rotator.position;
+        if (dir.sqrMagnitude < 1e-6f) return;
+
+        Quaternion hedefRot = Quaternion.LookRotation(dir.normalized, Vector3.up) * Quaternion.Euler(AciOfset);
         Rotator.rotation = Quaternion.Slerp(Rotator.rotation, hedefRot, DonusHizi * Time.deltaTime);
     }
 

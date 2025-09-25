@@ -118,6 +118,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CanvasLook
   yOfset: {x: 90, y: 180, z: -90}
+--- !u!1 &5168996649650921957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1445905807481764704}
+  m_Layer: 0
+  m_Name: AimPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1445905807481764704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168996649650921957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.37, z: -1.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3666265570037967418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6446487682384518061
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29356adf3ca6f7a40ba91ef274b4239f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4715165648688237354}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29356adf3ca6f7a40ba91ef274b4239f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1445905807481764704}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 29356adf3ca6f7a40ba91ef274b4239f, type: 3}
       insertIndex: -1
@@ -455,7 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19e78357d139ea40ab37b3bf1c9575c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DusmanSc
-  speed: 2
+  WayPoints: []
+  speed: 1.6
   arriveDistance: 0.5
   maxCan: 100
   can: 100

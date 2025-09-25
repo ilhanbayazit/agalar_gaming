@@ -152,6 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b027b7bc2d877be42b3ae277988a06e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikParSc
-  Damage: 35
+  Damage: 45
   lifeTime: 6
   DegdiMi: 0
