@@ -211,10 +211,9 @@ public class GameManagerSc : MonoBehaviour
 
     void dusmanspawnkontrol()
     {
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            KarincaSpawn(1);
+            KarincaSpawn(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -222,11 +221,11 @@ public class GameManagerSc : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SivriSpawn(1);
+            SivriSpawn(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            OrumcekSpawn(1);
+            OrumcekSpawn(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {

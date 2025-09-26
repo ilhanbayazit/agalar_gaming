@@ -2734,7 +2734,7 @@ MonoBehaviour:
   Kene: {fileID: 6596755686486509380, guid: 88f4a9bbb652d2c41936111b70e7b346, type: 3}
   Sivri: {fileID: 4155381756006756480, guid: 441b2192b52e8294eabd8c10afe47785, type: 3}
   Orumcek: {fileID: 6048158074086913661, guid: 871674cc10e6ea144ae24790b31b17dc, type: 3}
-  HamamBocegi: {fileID: 0}
+  HamamBocegi: {fileID: 5679296776675540834, guid: 460dc2cf32b2f334fb466ec3f9f71d24, type: 3}
   spawnDelay: 2
   minSpawnDelay: 1
   Routes:

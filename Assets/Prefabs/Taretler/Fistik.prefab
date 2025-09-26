@@ -211,6 +211,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2727615485988888988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8373677198872447393}
+  m_Layer: 0
+  m_Name: SagKovan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8373677198872447393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727615485988888988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.232, y: 0.678, z: -0.225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1220862834329024667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2847226774551333198
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +599,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4534094316206346142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3159458082977242314}
+  m_Layer: 0
+  m_Name: SolKovan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3159458082977242314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534094316206346142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2819998, y: 0.678, z: 0.225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1220862834329024667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4916931543251788394
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +663,8 @@ Transform:
   m_Children:
   - {fileID: 2987668383771829599}
   - {fileID: 3112304272162486948}
+  - {fileID: 3159458082977242314}
+  - {fileID: 8373677198872447393}
   m_Father: {fileID: 1052359313295406097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2317733874629583920
@@ -805,6 +869,14 @@ MonoBehaviour:
   sekmeMesafesi: 0.2
   ileriSure: 0.03
   donusSure: 0.08
+  objeA: {fileID: 3059976663258086085, guid: 3be47168726008a4b9c774c856e18688, type: 3}
+  objeB: {fileID: 8357872062605809753, guid: cffadbcde0e38fc408ecf1a6f66fbdde, type: 3}
+  spawnA: {fileID: 8373677198872447393}
+  spawnB: {fileID: 3159458082977242314}
+  force: 0.5
+  yasamSuresi: 1
+  sagaAci: 180
+  solaAci: 0
 --- !u!1 &8593230237778279843
 GameObject:
   m_ObjectHideFlags: 0

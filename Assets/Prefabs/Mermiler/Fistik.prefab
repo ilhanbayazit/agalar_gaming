@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5558b1b284d6147a61bd56981f007c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FistikSc
-  Damage: 1000
-  lifeTime: 3
+  Damage: 600
+  lifeTime: 1.8
   DegdiMi: 0
 --- !u!65 &-4889804341636250056
 BoxCollider:

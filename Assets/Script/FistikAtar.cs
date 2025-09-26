@@ -23,9 +23,8 @@ public class FistikAtar : MonoBehaviour
 
     void Update()
     {
-     //   FindUzakEnemy();
-        FindClosestEnemy();
-
+        //  FindClosestEnemy();
+        FindUzakEnemy();
         if (currentTarget != null)
         {
             LookAtTarget();
@@ -34,6 +33,26 @@ public class FistikAtar : MonoBehaviour
 
     }
 
+    void FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (var enemy in enemies)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance <= range && distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy.transform;
+            }
+        }
+
+        currentTarget = closestEnemy;
+        targetAimPoint = ResolveAimPoint(currentTarget);
+    }
     [SerializeField] float reloadS, geriTepS, fireS;
 
     void Fire() => StartCoroutine(Sekans());
@@ -49,6 +68,7 @@ public class FistikAtar : MonoBehaviour
             fireTimer -= interval;
             Anim.SetTrigger("Reload");
             yield return new WaitForSeconds(reloadS);
+            KozaAt();
             FistikAt();
             Anim.SetTrigger("Fire");
             GeriTep();
@@ -111,32 +131,13 @@ public class FistikAtar : MonoBehaviour
 
 
             currentTarget = best;
-            // Menzildeki en yakın düşmanı bulma
+
         }
 
         currentTarget = best;
         targetAimPoint = ResolveAimPoint(currentTarget);
     }
-    void FindClosestEnemy()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        Transform closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var enemy in enemies)
-        {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= range && distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestEnemy = enemy.transform;
-            }
-        }
-
-        currentTarget = closestEnemy;
-        targetAimPoint = ResolveAimPoint(currentTarget);
-    }
     Transform ResolveAimPoint(Transform t)
     {
         if (t == null) return null;
@@ -242,5 +243,37 @@ public class FistikAtar : MonoBehaviour
     }
 
     #endregion
+
+
+    #region KozaAtma
+
+    [Header("Koza Atma")]
+    [SerializeField] GameObject objeA;
+    [SerializeField] GameObject objeB;
+    [SerializeField] Transform spawnA, spawnB;
+    [SerializeField] float force = 0.5f;
+    [SerializeField] float yasamSuresi = 1f;
+    [SerializeField] float sagaAci = 0f, solaAci = 0f; // derece
+
+    void KozaAt()
+    {
+        SpawnVeIt(objeA, spawnA);
+        SpawnVeIt(objeB, spawnB);
+    }
+    void SpawnVeIt(GameObject prefab, Transform sp)
+    {
+        var go = Instantiate(prefab, sp.position, prefab.transform.rotation);
+        if (!go.TryGetComponent<Rigidbody>(out var rb)) rb = go.AddComponent<Rigidbody>();
+
+        Vector3 dir = sp.forward; // temel yön: spawn'ın ileri yönü
+
+        if (sp == spawnA) dir = Quaternion.AngleAxis(sagaAci, sp.up) * dir;   // sağ kabuk
+        else if (sp == spawnB) dir = Quaternion.AngleAxis(solaAci, sp.up) * dir; // sol kabuk
+
+        rb.AddForce(dir.normalized * force, ForceMode.Impulse);
+        Destroy(go, yasamSuresi);
+    }
+    #endregion
+
 
 }
