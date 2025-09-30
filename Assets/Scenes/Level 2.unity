@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   gamemngr: {fileID: 1952753272}
-  Level: 1
+  Level: 2
   aktifYolSayisi: 2
 --- !u!1 &1399876549
 GameObject:

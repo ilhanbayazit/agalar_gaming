@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSc
   Damage: 7
-  lifeTime: 3
+  lifeTime: 1.5
   DegdiMi: 0

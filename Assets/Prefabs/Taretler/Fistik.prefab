@@ -737,6 +737,7 @@ GameObject:
   - component: {fileID: 2050140454175001346}
   - component: {fileID: 4697264549000861446}
   - component: {fileID: 6572958609711897912}
+  - component: {fileID: 374159672685759583}
   m_Layer: 0
   m_Name: Fistik
   m_TagString: Untagged
@@ -877,6 +878,20 @@ MonoBehaviour:
   yasamSuresi: 1
   sagaAci: 180
   solaAci: 0
+--- !u!114 &374159672685759583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503858723988396538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  buildCost: 100
+  nextLevelPrefab: {fileID: 0}
 --- !u!1 &8593230237778279843
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,8 @@ public class CannonSc : MonoBehaviour
 
     void Update()
     {
-        FindUzakEnemy();
+       FindUzakEnemy();
+     //   FindClosestEnemy();
 
         if (currentTarget != null)
         {
@@ -32,7 +33,26 @@ public class CannonSc : MonoBehaviour
         }
 
     }
+    void FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (var enemy in enemies)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance <= range && distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy.transform;
+            }
+        }
+
+        currentTarget = closestEnemy;
+        targetAimPoint = ResolveAimPoint(currentTarget);
+    }
     void FindUzakEnemy()
     {
 

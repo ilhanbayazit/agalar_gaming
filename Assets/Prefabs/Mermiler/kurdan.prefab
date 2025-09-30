@@ -100,15 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSc
   Damage: 50
-  lifeTime: 3
+  lifeTime: 1.8
   DegdiMi: 0
-  homingDuration: 3
-  yawDegPerSec: 360
-  forwardAccel: 94.6
-  onlyXZ: 1
-  directionOffsetEuler: {x: 0, y: 0, z: 0}
-  targetPosOffset: {x: 0, y: 0, z: 0}
-  localThrustDir: {x: 0, y: 1, z: 0}
 --- !u!65 &8509203835042729237
 BoxCollider:
   m_ObjectHideFlags: 0

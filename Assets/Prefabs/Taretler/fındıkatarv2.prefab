@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 8393333377874321783}
   - component: {fileID: 6617927350868266279}
   - component: {fileID: 7921325817522015311}
+  - component: {fileID: -1722345055914261393}
   m_Layer: 0
   m_Name: "f\u0131nd\u0131katarv2"
   m_TagString: Untagged
@@ -143,11 +144,24 @@ MonoBehaviour:
   Rotator: {fileID: 6316261307780924734}
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 0, y: 0, z: 0}
-  TepeYukseklik: 6
   AtesAciDeg: 45
   MinHiz: 1
   MaxHiz: 120
   GucCarpani: 1
+--- !u!114 &-1722345055914261393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851083743054557533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  buildCost: 100
+  nextLevelPrefab: {fileID: 0}
 --- !u!1 &5222408765504713799
 GameObject:
   m_ObjectHideFlags: 0

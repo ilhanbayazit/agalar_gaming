@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}
       propertyPath: m_Name
-      value: TuzAtar
+      value: TuzlukSv1
       objectReference: {fileID: 0}
     - target: {fileID: 5780661433266071737, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}
       propertyPath: m_Name
@@ -156,6 +156,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8683999311587191968}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6313169554717693160}
     - targetCorrespondingSourceObject: {fileID: -4482336015693529801, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7796058529590020866}
@@ -185,7 +188,7 @@ MonoBehaviour:
   pourPoint: {fileID: 5926291085685279988}
   tuzPrefab: {fileID: 2319604587607849950, guid: 8c7401c2f9f3718438fa588d67b31bc8, type: 3}
   interval: 2
-  taneSayisi: 40
+  taneSayisi: 20
   force: 6
   maxSpreadAngle: 0
   localForwardAxis: {x: -90, y: 0, z: 0}
@@ -212,6 +215,21 @@ MonoBehaviour:
   sekmeMesafesi: 0.3
   ileriSure: 0.15
   donusSure: 0.3
+--- !u!114 &-6313169554717693160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2821972740483190359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  buildCost: 100
+  SatisFiyati: 70
+  nextLevelPrefab: {fileID: 682835340124662183, guid: f890df033a43dc6459efe7d4105900e4, type: 3}
 --- !u!1 &7648039828855885361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4482336015693529801, guid: 3e4228ec85e8fa3428d19ba4af66e6f1, type: 3}

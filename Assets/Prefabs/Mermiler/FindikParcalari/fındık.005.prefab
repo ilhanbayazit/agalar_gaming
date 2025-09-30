@@ -111,8 +111,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.097003415, y: 0.041581858, z: 0.12533487}
-  m_Center: {x: 0.033938207, y: -0.0041818637, z: 0.036430575}
+  m_Size: {x: 0.42938024, y: 0.10819313, z: 0.39381948}
+  m_Center: {x: 0.0111679435, y: 0.005334024, z: 0.017738556}
 --- !u!54 &-1507537568796883276
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,6 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b027b7bc2d877be42b3ae277988a06e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikParSc
-  Damage: 45
+  Damage: 50
   lifeTime: 6
   DegdiMi: 0

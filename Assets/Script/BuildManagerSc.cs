@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -10,29 +11,50 @@ public class BuildManagerSc : MonoBehaviour
     [SerializeField] GameObject ZeytinAtar;
     [SerializeField] GameObject FindikAtar;
     [SerializeField] GameObject CekirdekAtar;
+    [SerializeField] GameObject FistikAtar;
+
     [SerializeField] GameObject canvas;
+    GameObject panelSatinAlim;
+    GameObject panelYukseltSat;
+
     [SerializeField] GameObject plyrsts;
+    TowerInfo aktifInfo;
     PlayerStats Stats;
     GameObject Bina;
     bool BosMu = true;
 
-    private void Start()
+    void Awake()
+    {
+        // İsimle derin arama (inactive çocuklarda da çalışır)
+        panelSatinAlim = CocukBul(canvas.transform, "SatinAlimEkrani");
+        panelYukseltSat = CocukBul(canvas.transform, "YukseltmeVeSatma");
+    }
+    static GameObject CocukBul(Transform parent, string ad)
+    {
+        foreach (var t in parent.GetComponentsInChildren<Transform>(true))
+            if (t.name == ad) return t.gameObject;
+        return null;
+    }
+
+    void Start()
     {
         Stats = plyrsts.GetComponent<PlayerStats>();
     }
     void OnMouseDown()
     {
-        if (canvas.activeSelf)
-        {
-            canvas.SetActive(false);
-        }
-        else if (BosMu)
-        {
-            canvas.SetActive(true);
-            StopAllCoroutines();
-            StartCoroutine(CanvasKapat());
-        }
+        CanvasGuncelle();
     }
+    void CanvasGuncelle()
+    {
+        if (!canvas) return;
+        canvas.SetActive(true);
+        if (panelSatinAlim) panelSatinAlim.SetActive(BosMu);
+        if (panelYukseltSat) panelYukseltSat.SetActive(!BosMu);
+        StopAllCoroutines();
+        StartCoroutine(CanvasKapat());
+    }
+
+
 
     void OnMouseOver()
     {
@@ -43,69 +65,66 @@ public class BuildManagerSc : MonoBehaviour
         }
     }
 
+    public void BinaSil()
+    {
+
+        if (Bina)
+        {
+            Stats.AltinEkle(Bina.GetComponent<TowerInfo>().SatisFiyati);
+            Destroy(Bina);
+        }
+        Bina = null;
+        BosMu = true;
+        CanvasGuncelle();
+
+    }
+
     IEnumerator CanvasKapat()
     {
         yield return new WaitForSeconds(1.2f);
-        if (canvas.activeSelf)
-        {
-            canvas.SetActive(false);
-        }
+        if (canvas && canvas.activeSelf) canvas.SetActive(false);
     }
 
-    public void SpawnKurdanAtar()
+    public void SpawnKurdanAtar() => Spawn(KurdanAtar);
+    public void SpawnZeytinAtar() => Spawn(ZeytinAtar);
+    public void SpawnCekirdekAtar() => Spawn(CekirdekAtar);
+    public void SpawnFindikAtar() => Spawn(FindikAtar);
+    public void SpawnTuzluk() => Spawn(Tuzluk);
+
+    void Spawn(GameObject prefab)
     {
-        if (Stats.AltinSayisi >= 100)
-        {
-            Bina = Instantiate(KurdanAtar, transform.position, Quaternion.identity);
-            canvas.SetActive(false);
-            BosMu = false;
-            Stats.AltinSil(100);
-        }
+        var info = prefab.GetComponent<TowerInfo>();
+
+        if (info == null) return;
+        if (Stats.AltinSayisi < info.buildCost) return;
+
+        Bina = Instantiate(prefab, transform.position, Quaternion.identity);
+        aktifInfo = Bina.GetComponent<TowerInfo>();
+        BosMu = false;
+        canvas.SetActive(false);
+        Stats.AltinSil(info.buildCost);
     }
-    public void SpawnZeytinAtar()
+
+    public void Yukselt()
     {
-        if (Stats.AltinSayisi >= 150)
-        {
-            Bina = Instantiate(ZeytinAtar, transform.position, Quaternion.identity);
-            canvas.SetActive(false);
-            BosMu = false;
-            Stats.AltinSil(150);
-        }
+        if (Bina == null) return;
+
+        var cur = Bina.GetComponent<TowerInfo>();
+        if (cur == null) return;
+
+        var nextPrefab = cur.nextLevelPrefab;
+        if (nextPrefab == null) return;
+
+        var nextInfo = nextPrefab.GetComponent<TowerInfo>();
+        if (nextInfo == null) return;
+        if (Stats.AltinSayisi < nextInfo.buildCost) return;
+
+        Destroy(Bina);
+
+        Bina = Instantiate(nextPrefab, transform.position, Quaternion.identity);
+        aktifInfo = Bina.GetComponent<TowerInfo>();
+        Stats.AltinSil(nextInfo.buildCost);
+
+        CanvasGuncelle(); // istersen paneli güncelle
     }
-    public void SpawnCekirdekAtar()
-    {
-        if (Stats.AltinSayisi >= 90)
-        {
-            Bina = Instantiate(CekirdekAtar, transform.position, Quaternion.identity);
-            canvas.SetActive(false);
-            BosMu = false;
-            Stats.AltinSil(90);
-        }
-    }
-
-    public void SpawnFindikAtar()
-    {
-        if (Stats.AltinSayisi >= 200)
-        {
-            Bina = Instantiate(FindikAtar, transform.position, Quaternion.identity);
-            canvas.SetActive(false);
-            BosMu = false;
-            Stats.AltinSil(200);
-        }
-    }
-
-    public void SpawnTuzluk()
-    {
-        if (Stats.AltinSayisi >= 120)
-        {
-            Bina = Instantiate(Tuzluk, transform.position, Quaternion.identity);
-            canvas.SetActive(false);
-            BosMu = false;
-            Stats.AltinSil(120);
-        }
-
-    }
-
-
-
 }

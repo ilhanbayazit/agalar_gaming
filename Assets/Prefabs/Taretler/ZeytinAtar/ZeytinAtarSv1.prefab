@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e35c350c9072baf4f991b30c2e64696f, type: 3}
       propertyPath: m_Name
-      value: ZeytinAtar
+      value: ZeytinAtarSv1
       objectReference: {fileID: 0}
     - target: {fileID: 1835210009659533079, guid: e35c350c9072baf4f991b30c2e64696f, type: 3}
       propertyPath: m_Name
@@ -117,6 +117,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e35c350c9072baf4f991b30c2e64696f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7453053290668344353}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e35c350c9072baf4f991b30c2e64696f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5009084599286252353}
   m_SourcePrefab: {fileID: 100100000, guid: e35c350c9072baf4f991b30c2e64696f, type: 3}
 --- !u!4 &2464538660590022993 stripped
 Transform:
@@ -149,3 +152,18 @@ MonoBehaviour:
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 0, y: 0, z: 0}
   ZeytinHizi: 10
+--- !u!114 &5009084599286252353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166789423726052636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  buildCost: 100
+  SatisFiyati: 70
+  nextLevelPrefab: {fileID: 5554203301616329007, guid: 1a1b44e7d88179a41b25bc10238ec654, type: 3}

@@ -13,7 +13,7 @@ public class FindikParSc : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if ((other.CompareTag("FlyingEnemy") || other.CompareTag("Enemy")) && !DegdiMi)
+        if ((other.CompareTag("Enemy")) && !DegdiMi)
         {
             DegdiMi = true;
             other.GetComponent<DusmanSc>().HasarAl(Damage);

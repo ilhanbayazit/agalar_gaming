@@ -7,6 +7,12 @@ TagManager:
   - Enemy
   - Road
   - FlyingEnemy
+  - CekirdekAtar
+  - Tuzluk
+  - FindikAtar
+  - ZeytinAtar
+  - FistikAtar
+  - KurdanAtar
   layers:
   - Default
   - TransparentFX

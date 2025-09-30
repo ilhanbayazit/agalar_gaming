@@ -16,6 +16,8 @@ public class CekirdekAtar : MonoBehaviour
 
     [SerializeField] Transform Rotator;
     [SerializeField] Transform Namlu;
+    [SerializeField] Transform Namlu2;
+
     [SerializeField] float NamluDonusHizi;       // Hedefe dönüş hızı
 
 
@@ -169,12 +171,13 @@ public class CekirdekAtar : MonoBehaviour
             rb.AddForce(dir * CekirdekHizi, ForceMode.VelocityChange);
     }
 
-
-
     void NamluDondur()
     {
         if (!Namlu) return;
         Namlu.Rotate(Vector3.right, NamluDonusHizi * Time.deltaTime, Space.Self);
+        if (!Namlu2) return;
+        Namlu2.Rotate(Vector3.right, NamluDonusHizi * Time.deltaTime, Space.Self);
+
     }
 
 
