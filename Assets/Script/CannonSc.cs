@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
-using UnityEngine.UIElements;
 
 public class CannonSc : MonoBehaviour
 {
@@ -20,11 +19,16 @@ public class CannonSc : MonoBehaviour
     Transform currentTarget;
     Transform targetAimPoint;
     [SerializeField] Vector3 MermiOfSet;
+    TowerInfo towerinfo;
 
+    private void Start()
+    {
+        towerinfo=GetComponent<TowerInfo>();
+    }
     void Update()
     {
-       FindUzakEnemy();
-     //   FindClosestEnemy();
+     FindUzakEnemy();
+   //   FindClosestEnemy();
 
         if (currentTarget != null)
         {
@@ -174,18 +178,21 @@ public class CannonSc : MonoBehaviour
         finalRot *= Quaternion.Euler(MermiOfSet);
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
-
+        if (bullet.TryGetComponent<BulletSc>(out var ab))
+        {
+         ab.EkstraHasar=towerinfo.EkstraHasar;
+        }
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
             Vector3 dir1 = currentTarget.position - Rotator.position;
             dir1.Normalize();
-
-            // Hedefe doğru kuvvet uygula
+            
             rb.AddForce(dir1 * okHizi, ForceMode.VelocityChange);
         }
     }
 
     #region Sekme
+
     [Header("Sekme Animasyonu")]
     [SerializeField] Transform sekmeObjesi;      // Geri tepecek parça (child)
     [SerializeField] Vector3 yerelEksen = Vector3.left; // Sekme yönü (sekmeObjesi'ne göre)
@@ -245,4 +252,5 @@ public class CannonSc : MonoBehaviour
     }
 
     #endregion
+
 }

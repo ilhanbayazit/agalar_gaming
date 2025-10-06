@@ -148,5 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSc
   Damage: 7
+  fxPrefab: {fileID: 5069108850427389983, guid: 487132003693c394d8aa79a3d883ab4d, type: 3}
   lifeTime: 1.5
   DegdiMi: 0

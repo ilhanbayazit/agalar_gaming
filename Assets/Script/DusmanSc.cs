@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DusmanSc : MonoBehaviour
 {
     GameObject WayPointsParent;
-  [SerializeField]  List<Transform> WayPoints = new List<Transform>();
+    [SerializeField] List<Transform> WayPoints = new List<Transform>();
     int currentIndex = 0;                // Şu anki hedef waypoint
     public float speed = 3f;             // Hız
     public float arriveDistance = 0.5f;  // Hedefe yaklaşma mesafesi
@@ -32,6 +32,11 @@ public class DusmanSc : MonoBehaviour
     [SerializeField] int Odul;
     [SerializeField] int Hasar;
 
+    [Header("Effect")]
+    [SerializeField] ParticleSystem fxPrefab;
+    [SerializeField] Vector3 BoyutCarpan = new Vector3(1,1,1);
+    [SerializeField] Vector3 KonumOfSet;
+
     Vector3 spawnStart;
 
     private void Start()
@@ -39,8 +44,6 @@ public class DusmanSc : MonoBehaviour
         spawnStart = transform.position;
         Stats = GameObject.Find("OyuncuBilgileriCanvas");
         hedefFill = (float)can / maxCan;
- 
-
     }
 
     public void WaypointleriAyarla(List<Transform> wp)
@@ -80,6 +83,7 @@ public class DusmanSc : MonoBehaviour
         HedefeGit();
         GuncelleBarlar();
         HedefeBak();
+      if(Stats==null) Debug.Log("bis");
     }
 
     private void HedefeGit()
@@ -135,6 +139,7 @@ public class DusmanSc : MonoBehaviour
         if (can <= 0)
         {
             Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
+            OlmeEffecti();
             Destroy(gameObject);
         }
     }
@@ -154,8 +159,21 @@ public class DusmanSc : MonoBehaviour
 
     }
 
+    void OlmeEffecti()
+    {
+        if (fxPrefab != null)
+        {
+            var fx = Instantiate(fxPrefab, transform.position+ KonumOfSet, Quaternion.identity);
+            fx.Play();
+            var main = fx.main;
+            main.scalingMode = ParticleSystemScalingMode.Hierarchy;
+            fx.transform.localScale = Vector3.Scale(fx.transform.localScale, BoyutCarpan);
+            var m = fx.main;
+            Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
 
-    public void YoldaSek(float kuvvet,float SekmeSuresi)
+        }
+    }
+    public void YoldaSek(float kuvvet, float SekmeSuresi)
     {
         if (!gameObject.activeInHierarchy) return;
 

@@ -29,6 +29,8 @@ public class CekirdekAtar : MonoBehaviour
 
     [SerializeField] Vector3 MermiOfSet;
 
+
+
     void Update()
     {
         FindUzakEnemy();

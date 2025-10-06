@@ -165,6 +165,8 @@ public class FistikAtar : MonoBehaviour
 
     void FistikAt()
     {
+        if (currentTarget == null) return;
+       
         Vector3 dir = currentTarget.position - firePoint.position;
         if (dir.sqrMagnitude < 0.0001f) return;
 

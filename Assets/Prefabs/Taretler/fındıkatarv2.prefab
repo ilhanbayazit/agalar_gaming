@@ -160,7 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
-  buildCost: 100
+  buildCost: 200
+  SatisFiyati: 70
   nextLevelPrefab: {fileID: 0}
 --- !u!1 &5222408765504713799
 GameObject:

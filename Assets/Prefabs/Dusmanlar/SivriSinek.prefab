@@ -491,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DusmanSc
   WayPoints: []
   speed: 1.6
-  arriveDistance: 0.5
+  arriveDistance: 0.38
   maxCan: 100
   can: 100
   canvas: {fileID: 295988020357951470}
@@ -501,6 +501,9 @@ MonoBehaviour:
   IsFly: 1
   Odul: 8
   Hasar: 1
+  fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
+  BoyutCarpan: {x: 1, y: 1, z: 1}
+  KonumOfSet: {x: 0, y: 0, z: 0}
 --- !u!65 &7812491114866156558
 BoxCollider:
   m_ObjectHideFlags: 0

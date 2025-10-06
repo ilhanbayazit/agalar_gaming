@@ -172,3 +172,4 @@ MonoBehaviour:
   buildCost: 300
   SatisFiyati: 300
   nextLevelPrefab: {fileID: 0}
+  EkstraHasar: 50

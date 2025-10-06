@@ -148,7 +148,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
   firePoint: {fileID: 4186083972171055795}
   DonusHizi: 5
-  okHizi: 10
+  okHizi: 20
   Rotator: {fileID: 1946424597016667582}
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 90, y: 0, z: 0}
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
-  buildCost: 150
+  buildCost: 200
   SatisFiyati: 200
   nextLevelPrefab: {fileID: 8221607702510707303, guid: adbc00430e2858047abd8146164c2529, type: 3}
+  EkstraHasar: 25

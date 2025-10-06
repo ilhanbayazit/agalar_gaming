@@ -22,10 +22,9 @@ public class BuildManagerSc : MonoBehaviour
     PlayerStats Stats;
     GameObject Bina;
     bool BosMu = true;
-
+    static BuildManagerSc aktif;
     void Awake()
     {
-        // İsimle derin arama (inactive çocuklarda da çalışır)
         panelSatinAlim = CocukBul(canvas.transform, "SatinAlimEkrani");
         panelYukseltSat = CocukBul(canvas.transform, "YukseltmeVeSatma");
     }
@@ -42,20 +41,34 @@ public class BuildManagerSc : MonoBehaviour
     }
     void OnMouseDown()
     {
+        if (aktif != null && aktif != this) return;
         CanvasGuncelle();
     }
     void CanvasGuncelle()
     {
         if (!canvas) return;
+
+        // Başka bir BuildManagerSc paneli açıkken açmayı engelle
+        if (aktif != null && aktif != this) return;
+
         canvas.SetActive(true);
         if (panelSatinAlim) panelSatinAlim.SetActive(BosMu);
         if (panelYukseltSat) panelYukseltSat.SetActive(!BosMu);
+
+        // Artık bu aktif
+        aktif = this;
+
         StopAllCoroutines();
         StartCoroutine(CanvasKapat());
     }
 
 
 
+    public void PanelKapat()
+    {
+        if (canvas && canvas.activeSelf) canvas.SetActive(false);
+        if (aktif == this) aktif = null;
+    }
     void OnMouseOver()
     {
         if (Input.GetKeyDown(KeyCode.S))
@@ -65,7 +78,7 @@ public class BuildManagerSc : MonoBehaviour
         }
     }
 
-    public void BinaSil()
+    public void BinaSat()
     {
 
         if (Bina)
@@ -81,8 +94,9 @@ public class BuildManagerSc : MonoBehaviour
 
     IEnumerator CanvasKapat()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(2.2f);
         if (canvas && canvas.activeSelf) canvas.SetActive(false);
+        if (aktif == this) aktif = null;
     }
 
     public void SpawnKurdanAtar() => Spawn(KurdanAtar);
@@ -90,6 +104,7 @@ public class BuildManagerSc : MonoBehaviour
     public void SpawnCekirdekAtar() => Spawn(CekirdekAtar);
     public void SpawnFindikAtar() => Spawn(FindikAtar);
     public void SpawnTuzluk() => Spawn(Tuzluk);
+    public void SpawnFistikAtar() => Spawn(FistikAtar);
 
     void Spawn(GameObject prefab)
     {
@@ -120,11 +135,12 @@ public class BuildManagerSc : MonoBehaviour
         if (Stats.AltinSayisi < nextInfo.buildCost) return;
 
         Destroy(Bina);
-
         Bina = Instantiate(nextPrefab, transform.position, Quaternion.identity);
+
         aktifInfo = Bina.GetComponent<TowerInfo>();
         Stats.AltinSil(nextInfo.buildCost);
+        //      CanvasGuncelle(); // istersen paneli güncelle
 
-        CanvasGuncelle(); // istersen paneli güncelle
+        PanelKapat();
     }
 }

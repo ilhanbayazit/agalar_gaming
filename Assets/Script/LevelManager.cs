@@ -5,9 +5,11 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] GameObject gamemngr;
-    [SerializeField] int Level = 3;
+    [SerializeField] int Level;
     [SerializeField] int aktifYolSayisi;
+    [SerializeField] float varsayilanWaveArasi = 5f;
 
+    [SerializeField] PlayerStats playerStats;
     GameManagerSc gameManager;
 
     void Start()
@@ -17,8 +19,9 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(BaslatDalgalar(plan));
     }
 
+
     // ---------------- Dinamik veri yapıları ----------------
-    enum DusmanTuru { Kene, Karinca, Sivri, Orumcek }
+    enum DusmanTuru { Kene, Karinca, Sivri, Orumcek, HamamBocegi, BokBocegi, Yusufcuk, Ari }
 
     [System.Serializable]
     struct SpawnPlan
@@ -36,7 +39,7 @@ public class LevelManager : MonoBehaviour
     class Wave
     {
         public List<SpawnPlan> planlar = new List<SpawnPlan>();
-        public float waveArasi = 3f; // bu dalga bittikten sonra bekleme
+        public float waveArasi = 5f;   //bu dalga bittikten sonra bekleme
     }
 
     // ---------------- Ana akış ----------------
@@ -44,21 +47,23 @@ public class LevelManager : MonoBehaviour
     {
         for (int w = 0; w < waves.Count; w++)
         {
+            // >>> UI: genel wave ilerlemesi
+            if (playerStats) playerStats.SetWave(w + 1, waves.Count);
+
             var wave = waves[w];
 
-            // her planı paralel başlat
             foreach (var p in wave.planlar)
                 StartCoroutine(HatSpawn(p));
 
-            // dalga bitiş tahmini (en uzun plan)
             float tahmin = 0f;
             foreach (var p in wave.planlar)
                 tahmin = Mathf.Max(tahmin, p.ofset + TahminSureTek(p.adet, p.aralik));
 
-            yield return new WaitForSeconds(tahmin + 5f); // tampon
+            yield return new WaitForSeconds(tahmin + 5f);
             yield return new WaitForSeconds(wave.waveArasi);
         }
     }
+
 
     IEnumerator HatSpawn(SpawnPlan p)
     {
@@ -91,6 +96,11 @@ public class LevelManager : MonoBehaviour
             case DusmanTuru.Karinca: gameManager.KarincaSpawn(yol); break;
             case DusmanTuru.Sivri: gameManager.SivriSpawn(yol); break;
             case DusmanTuru.Orumcek: gameManager.OrumcekSpawn(yol); break;
+            case DusmanTuru.HamamBocegi: gameManager.HamamBocegiSpawn(yol); break;
+            case DusmanTuru.Ari: gameManager.AriSpawn(yol); break;
+            case DusmanTuru.Yusufcuk: gameManager.YusufcukSpawn(yol); break;
+            case DusmanTuru.BokBocegi: gameManager.BokBocegiSpawn(yol); break;
+
         }
     }
 
@@ -101,7 +111,23 @@ public class LevelManager : MonoBehaviour
     SpawnPlan Ka(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Karinca, a, i, o);
     SpawnPlan Si(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Sivri, a, i, o);
     SpawnPlan Or(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Orumcek, a, i, o);
-    Wave W(params SpawnPlan[] p) { var w = new Wave(); w.planlar.AddRange(p); return w; }
+    SpawnPlan Hb(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.HamamBocegi, a, i, o);
+    SpawnPlan Bo(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.BokBocegi, a, i, o);
+    SpawnPlan Yu(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Yusufcuk, a, i, o);
+    SpawnPlan Ar(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Ari, a, i, o);
+
+    Wave W(params SpawnPlan[] p)
+    {
+        var w = new Wave { waveArasi = varsayilanWaveArasi };
+        w.planlar.AddRange(p);
+        return w;
+    }
+    Wave WG(float gap, params SpawnPlan[] p)
+    {
+        var w = new Wave { waveArasi = gap };
+        w.planlar.AddRange(p);
+        return w;
+    }
 
     List<Wave> PlanSeviyesi(int level)
     {
@@ -111,6 +137,10 @@ public class LevelManager : MonoBehaviour
             case 2: return PlanLevel2(); // 2 yol
             case 3: return PlanLevel3(); // 2 yol, W1'de kene yok
             case 4: return PlanLevel4(); // 2+ yol, karınca+kene+örümcek ağırlık
+            case 5: return PlanLevel5();
+
+            case 6: return PlanLevel6();
+
             default: return PlanLevel3();
         }
     }
@@ -148,21 +178,29 @@ public class LevelManager : MonoBehaviour
     {
         return new List<Wave>
         {
-            W( Ka(0,3,3.6f,0.8f), Si(0,3,2.6f,0.8f),  Ka(1,3,3.6f,0.8f), Si(1,3,2.6f,0.8f) ),
-            W( Ke(0,5,2.2f,0.8f), Ka(0,4,3.2f,0.8f), Si(0,4,2.4f,0.8f),
-               Ke(1,5,2.2f,0.8f), Ka(1,4,3.2f,0.8f), Si(1,4,2.4f,0.8f) ),
-            W( Ke(0,8,2.0f,0.6f), Ka(0,5,3.0f,0.6f), Si(0,5,2.2f,0.6f),
-               Ke(1,8,2.0f,0.6f), Ka(1,5,3.0f,0.6f), Si(1,5,2.2f,0.6f) ),
-            W( Ke(0,10,1.8f,0.6f), Ka(0,6,2.8f,0.6f), Si(0,5,2.0f,0.6f),
-               Ke(1,10,1.8f,0.6f), Ka(1,6,2.8f,0.6f), Si(1,5,2.0f,0.6f) ),
-            W( Ke(0,12,1.6f,0.5f), Ka(0,8,2.6f,0.5f), Si(0,5,1.8f,0.5f),
+            WG(10f, Ka(0,6,3.6f,0.8f), Si(0,3,2.6f,2f) ),
+
+            WG(11f, Ka(0,4,3.2f,0.8f), Si(0,4,2.4f,0.8f),
+               Ka(1,4,3.2f,0.8f), Si(1,4,2.4f,0.8f) ),
+
+            WG(13f, Ke(0,4,2.0f,0.6f), Ka(0,5,3.0f,0.6f), Si(0,5,2.2f,0.6f),
+               Ke(1,4,2.0f,0.6f), Ka(1,5,3.0f,0.6f), Si(1,5,2.2f,0.6f) ),
+
+            WG(10f, Ke(0,5,1.8f,0.6f), Ka(0,6,2.8f,0.6f), Si(0,5,2.0f,0.6f),
+               Ke(1,5,1.8f,0.6f), Ka(1,6,2.8f,0.6f), Si(1,5,2.0f,0.6f) ),
+
+            WG(10f, Ke(0,12,1.6f,0.5f), Ka(0,8,2.6f,0.5f), Si(0,5,1.8f,0.5f),
                Ke(1,12,1.6f,0.5f), Ka(1,8,2.6f,0.5f), Si(1,5,1.8f,0.5f) ),
-            W( Ke(0,16,1.4f,0.4f), Ka(0,10,2.4f,0.4f), Si(0,6,1.6f,0.4f),
-               Ke(1,16,1.4f,0.4f), Ka(1,10,2.4f,0.4f), Si(1,6,1.6f,0.4f) ),
-            W( Ke(0,18,1.2f,0.4f), Ka(0,12,2.2f,0.4f), Si(0,8,1.4f,0.4f),
-               Ke(1,18,1.2f,0.4f), Ka(1,12,2.2f,0.4f), Si(1,8,1.4f,0.4f) ),
-            W( Ke(0,20,1.0f,0.3f), Ka(0,14,2.0f,0.3f), Si(0,10,1.2f,0.3f),
+
+            WG(10f, Ke(0,10,1.4f,0.4f), Ka(0,15,2.4f,0.4f), Si(0,6,1.6f,0.4f),
+               Ke(1,10,1.4f,0.4f), Ka(1,15,2.4f,0.4f), Si(1,6,1.6f,0.4f) ),
+
+            WG(10f, Ke(0,15,1.2f,0.4f), Ka(0,16,2.2f,0.4f), Si(0,8,1.4f,0.4f),
+               Ke(1,15,1.2f,0.4f), Ka(1,16,2.2f,0.4f), Si(1,8,1.4f,0.4f) ),
+
+            WG(7f, Ke(0,20,1.0f,0.3f), Ka(0,14,2.0f,0.3f), Si(0,10,1.2f,0.3f),
                Ke(1,20,1.0f,0.3f), Ka(1,14,2.0f,0.3f), Si(1,10,1.2f,0.3f) ),
+
         };
     }
 
@@ -171,38 +209,98 @@ public class LevelManager : MonoBehaviour
     {
         return new List<Wave>
         {
-            // W1 – yumuşak giriş (sivri yok)
-             W( Ka(0,14,2.4f,0.4f), Or(0,5,2.4f,0.9f), Si(0,2,2.2f,0.5f),
-                Ka(1,14,2.4f,0.8f), Or(1,5,2.4f,1.1f), Si(1,2,2.2f,0.9f) ),
+            WG(10f, Ka(0,14,2.4f,0.4f), Si(0,2,2.2f,0.5f),
+                Ka(1,14,2.4f,0.8f), Si(1,2,2.2f,0.9f) ),
 
+            WG(10f, Ka(0,7,1f,0.4f), Or(0,2,2.8f,0.9f),
+               Ka(1,7,1f,0.8f), Or(1,2,2.8f,1.1f) ),
 
-            // W2 – karışım artıyor (az sivri)
-            W( Ka(0,7,2.8f,0.4f), Or(0,2,2.8f,0.9f), Si(0,3,2.6f,0.5f),
-               Ka(1,7,2.8f,0.8f), Or(1,2,2.8f,1.1f), Si(1,3,2.6f,0.9f) ),
+            WG(6f, Ka(0,8,2.6f,0.4f), Ke(0,2,1.8f,0.6f), Or(0,3,2.6f,0.8f), Si(0,2,2.4f,0.5f),
+               Ka(1,8,2.6f,0.8f), Ke(1,3,1.8f,1.0f), Or(1,3,2.6f,1.0f), Si(1,2,2.4f,0.9f) ),
 
-            // W3 – üçlü yük (sivri düşük)
-            W( Ka(0,8,2.6f,0.4f), Ke(0,8,1.8f,0.6f), Or(0,3,2.6f,0.8f), Si(0,2,2.4f,0.5f),
-               Ka(1,8,2.6f,0.8f), Ke(1,8,1.8f,1.0f), Or(1,3,2.6f,1.0f), Si(1,2,2.4f,0.9f) ),
+            WG(6f, Ka(0,10,2.4f,0.4f), Ke(0,3,1.6f,0.6f), Or(0,8,2.4f,0.9f), Si(0,2,2.2f,0.5f),
+               Ka(1,10,2.4f,0.8f), Ke(1,6,1.6f,1.0f), Or(1,3,2.4f,1.1f), Si(1,2,2.2f,0.9f) ),
 
-            // W4 – belirgin zorluk (örümcek 4, sivri sınırlı)
-            W( Ka(0,10,2.4f,0.4f), Ke(0,10,1.6f,0.6f), Or(0,4,2.4f,0.9f), Si(0,2,2.2f,0.5f),
-               Ka(1,10,2.4f,0.8f), Ke(1,10,1.6f,1.0f), Or(1,4,2.4f,1.1f), Si(1,2,2.2f,0.9f) ),
-
-            // W5 – yüksek tempo (örümcek 5)
-            W( Ka(0,12,2.2f,0.4f), Ke(0,12,1.5f,0.6f), Or(0,5,2.2f,0.9f), Si(0,3,2.0f,0.5f),
+            WG(10f, Ka(0,12,2.2f,0.4f), Ke(0,12,1.5f,0.6f), Or(0,5,2.2f,0.9f), Si(0,3,2.0f,0.5f),
                Ka(1,12,2.2f,0.8f), Ke(1,12,1.5f,1.0f), Or(1,5,2.2f,1.1f), Si(1,3,2.0f,0.9f) ),
 
-            // W6 – yoğun (örümcek 6)
-            W( Ka(0,14,2.0f,0.4f), Ke(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Si(0,4,1.8f,0.5f),
+            WG(10f, Ka(0,14,2.0f,0.4f), Ke(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Si(0,4,1.8f,0.5f),
                Ka(1,14,2.0f,0.8f), Ke(1,14,1.4f,1.0f), Or(1,6,2.0f,1.1f), Si(1,4,1.8f,0.9f) ),
 
-            // W7 – tepe (örümcek 7)
-            W( Ka(0,16,1.9f,0.4f), Ke(0,16,1.3f,0.6f), Or(0,7,1.9f,0.9f), Si(0,4,1.7f,0.5f),
+            WG(7f, Ka(0,16,1.9f,0.4f), Ke(0,16,1.3f,0.6f), Or(0,7,1.9f,0.9f), Si(0,4,1.7f,0.5f),
                Ka(1,16,1.9f,0.8f), Ke(1,16,1.3f,1.0f), Or(1,7,1.9f,1.1f), Si(1,4,1.7f,0.9f) ),
 
-            // W8 – final (örümcek 8, karınca+kene yoğun; sivri sınırlı)
-            W( Ka(0,18,1.8f,0.4f), Ke(0,18,1.2f,0.6f), Or(0,8,1.8f,0.9f), Si(0,5,1.6f,0.5f),
+            WG(6f, Ka(0,18,1.8f,0.4f), Ke(0,18,1.2f,0.6f), Or(0,8,1.8f,0.9f), Si(0,5,1.6f,0.5f),
                Ka(1,18,1.8f,0.8f), Ke(1,18,1.2f,1.0f), Or(1,8,1.8f,1.1f), Si(1,5,1.6f,0.9f) ),
         };
     }
+
+    List<Wave> PlanLevel5()
+    {
+        return new List<Wave>
+    {
+        WG(7f,Or(0,2,3.2f,0.6f), Ka(0,5,3.0f,0.4f)),
+
+         WG(6f,Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f)),
+
+        WG(12f,Hb(0,3,3.2f,0.6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f)),
+
+        WG(12f, Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f) ),
+
+        WG(6f, Hb(0,5,2.8f,0.6f), Or(0,3,2.4f,0.9f), Ka(0,10,2.2f,0.4f), Ke(0,8,1.8f,0.7f), Si(0,2,2.0f,0.5f)),
+
+       WG(13f, Hb(0,6,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,10,1.7f,0.7f), Si(0,2,1.9f,0.5f) ),
+
+        WG(6f,Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f)),
+
+        WG(6f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f) ),
+    };
+    }
+    List<Wave> PlanLevel6()
+    {
+        return new List<Wave>
+    {
+        WG(6f,
+            Hb(0,1,3.6f,2.6f), Ka(0,5,3.0f,0.4f),
+            Ka(1,12,1.0f,0.8f)
+        ),
+
+        WG(6f,
+            Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f),
+            Hb(1,1,3.6f,6.9f), Ka(1,7,2.8f,0.8f)
+        ),
+
+        WG(6f,
+            Hb(0,3,3.2f,0.6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f), Ke(0,6,2.0f,0.7f), Ar(0,1,2.4f,1.3f),
+            Hb(1,2,3.4f,1.0f), Or(1,2,2.8f,1.2f), Ka(1,8,2.6f,0.8f), Ke(1,6,2.0f,1.1f), Ar(1,1,2.4f,1.6f)
+        ),
+
+        WG(6f,
+            Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f), Ar(0,2,2.3f,1.1f),
+            Hb(1,3,3.2f,1.0f), Or(1,3,2.6f,1.2f), Ka(1,9,2.4f,0.8f), Ke(1,6,1.9f,1.1f), Ar(1,2,2.3f,1.3f)
+        ),
+
+        WG(6f,
+            Hb(0,5,2.8f,0.6f), Or(0,3,2.4f,0.9f), Ka(0,10,2.2f,0.4f), Ke(0,8,1.8f,0.7f), Si(0,2,2.0f,0.5f), Ar(0,3,2.2f,1.0f),
+            Hb(1,4,3.0f,1.0f), Or(1,3,2.4f,1.2f), Ka(1,10,2.2f,0.8f), Ke(1,8,1.8f,1.1f), Si(1,2,2.0f,0.9f), Ar(1,3,2.2f,1.2f)
+        ),
+
+        WG(6f,
+            Hb(0,6,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,10,1.7f,0.7f), Si(0,2,1.9f,0.5f), Ar(0,4,2.1f,0.9f),
+            Hb(1,5,2.8f,1.0f), Or(1,4,2.3f,1.2f), Ka(1,12,2.0f,0.8f), Ke(1,10,1.7f,1.1f), Si(1,2,1.9f,0.9f), Ar(1,3,2.1f,1.1f)
+        ),
+
+        WG(6f,
+            Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f), Ar(0,5,2.0f,0.8f),
+            Hb(1,6,2.6f,1.0f), Or(1,5,2.2f,1.2f), Ka(1,14,1.9f,0.8f), Ke(1,12,1.6f,1.1f), Si(1,3,1.8f,0.9f), Ar(1,4,2.0f,1.0f)
+        ),
+
+        WG(6f,
+            Hb(0,8,2.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,0.8f),
+            Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,16,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f), Ar(1,5,1.9f,1.0f)
+        ),
+    };
+    }
+
+
 }

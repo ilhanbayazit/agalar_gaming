@@ -10,15 +10,13 @@ public class GameManagerSc : MonoBehaviour
     [SerializeField] GameObject Sivri;
     [SerializeField] GameObject Orumcek;
     [SerializeField] GameObject HamamBocegi;
+    [SerializeField] GameObject Ari;
+    [SerializeField] GameObject Yusufcuk;
+    [SerializeField] GameObject BokBocegi;
 
 
     Transform DusmanlarParent;
 
-    [Header("Spawn Ayarları")]
-    [SerializeField] float spawnDelay = 2f;       // Başlangıç spawn süresi
-    [SerializeField] float minSpawnDelay;  // Minimum spawn süresi
-
-    float zaman = 0f;            // Geçen süre
 
     void Awake()
     {
@@ -91,6 +89,31 @@ public class GameManagerSc : MonoBehaviour
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, serit, false));
     }
+    public void YusufcukSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Yusufcuk, r.SpawnPoint.position, Yusufcuk.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, true));
+    }
+    public void AriSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(Ari, r.SpawnPoint.position, Ari.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, true));
+    }
+    public void BokBocegiSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(BokBocegi, r.SpawnPoint.position, BokBocegi.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
+
     #endregion
 
 
@@ -231,6 +254,18 @@ public class GameManagerSc : MonoBehaviour
         {
             HamamBocegiSpawn(0);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            BokBocegiSpawn(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            AriSpawn(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            YusufcukSpawn(0);
+        }
     }
     void DusmanSpawn()
     {
@@ -257,29 +292,11 @@ public class GameManagerSc : MonoBehaviour
         }
 
     }
-
-    void DusmanSpawnHizlandirma()
-    {
-        zaman += Time.deltaTime;
-
-        // Belirlenen süre geçtiyse düşman spawnla
-        if (zaman >= spawnDelay)
-        {
-            DusmanSpawn();
-            zaman = 0f;
-
-            // Her spawn sonrası hızı biraz arttır
-            if (spawnDelay > minSpawnDelay)
-                spawnDelay -= 0.1f;
-        }
-    }
-
     void OyunHizlandirma()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             Time.timeScale = 1f;
-
         }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
@@ -288,9 +305,7 @@ public class GameManagerSc : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             if (Time.timeScale < 0.6) return;
-
             Time.timeScale -= 0.5f;
-
         }
     }
 

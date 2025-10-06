@@ -17,7 +17,6 @@ public class TuzAtarSc : MonoBehaviour
     Transform targetAimPoint;
 
 
-
     void Update()
     {
 

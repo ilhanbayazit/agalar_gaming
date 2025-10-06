@@ -12,7 +12,11 @@ public class FindikParSc : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("Bok"))
+        {
+            Destroy(gameObject);
+            return;
+        }
         if ((other.CompareTag("Enemy")) && !DegdiMi)
         {
             DegdiMi = true;

@@ -499,8 +499,11 @@ MonoBehaviour:
   BeyazBar: {fileID: 2331875885331082718}
   lookOffsetEuler: {x: 0, y: 90, z: 0}
   IsFly: 0
-  Odul: 80
+  Odul: 30
   Hasar: 3
+  fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
+  BoyutCarpan: {x: 2, y: 2, z: 2}
+  KonumOfSet: {x: 0, y: 0.4, z: 0}
 --- !u!65 &1461149703926670913
 BoxCollider:
   m_ObjectHideFlags: 0
