@@ -49,6 +49,10 @@ PrefabInstance:
       value: BuildManagerSc, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 11494914, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494914, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
       propertyPath: textLabel
       value: 
       objectReference: {fileID: 0}
@@ -61,8 +65,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
-      propertyPath: m_LocalRotation.z
+      propertyPath: m_LocalRotation.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -73,8 +85,12 @@ PrefabInstance:
       value: 69.5
       objectReference: {fileID: 0}
     - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 22405466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22411658, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -200,7 +216,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11494914, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
     m_RemovedGameObjects:
     - {fileID: 167772, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}
     - {fileID: 109466, guid: 324e3570e08b9c4459b9567b349795bd, type: 3}

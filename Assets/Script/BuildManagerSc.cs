@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using TMPro.Examples;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+﻿using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class BuildManagerSc : MonoBehaviour
+public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] GameObject KurdanAtar;
     [SerializeField] GameObject Tuzluk;
@@ -22,7 +23,7 @@ public class BuildManagerSc : MonoBehaviour
     PlayerStats Stats;
     GameObject Bina;
     bool BosMu = true;
-    static BuildManagerSc aktif;
+   public static BuildManagerSc aktif;
     void Awake()
     {
         panelSatinAlim = CocukBul(canvas.transform, "SatinAlimEkrani");
@@ -37,18 +38,24 @@ public class BuildManagerSc : MonoBehaviour
 
     void Start()
     {
-        Stats = plyrsts.GetComponent<PlayerStats>();
+        Stats = plyrsts.GetComponent<PlayerStats>(); 
+        atama();
     }
     void OnMouseDown()
     {
         if (aktif != null && aktif != this) return;
         CanvasGuncelle();
     }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (aktif != null && aktif != this) return;
+        CanvasGuncelle();
+    }
     void CanvasGuncelle()
     {
+        
         if (!canvas) return;
-
-        // Başka bir BuildManagerSc paneli açıkken açmayı engelle
+        if (PauseCanvaas.Instance.OyunDurduMu) return;
         if (aktif != null && aktif != this) return;
 
         canvas.SetActive(true);
@@ -109,16 +116,18 @@ public class BuildManagerSc : MonoBehaviour
     void Spawn(GameObject prefab)
     {
         var info = prefab.GetComponent<TowerInfo>();
-
         if (info == null) return;
         if (Stats.AltinSayisi < info.buildCost) return;
-
         Bina = Instantiate(prefab, transform.position, Quaternion.identity);
         aktifInfo = Bina.GetComponent<TowerInfo>();
         BosMu = false;
         canvas.SetActive(false);
         Stats.AltinSil(info.buildCost);
+        PanelKapat();
     }
+
+
+
 
     public void Yukselt()
     {
@@ -143,4 +152,57 @@ public class BuildManagerSc : MonoBehaviour
 
         PanelKapat();
     }
+
+
+    #region Kilit Mekanizmasi
+
+    [System.Serializable]
+    public struct Slot
+    {
+        public int minLevel;   
+        public Button button;  
+        public Sprite locked;  
+    }
+
+    [SerializeField] Slot[] slots;
+    Sprite[] slotDefaultSprites;
+    void atama()
+    {
+        slotDefaultSprites = new Sprite[slots.Length];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            var b = slots[i].button;
+            slotDefaultSprites[i] = (b && b.image) ? b.image.sprite : null; // mevcut (unlocked) sprite'ı kaydet
+        }
+        Refresh(LevelManager.instance.Level);
+    }
+    public void Refresh(int playerLevel)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            var s = slots[i];
+            if (s.button == null) continue;
+
+            bool open = playerLevel >= s.minLevel;
+            var img = s.button.image;
+
+            if (img != null)
+                img.sprite = open
+                    ? (slotDefaultSprites[i] ?? img.sprite)     // açık: orijinal sprite
+                    : (s.locked != null ? s.locked : img.sprite); // kilitli: locked sprite
+
+            s.button.interactable = open;
+
+            // silikleşmeyi kapat (disabledColor'ı beyaz yap)
+            var c = s.button.colors;
+            c.disabledColor = Color.white;
+            s.button.colors = c;
+        }
+
+
+    }
+
+
+    #endregion
+
 }

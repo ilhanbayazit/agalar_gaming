@@ -1,19 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] GameObject gamemngr;
-    [SerializeField] int Level;
+    [SerializeField] public int Level;
     [SerializeField] int aktifYolSayisi;
     [SerializeField] float varsayilanWaveArasi = 5f;
 
-    [SerializeField] PlayerStats playerStats;
+    PlayerStats playerStats;
     GameManagerSc gameManager;
-
+    public static LevelManager instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
+        playerStats = PlayerStats.Instance;
         gameManager = gamemngr.GetComponent<GameManagerSc>();
         var plan = PlanSeviyesi(Level);
         StartCoroutine(BaslatDalgalar(plan));
@@ -61,9 +67,27 @@ public class LevelManager : MonoBehaviour
 
             yield return new WaitForSeconds(tahmin + 5f);
             yield return new WaitForSeconds(wave.waveArasi);
+
+            if (w == waves.Count - 1)
+            {
+                var enemyRoot = GameObject.Find("Dusmanlar");
+                if (enemyRoot != null)
+                    yield return new WaitUntil(() => enemyRoot.transform.childCount == 0);
+
+                OyunBittiTetikle();
+                yield break; // artık tüm iş bitti, coroutineden çık
+            }
         }
     }
 
+    private void OyunBittiTetikle()
+    {
+        PauseCanvaas.Instance.KazanmaPanelAc();
+        if (Level== SaveSistemiSc.Instance.GetCurrentLevel())
+        {
+            SaveSistemiSc.Instance.LevelAtla();
+        }
+    }
 
     IEnumerator HatSpawn(SpawnPlan p)
     {
@@ -76,10 +100,8 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine(HatSpawn(new SpawnPlan(r, p.tur, p.adet, p.aralik, 0f)));
             yield break;
         }
-
         // güvenli yol indeksi (mod)
         int yolIx = ((p.yol % aktifYolSayisi) + aktifYolSayisi) % aktifYolSayisi;
-
         for (int i = 0; i < p.adet; i++)
         {
             SpawnCagir(p.tur, yolIx);
@@ -133,12 +155,11 @@ public class LevelManager : MonoBehaviour
     {
         switch (level)
         {
-            case 1: return PlanLevel1(); // tek yol (ör: aktifYolSayisi=1)
-            case 2: return PlanLevel2(); // 2 yol
-            case 3: return PlanLevel3(); // 2 yol, W1'de kene yok
-            case 4: return PlanLevel4(); // 2+ yol, karınca+kene+örümcek ağırlık
+            case 1: return PlanLevel1();
+            case 2: return PlanLevel2();
+            case 3: return PlanLevel3();
+            case 4: return PlanLevel4();
             case 5: return PlanLevel5();
-
             case 6: return PlanLevel6();
 
             default: return PlanLevel3();

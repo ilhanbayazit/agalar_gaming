@@ -22,6 +22,7 @@ public class Skiller : MonoBehaviour
     public void AKurdanAtBtn()
     {
         KurdanAtsinMi = true;
+        CursorDegis();
     }
 
     void Update()
@@ -31,6 +32,7 @@ public class Skiller : MonoBehaviour
             var nokta = EkranTikToDunya();
             gameObject.GetComponent<KurdanYagmuru>().Baslat(nokta);
             KurdanAtsinMi = false;
+            CursorDegis();
         }
 
     }
@@ -55,4 +57,24 @@ public class Skiller : MonoBehaviour
         }
         return Vector3.negativeInfinity; // bulunamadı
     }
+
+
+    #region cursor ayarlari
+
+    [Header("Cursorlar")]
+    [SerializeField] Texture2D cursorTex;
+    Vector2 hotspot = Vector2.zero;
+    CursorMode mode = CursorMode.Auto;
+
+    bool aktif = false;
+
+    public void CursorDegis()
+    {
+        aktif = !aktif;
+        if (aktif) Cursor.SetCursor(cursorTex, hotspot, mode);
+        else Cursor.SetCursor(null, Vector2.zero, mode);
+    }
+
+    #endregion
+
 }

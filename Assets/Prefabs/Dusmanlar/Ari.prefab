@@ -521,7 +521,7 @@ MonoBehaviour:
   lookOffsetEuler: {x: 0, y: 90, z: 0}
   IsFly: 1
   Odul: 15
-  Hasar: 0
+  Hasar: 2
   fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
   BoyutCarpan: {x: 1, y: 1, z: 1}
   KonumOfSet: {x: 0, y: 0, z: 0}

@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance;
+
     public int AltinSayisi = 0;
-
     [SerializeField] int BaslangicAltini;
-    private int CanSayisi = 20;
 
+    private int CanSayisi = 20;
     [SerializeField] TextMeshProUGUI AltinText;         // Canvas üzerindeki TMP objesi
     [SerializeField] TextMeshProUGUI CanSayisiText;     // Canvas üzerindeki TMP objesi
 
     #region wave yazdirma
 
     [Header("UI Bağlantısı")]
-    [SerializeField] TMP_Text waveText; // UI Text kullanıyorsan: UnityEngine.UI.Text
+    [SerializeField] TextMeshProUGUI waveText; // UI Text kullanıyorsan: UnityEngine.UI.Text
 
     [Header("Biçim Ayarları")]
     [SerializeField] string itemFormat = "wave {0}/{1}"; // {0}=current, {1}=total
@@ -43,10 +44,12 @@ public class PlayerStats : MonoBehaviour
     }
     public void SetWavesList(List<WaveProgress> items) => SetWaves(items.ToArray());
 
-
     #endregion
 
-
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -66,12 +69,11 @@ public class PlayerStats : MonoBehaviour
     public void CanSayisiAzal(int Miktar)
     {
         CanSayisi -= Miktar;
+        if (CanSayisi<=0)
+        {
+            PauseCanvaas.Instance.KaybetmePanelAc();
+        }
         TextGuncelle();
-    }
-
-    public int GetAltinSayisi()
-    {
-        return AltinSayisi;
     }
 
     public void TextGuncelle()
@@ -79,10 +81,6 @@ public class PlayerStats : MonoBehaviour
         AltinText.text = AltinSayisi.ToString();
         CanSayisiText.text = CanSayisi.ToString();
     }
-    public void KurdanYagmuru()
-    {
-
-    }
-
+ 
 
 }

@@ -499,7 +499,7 @@ MonoBehaviour:
   BeyazBar: {fileID: 5973859121022482956}
   lookOffsetEuler: {x: 0, y: 180, z: 0}
   IsFly: 1
-  Odul: 8
+  Odul: 4
   Hasar: 1
   fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
   BoyutCarpan: {x: 1, y: 1, z: 1}

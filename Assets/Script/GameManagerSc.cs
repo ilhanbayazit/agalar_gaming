@@ -97,6 +97,7 @@ public class GameManagerSc : MonoBehaviour
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, serit, true));
     }
+
     public void AriSpawn(int routeIndex)
     {
         var r = Routes[routeIndex];

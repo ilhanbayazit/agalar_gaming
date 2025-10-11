@@ -6,7 +6,7 @@ public class BulletSc : MonoBehaviour
 
     public float lifeTime;      // Merminin yok olma süresi
     [SerializeField] bool DegdiMi = false;
-    public int EkstraHasar=0;
+    public int EkstraHasar = 0;
 
     void Start()
     {
@@ -35,6 +35,11 @@ public class BulletSc : MonoBehaviour
             if (d) d.HasarAl(Damage);
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("YER")) Destroy(gameObject,0.2f);
     }
 
 }

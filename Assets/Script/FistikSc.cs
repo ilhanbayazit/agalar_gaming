@@ -7,7 +7,6 @@ public class FistikSc : MonoBehaviour
     Rigidbody rb;
 
     public float lifeTime;
-    [SerializeField] bool DegdiMi = false;
     float mermican;
     void Start()
     {
