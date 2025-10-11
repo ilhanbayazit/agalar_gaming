@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -106,7 +106,7 @@ public class AnaMenuCanvasSc : MonoBehaviour
     #region KilitliLeveller
 
     [SerializeField] Transform bolumlerRoot;   // "Bolumler" parent
-    [SerializeField] Sprite lockedSprite;      // Kilitli g�rsel
+    [SerializeField] Sprite lockedSprite;      // Kilitli görsel
 
 
     public void RefreshByPrefs()
@@ -123,7 +123,7 @@ public class AnaMenuCanvasSc : MonoBehaviour
 
             btn.interactable = open;
 
-            var colors = btn.colors;                   // silikle?meyi kapat
+            var colors = btn.colors;                   // silikleşmeyi kapat
             colors.disabledColor = Color.white;
             btn.colors = colors;
         }

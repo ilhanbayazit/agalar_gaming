@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b605ffcd4dcef4b8cf7e6d8d32ba3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikAtar
-  range: 8
+  range: 9
   shotsPerSecond: 0.3
   bulletPrefab: {fileID: 5339337580949917394, guid: b816c54cc191dad4db2c14c2c238b89b, type: 3}
   firePoint: {fileID: 6972706745407064682}
@@ -163,6 +163,8 @@ MonoBehaviour:
   buildCost: 200
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 0}
+  EkstraHasar: 0
+  menzil: 9
 --- !u!1 &5222408765504713799
 GameObject:
   m_ObjectHideFlags: 0

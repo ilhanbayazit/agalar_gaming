@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469beed4dd974c04abea6f613bd92533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CannonSc
-  range: 7
+  range: 6
   shotsPerSecond: 1
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
   firePoint: {fileID: 8372479795834944177}
@@ -173,3 +173,4 @@ MonoBehaviour:
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 7553006560277175051, guid: 1072a76ca3f032c41ab2d4178b125aa6, type: 3}
   EkstraHasar: 0
+  menzil: 6

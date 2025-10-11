@@ -122,6 +122,8 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         aktifInfo = Bina.GetComponent<TowerInfo>();
         BosMu = false;
         canvas.SetActive(false);
+        var rg = Bina.AddComponent<RangeGoster>();
+        rg.SetRadius(info.menzil);
         Stats.AltinSil(info.buildCost);
         PanelKapat();
     }

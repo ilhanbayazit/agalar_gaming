@@ -891,7 +891,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
   buildCost: 100
+  SatisFiyati: 70
   nextLevelPrefab: {fileID: 0}
+  EkstraHasar: 0
+  menzil: 15
 --- !u!1 &8593230237778279843
 GameObject:
   m_ObjectHideFlags: 0

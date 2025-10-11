@@ -6,4 +6,5 @@ public class TowerInfo : MonoBehaviour
     public int SatisFiyati = 70;
     public GameObject nextLevelPrefab;       // Sonraki seviye yoksa null
     public int EkstraHasar = 0;
+    public int menzil;
 }

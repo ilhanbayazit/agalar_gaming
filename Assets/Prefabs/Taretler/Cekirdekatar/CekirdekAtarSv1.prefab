@@ -258,6 +258,8 @@ MonoBehaviour:
   buildCost: 80
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 1031553008197441620, guid: d24a78f43df514148b5ce0469844ddd7, type: 3}
+  EkstraHasar: 0
+  menzil: 7
 --- !u!1 &5112687911770668381
 GameObject:
   m_ObjectHideFlags: 0
