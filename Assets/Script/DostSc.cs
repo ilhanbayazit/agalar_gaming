@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class DostSc : MonoBehaviour

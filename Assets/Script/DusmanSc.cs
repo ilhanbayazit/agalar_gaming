@@ -140,8 +140,8 @@ public class DusmanSc : MonoBehaviour
         {
             Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
             OlmeEffecti();
-            SesManagerSc.Instance.Cal("OlumSesi", 0.3f);
             Destroy(gameObject);
+            SesManagerSc.Instance.Cal("OlumSesi", 0.3f);
         }
     }
 

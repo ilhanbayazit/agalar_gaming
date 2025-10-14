@@ -129,8 +129,5 @@ public class ZeytinAtarSc : MonoBehaviour
 
 
 
-    void OnDrawGizmosSelected()
-    {
-        Handles.DrawWireDisc(transform.position, Vector3.up, range);
-    }
+  
 }

@@ -66,5 +66,6 @@ public class PauseCanvaas : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+        SesManagerSc.Instance.Durdur();
     }
 }

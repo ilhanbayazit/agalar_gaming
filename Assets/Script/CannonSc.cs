@@ -163,10 +163,6 @@ public class CannonSc : MonoBehaviour
 
 
 
-    void OnDrawGizmosSelected()
-    {
-        Handles.DrawWireDisc(transform.position, Vector3.up, range);
-    }
 
     void KurdanAt()
     {

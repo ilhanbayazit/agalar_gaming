@@ -21,9 +21,9 @@ public class SesManagerSc : MonoBehaviour
     {
         RandomSarkiCal();
     }
-    private void Update()
+    public void Durdur()
     {
-        
+        src.Stop();
     }
     public void Cal(string ad, float vol = 1f)
     {

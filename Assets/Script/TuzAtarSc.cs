@@ -105,11 +105,7 @@ public class TuzAtarSc : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Handles.DrawWireDisc(transform.position, Vector3.up, range);
-    }
-
+ 
     #region Sekme
     [SerializeField] Transform sekmeObjesi;      // Geri tepecek parça (child)
     [SerializeField] Vector3 yerelEksen = Vector3.left; // Sekme yönü (sekmeObjesi'ne göre)

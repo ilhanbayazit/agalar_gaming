@@ -143,8 +143,8 @@ MonoBehaviour:
   - {fileID: 5930358004491542934}
   - {fileID: 4334581738196455779}
   - {fileID: 3403429312646981408}
-  DonusHizi: 5
-  CekirdekHizi: 18
+  DonusHizi: 6
+  CekirdekHizi: 22
   Rotator: {fileID: 1168302556513426571}
   Namlu: {fileID: 5103042040813312801}
   Namlu2: {fileID: 0}
@@ -166,6 +166,8 @@ MonoBehaviour:
   buildCost: 200
   SatisFiyati: 200
   nextLevelPrefab: {fileID: 5421030159096740835, guid: c5522aa415093584cb6602a3b54b0d9f, type: 3}
+  EkstraHasar: 0
+  menzil: 0
 --- !u!1 &1412585500021486782
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class AnaMenuCanvasSc : MonoBehaviour
 {
     [SerializeField] GameObject AnamenuPanel;
     [SerializeField] GameObject BolumlerPanel;
+    [SerializeField] GameObject AyarlarPanel;
     SaveSistemiSc save;
 
 
@@ -14,8 +15,8 @@ public class AnaMenuCanvasSc : MonoBehaviour
         save = GameObject.Find("SaveSistemi").GetComponent<SaveSistemiSc>();
         DontDestroyOnLoad(save);
         RefreshByPrefs();
-
     }
+
     public void btnOyna()
     {
         bool ac = !BolumlerPanel.activeSelf;
@@ -26,12 +27,14 @@ public class AnaMenuCanvasSc : MonoBehaviour
 
     public void btnAyarlar()
     {
-
+        AyarlarPanel.SetActive(true);
+        AnamenuPanel.SetActive(false);
     }
 
-    public void btnCikis()
+    public void btnAyarlarCikis()
     {
-
+        AyarlarPanel.SetActive(false);
+        AnamenuPanel.SetActive(true);
     }
 
 

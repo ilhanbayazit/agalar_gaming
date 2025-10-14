@@ -157,9 +157,6 @@ public class FindikAtar : MonoBehaviour
             rb.AddForce(v0 * rb.mass, ForceMode.Impulse);
         }
     }
-    void OnDrawGizmosSelected()
-    {
-        Handles.DrawWireDisc(transform.position, Vector3.up, range);
-    }
+
 
 }
