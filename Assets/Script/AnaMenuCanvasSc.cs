@@ -8,6 +8,7 @@ public class AnaMenuCanvasSc : MonoBehaviour
     [SerializeField] GameObject BolumlerPanel;
     SaveSistemiSc save;
 
+
     private void Start()
     {
         save = GameObject.Find("SaveSistemi").GetComponent<SaveSistemiSc>();

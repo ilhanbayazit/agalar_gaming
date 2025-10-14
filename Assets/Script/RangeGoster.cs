@@ -5,13 +5,13 @@ using UnityEngine;
 public class RangeGoster : MonoBehaviour
 {
 
-    [SerializeField] float radius ;
-    [SerializeField] int segments = 64;
-    [SerializeField] float lineWidth = 0.03f;
-    [SerializeField] Color color = new Color(0f, 1f, 0f, 0.85f);
-    [SerializeField] float yOffset = 0.02f;     // zeminden hafif yukarı
-    [SerializeField] bool autoHide = true;
-    [SerializeField] float hideAfter = 2f;
+    float radius;
+    int segments = 64;
+    float lineWidth = 0.03f;
+    Color color = new Color(0f, 1f, 0f, 0.85f);
+    float yOffset = 0.02f;     // zeminden hafif yukarı
+    bool autoHide = true;
+    float hideAfter = 2f;
 
     LineRenderer lr;
 
@@ -38,7 +38,8 @@ public class RangeGoster : MonoBehaviour
         }
     }
 
-    public void SetRadius(float r) { radius = 2*r; Ciz(); }
+    public void SetRadius(float r) { radius = 2 * r; Ciz(); }
     public void SetVisible(bool v) { if (lr) lr.enabled = v; }
-    void Kapat() { if (lr) lr.enabled = false; }
+    void Kapat() {if (lr) lr.enabled = false;}
+
 }

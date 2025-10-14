@@ -611,14 +611,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1672719807}
     m_Modifications:
-    - target: {fileID: 13382372286228874, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 13382372286228874, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_fontSize
-      value: 44.75
-      objectReference: {fileID: 0}
     - target: {fileID: 438964230209543834, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -699,30 +691,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1087164949362456884, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: BaslangicAltini
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1207302417853374564, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1207302417853374564, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AKurdanAtBtn
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651789559305965934, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 93ea4fa9e35941342a42000423851b87, type: 3}
     - target: {fileID: 2982258463348598594, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
       propertyPath: m_Name
       value: OyuncuBilgileriCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 6233237776743971713, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 7d687c69285aba744870d885552ff96b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

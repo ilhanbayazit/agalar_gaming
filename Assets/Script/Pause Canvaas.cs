@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class PauseCanvaas : MonoBehaviour
     {
         Instance = this;
     }
+
+
     public void KaybetmePanelAc()
     {
         KaybetmePanel.SetActive(true);

@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
     private void OyunBittiTetikle()
     {
         PauseCanvaas.Instance.KazanmaPanelAc();
+        SesManagerSc.Instance.Cal("KazanmaSesi",1f);
         if (Level== SaveSistemiSc.Instance.GetCurrentLevel())
         {
             SaveSistemiSc.Instance.LevelAtla();
@@ -213,14 +214,14 @@ public class LevelManager : MonoBehaviour
             WG(10f, Ke(0,12,1.6f,0.5f), Ka(0,8,2.6f,0.5f), Si(0,5,1.8f,0.5f),
                Ke(1,12,1.6f,0.5f), Ka(1,8,2.6f,0.5f), Si(1,5,1.8f,0.5f) ),
 
-            WG(10f, Ke(0,10,1.4f,0.4f), Ka(0,15,2.4f,0.4f), Si(0,6,1.6f,0.4f),
-               Ke(1,10,1.4f,0.4f), Ka(1,15,2.4f,0.4f), Si(1,6,1.6f,0.4f) ),
+            WG(10f, Ke(0,10,1.4f,0.4f), Ka(0,15,2.4f,0.4f), Si(0,4,1f,0.4f),
+               Ke(1,10,1.4f,0.4f), Ka(1,15,2.4f,0.4f), Si(1,4,1f,0.4f) ),
 
-            WG(10f, Ke(0,15,1.2f,0.4f), Ka(0,16,2.2f,0.4f), Si(0,8,1.4f,0.4f),
-               Ke(1,15,1.2f,0.4f), Ka(1,16,2.2f,0.4f), Si(1,8,1.4f,0.4f) ),
+            WG(10f, Ke(0,15,1.2f,0.4f), Ka(0,16,2.2f,0.4f), Si(0,5,1.4f,0.4f),
+               Ke(1,15,1.2f,0.4f), Ka(1,16,2.2f,0.4f), Si(1,5,1f,0.4f) ),
 
-            WG(7f, Ke(0,20,1.0f,0.3f), Ka(0,14,2.0f,0.3f), Si(0,10,1.2f,0.3f),
-               Ke(1,20,1.0f,0.3f), Ka(1,14,2.0f,0.3f), Si(1,10,1.2f,0.3f) ),
+            WG(7f, Ke(0,20,1.0f,0.3f), Ka(0,14,2.0f,0.3f), Si(0,6,1f,0.3f),
+               Ke(1,20,1.0f,0.3f), Ka(1,14,2.0f,0.3f), Si(1,6,1f,0.3f)),
 
         };
     }

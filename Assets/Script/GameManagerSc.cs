@@ -34,7 +34,7 @@ public class GameManagerSc : MonoBehaviour
         //     DusmanSpawnHizlandirma();
         dusmanspawnkontrol();
         OyunHizlandirma();
-
+        
     }
     Transform GetirVeyaOlusturDusmanlarParent()
     {
