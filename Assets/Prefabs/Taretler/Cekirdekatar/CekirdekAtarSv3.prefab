@@ -413,7 +413,7 @@ MonoBehaviour:
   buildCost: 350
   SatisFiyati: 450
   nextLevelPrefab: {fileID: 0}
-  EkstraHasar: 0
+  EkstraHasar: 2
   menzil: 7
 --- !u!114 &7447519910700780423
 MonoBehaviour:
