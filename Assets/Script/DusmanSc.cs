@@ -171,7 +171,6 @@ public class DusmanSc : MonoBehaviour
             fx.transform.localScale = Vector3.Scale(fx.transform.localScale, BoyutCarpan);
             var m = fx.main;
             Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
-
         }
     }
     public void YoldaSek(float kuvvet, float SekmeSuresi)
@@ -189,12 +188,6 @@ public class DusmanSc : MonoBehaviour
         }
 
     }
-
-
-
-
-
-
 
 
 }

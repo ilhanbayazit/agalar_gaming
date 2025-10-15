@@ -68,4 +68,11 @@ public class PauseCanvaas : MonoBehaviour
         SceneManager.LoadScene(0);
         SesManagerSc.Instance.Durdur();
     }
+
+    public void btnNextLevel()
+    {
+        SceneManager.LoadScene(++LevelManager.instance.Level);
+        Time.timeScale = 1f;
+    }
+
 }

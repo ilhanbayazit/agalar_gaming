@@ -19,6 +19,7 @@ public class KurdanYagmuru : MonoBehaviour
 
     IEnumerator SpawnRoutine(Vector3 merkezNoktasi)
     {
+        Debug.Log("sa");
         if (prefabs == null || prefabs.Length == 0) yield break;
 
         // 0..toplamSure aralığında rastgele zaman noktaları üret ve sırala

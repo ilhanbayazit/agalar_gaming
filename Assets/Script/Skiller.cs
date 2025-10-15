@@ -1,80 +1,109 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Skiller : MonoBehaviour
 {
-    [SerializeField] Camera cam;          // Boşsa MainCamera kullanılır
-    [SerializeField] LayerMask hedefKatman; // Yalnızca tıklanabilir katman(lar)
+    [SerializeField] LayerMask hedefKatman;
     [SerializeField] float maxMesafe = 500f;
+
+    [Header("İmleç (UI Image)")]
+    [SerializeField] RectTransform mobilImlec;
+
+    Camera cam;
     float zeminY = 0f;
     bool KurdanAtsinMi = false;
-    void Awake() => CamAyarla();
+    Vector2 sonEkranPos;
 
+    void Awake() => CamAyarla();
 
     void CamAyarla()
     {
         if (cam) return;
         cam = Camera.main;
         if (!cam && Camera.allCamerasCount > 0) cam = Camera.allCameras[0];
-        if (!cam) Debug.LogError("[TikKonumAl] Sahnede kamera bulunamadı! Kamerayı inspector’dan atayın veya bir kamerayı 'MainCamera' olarak etiketleyin.");
+        if (!cam) Debug.LogError("[Skiller] Kamera yok. Bir kamerayı 'MainCamera' etiketleyin veya Inspector’dan atayın.");
     }
 
     public void AKurdanAtBtn()
     {
         KurdanAtsinMi = true;
-        CursorDegis();
+        if (mobilImlec) mobilImlec.gameObject.SetActive(true);
+        ImlecGuncelle(Input.mousePosition);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && KurdanAtsinMi)
-        {
-            var nokta = EkranTikToDunya();
-            gameObject.GetComponent<KurdanYagmuru>().Baslat(nokta);
-            KurdanAtsinMi = false;
-            CursorDegis();
-        }
+        if (!KurdanAtsinMi) return;
 
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetMouseButtonDown(0))
+        {
+            sonEkranPos = Input.mousePosition;
+            ImlecGuncelle(sonEkranPos);
+        }
+        if (Input.GetMouseButton(0))
+        {
+            sonEkranPos = Input.mousePosition;
+            ImlecGuncelle(sonEkranPos);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            var nokta = EkranTikToDunya(sonEkranPos);
+            var ky = GetComponent<KurdanYagmuru>();
+            if (ky && nokta != Vector3.negativeInfinity) ky.Baslat(nokta);
+            Temizle();
+        }
+#else
+        if (Input.touchCount > 0)
+        {
+            var t = Input.GetTouch(0);
+
+            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary)
+            {
+                sonEkranPos = t.position;
+                ImlecGuncelle(sonEkranPos);
+            }
+            else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+            {
+                var nokta = EkranTikToDunya(sonEkranPos);
+                var ky = GetComponent<KurdanYagmuru>();
+                if (ky && nokta != Vector3.negativeInfinity) ky.Baslat(nokta);
+                Temizle();
+            }
+        }
+#endif
     }
 
-    Vector3 EkranTikToDunya()
+    Vector3 EkranTikToDunya(Vector2 ekranPos)
     {
         if (!cam) { CamAyarla(); if (!cam) return Vector3.negativeInfinity; }
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        var ray = cam.ScreenPointToRay(ekranPos);
 
         if (Physics.Raycast(ray, out var hit, maxMesafe, hedefKatman, QueryTriggerInteraction.Collide))
-        {
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green, 1f);
-            // Debug.Log($"Hit: {hit.collider.name}");
             return hit.point;
-        }
-        // Yedek: düz zemin (collider yoksa)
+
         var plane = new Plane(Vector3.up, new Vector3(0, zeminY, 0));
         if (plane.Raycast(ray, out float d))
-        {
-            Debug.DrawRay(ray.origin, ray.direction * d, Color.yellow, 1f);
             return ray.GetPoint(d);
-        }
-        return Vector3.negativeInfinity; // bulunamadı
+
+        return Vector3.negativeInfinity;
     }
 
-
-    #region cursor ayarlari
-
-    [Header("Cursorlar")]
-    [SerializeField] Texture2D cursorTex;
-    Vector2 hotspot = Vector2.zero;
-    CursorMode mode = CursorMode.Auto;
-
-    bool aktif = false;
-
-    public void CursorDegis()
+    void ImlecGuncelle(Vector2 screenPos)
     {
-        aktif = !aktif;
-        if (aktif) Cursor.SetCursor(cursorTex, hotspot, mode);
-        else Cursor.SetCursor(null, Vector2.zero, mode);
+        if (!mobilImlec) return;
+        var c = mobilImlec.GetComponentInParent<Canvas>();
+        if (c && c.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                (RectTransform)mobilImlec.parent, screenPos, c.worldCamera, out var lp);
+            mobilImlec.anchoredPosition = lp;
+        }
+        else mobilImlec.position = screenPos;
     }
 
-    #endregion
-
+    void Temizle()
+    {
+        KurdanAtsinMi = false;
+        if (mobilImlec) mobilImlec.gameObject.SetActive(false);
+    }
 }

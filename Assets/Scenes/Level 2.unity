@@ -1319,7 +1319,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: OyuncuBilgileriCanvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7260301286219305204, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260301286219305204, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260301286219305204, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 40.97278
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260301286219305204, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.529093
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3169842309203145856, guid: fa603481594bbaa45ae15a02423f2f9c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

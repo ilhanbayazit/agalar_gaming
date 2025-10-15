@@ -1562,6 +1562,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2793587010332266742}
     m_Modifications:
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 330
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 330
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.96935964
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.24564573
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358705123, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 28.44
+      objectReference: {fileID: 0}
     - target: {fileID: 2461614953358708091, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99988735
@@ -1597,6 +1625,10 @@ PrefabInstance:
     - target: {fileID: 2461614953358716915, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 121.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2461614953358839449, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2461614953358855461, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1781,7 +1813,7 @@ PrefabInstance:
     - target: {fileID: 2461614953367768149, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 041c0935a41fc8a48a28ae2a5b2920b7, type: 3}
+      objectReference: {fileID: 21300000, guid: 84dcede06f0601d4495c10c7bb7f65d6, type: 3}
     - target: {fileID: 2461614953367768149, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -1918,6 +1950,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zeytnbtn
       objectReference: {fileID: 0}
+    - target: {fileID: 2461614953378377923, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2461614953378554531, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       propertyPath: m_Name
       value: btnCekirdek
@@ -1950,7 +1986,8 @@ PrefabInstance:
     - {fileID: 2461614953367807893, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
     - {fileID: 2461614953367771811, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
     - {fileID: 2461614953367831457, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2461614953378377923, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2461614953358890011, guid: a32bec716728a434bb06e4a84818bc40, type: 3}
       insertIndex: 0

@@ -547,7 +547,6 @@ MonoBehaviour:
   Level: 5
   aktifYolSayisi: 1
   varsayilanWaveArasi: 5
-  playerStats: {fileID: 0}
 --- !u!1 &204213036
 GameObject:
   m_ObjectHideFlags: 0
