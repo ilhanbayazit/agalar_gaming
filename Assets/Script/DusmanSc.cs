@@ -126,6 +126,7 @@ public class DusmanSc : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, hedefRot, rotationSpeed * Time.deltaTime);
     }
 
+    bool oldu = false;
 
     public void HasarAl(float hasar)
     {
@@ -138,7 +139,12 @@ public class DusmanSc : MonoBehaviour
 
         if (can <= 0)
         {
-            Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
+            if (!oldu)
+            {
+                Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
+                oldu = true;
+            }
+
             OlmeEffecti();
             Destroy(gameObject);
             SesManagerSc.Instance.Cal("OlumSesi", 0.3f);

@@ -162,7 +162,7 @@ MonoBehaviour:
   buildCost: 300
   SatisFiyati: 300
   nextLevelPrefab: {fileID: 7716465918351298622, guid: e5a23906ac6652e4991230a142fe0063, type: 3}
-  EkstraHasar: 0
+  EkstraHasar: 50
   menzil: 6
 --- !u!4 &5962189401173086694 stripped
 Transform:
