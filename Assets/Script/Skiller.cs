@@ -1,5 +1,4 @@
-﻿using UnityEditor.Rendering;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Skiller : MonoBehaviour
 {
@@ -26,8 +25,7 @@ public class Skiller : MonoBehaviour
         if (!cam && Camera.allCamerasCount > 0) cam = Camera.allCameras[0];
         if (!cam) Debug.LogError("[Skiller] Kamera yok. Bir kamerayı 'MainCamera' etiketleyin veya Inspector’dan atayın.");
     }
-
-    // --- UI Buttonlar ---
+ 
     public void AKurdanAtBtn()
     {
         aktif = AktifSkill.Kurdan;
