@@ -125,6 +125,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         var rg = Bina.AddComponent<RangeGoster>();
         rg.SetRadius(info.menzil);
         Stats.AltinSil(info.buildCost);
+        BuildingEffect();
         PanelKapat();
     }
 
@@ -133,6 +134,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
     public void Yukselt()
     {
+
         if (Bina == null) return;
 
         var cur = Bina.GetComponent<TowerInfo>();
@@ -147,7 +149,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
         Destroy(Bina);
         Bina = Instantiate(nextPrefab, transform.position, Quaternion.identity);
-
+        BuildingEffect();
         aktifInfo = Bina.GetComponent<TowerInfo>();
         Stats.AltinSil(nextInfo.buildCost);
         //      CanvasGuncelle(); // istersen paneli güncelle
@@ -155,6 +157,18 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         PanelKapat();
     }
 
+    [SerializeField] ParticleSystem fxPrefab;
+    public void BuildingEffect()
+    {
+            if (fxPrefab != null)
+            {
+                var fx = Instantiate(fxPrefab, transform.position , Quaternion.identity);
+                fx.Play();
+                var main = fx.main;
+                main.scalingMode = ParticleSystemScalingMode.Hierarchy;
+                Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
+            }
+    }
 
     #region Kilit Mekanizmasi
 
@@ -206,5 +220,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
 
     #endregion
+
+
 
 }

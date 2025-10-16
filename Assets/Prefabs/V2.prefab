@@ -135,6 +135,7 @@ MonoBehaviour:
   FistikAtar: {fileID: 6503858723988396538, guid: 1c4054103391b5643a3e14c0c65ee278, type: 3}
   canvas: {fileID: 823298185259832696}
   plyrsts: {fileID: 0}
+  fxPrefab: {fileID: 663206182957617953, guid: 79d15f119ddfe9246b2f427edf32d835, type: 3}
   slots:
   - minLevel: 1
     button: {fileID: 1576526739427597871}

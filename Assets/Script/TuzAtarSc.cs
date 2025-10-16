@@ -48,7 +48,29 @@ public class TuzAtarSc : MonoBehaviour
 
         currentTarget = closestEnemy;
         targetAimPoint = ResolveAimPoint(currentTarget);
+        if (currentTarget==null)
+        {
+            currentTarget = EnYakinBayrak();
+            targetAimPoint = ResolveAimPoint(currentTarget);
+
+        }
     }
+    Transform EnYakinBayrak()
+    {
+        var list = GameObject.FindGameObjectsWithTag("Bayrak");
+        if (list == null || list.Length == 0) return null;
+
+        Transform enYakin = null;
+        float minSqr = float.PositiveInfinity;
+        Vector3 p = transform.position;
+        for (int i = 0; i < list.Length; i++)
+        {
+            float sqr = (list[i].transform.position - p).sqrMagnitude;
+            if (sqr < minSqr) { minSqr = sqr; enYakin = list[i].transform; }
+        }
+        return enYakin;
+    }
+
     Transform ResolveAimPoint(Transform t)
     {
         if (t == null) return null;

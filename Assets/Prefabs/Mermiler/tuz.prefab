@@ -153,5 +153,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tuz
   Damage: 3
-  lifeTime: 10
+  lifeTime: 15
   DegdiMi: 0

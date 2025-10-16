@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class Ayarlarcanvas : MonoBehaviour
 {
+    [SerializeField] GameObject[] AcilcakPanel;
     [SerializeField] Scrollbar muzikDuzeyi;
     [SerializeField] GameObject SesIcon;
     [SerializeField] Sprite sesliSprite;
@@ -10,6 +11,7 @@ public class Ayarlarcanvas : MonoBehaviour
 
     [SerializeField] float varsayilanSes = 0.5f;
     float sonSes = 0.5f;
+
     void Start()
     {
         if (muzikDuzeyi) MuzikSesAyarla(muzikDuzeyi.value);
@@ -20,10 +22,10 @@ public class Ayarlarcanvas : MonoBehaviour
         ImageKontrol(Value);
     }
 
-
     void ImageKontrol(float v)
     {
         SesIcon.GetComponent<Image>().sprite = v <= 0.0001f ? sessizSprite : sesliSprite;
+    
     }
 
     public void SesIconTikla()
@@ -43,6 +45,12 @@ public class Ayarlarcanvas : MonoBehaviour
             if (muzikDuzeyi) muzikDuzeyi.value = hedef;
             MuzikSesAyarla(hedef);
         }
+    }
+
+    public void AyarlarKapat()
+    {
+        gameObject.SetActive(false);
+        PauseCanvaas.Instance.SonPanel.SetActive(true);
     }
 
 }

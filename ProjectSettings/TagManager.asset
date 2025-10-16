@@ -15,6 +15,7 @@ TagManager:
   - KurdanAtar
   - FxTemporaire
   - Bok
+  - Bayrak
   layers:
   - Default
   - TransparentFX

@@ -22,7 +22,6 @@ public class AnaMenuCanvasSc : MonoBehaviour
         bool ac = !BolumlerPanel.activeSelf;
         BolumlerPanel.SetActive(ac);
         AnamenuPanel.SetActive(!ac);
-
     }
 
     public void btnAyarlar()
@@ -46,25 +45,31 @@ public class AnaMenuCanvasSc : MonoBehaviour
         AnamenuPanel.SetActive(!ac);
     }
 
+    public void LevelAc(int level)
+    {
+         SceneManager.LoadScene(level);
+    }
+
     public void btnBolum1()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 1)
         {
-            SceneManager.LoadScene("Level 1");
+            LevelAc(1);
         }
     }
     public void btnBolum2()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 2)
         {
-            SceneManager.LoadScene("Level 2");
+            LevelAc(2);
+
         }
     }
     public void btnBolum3()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 3)
         {
-            SceneManager.LoadScene("Level 3");
+            LevelAc(3);
         }
     }
 
@@ -72,39 +77,38 @@ public class AnaMenuCanvasSc : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 4)
         {
-            SceneManager.LoadScene("Level 4");
+            LevelAc(4);
         }
     }
     public void btnBolum5()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 5)
         {
-            SceneManager.LoadScene("Level 5");
+            LevelAc(5);
         }
     }
     public void btnBolum6()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 6)
         {
-            SceneManager.LoadScene("Level 6");
+            LevelAc(6);
         }
     }
     public void btnBolum7()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 7)
         {
-            SceneManager.LoadScene("Level 7");
+            LevelAc(7);
         }
     }
     public void btnBolum8()
     {
         if (PlayerPrefs.GetInt("Level", 0) >= 8)
         {
-            SceneManager.LoadScene("Level 8");
+            LevelAc(8);
         }
     }
     #endregion
-
 
 
     #region KilitliLeveller

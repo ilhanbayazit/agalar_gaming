@@ -4,6 +4,7 @@ public class EffectSc : MonoBehaviour
 {
     [SerializeField] ParticleSystem OlumEfekti;
     [SerializeField] ParticleSystem KanEfekti;
+    [SerializeField] ParticleSystem BuildEffect;
 
 
     private void Start()
