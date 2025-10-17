@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: acfbbe0eeae6f5c478f727ced53a36eb, type: 3}
       propertyPath: m_Name
-      value: "f\u0131nd\u0131kv1"
+      value: Findik
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba16e8289a31065459c2609b91a10beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikSc
-  Damage: 90
+  Damage: 120
   lifeTime: 4
   ParcaPrefabs:
   - {fileID: 5046105071223592571, guid: 214a6a4455a480a4289217e6ef0b1a7c, type: 3}

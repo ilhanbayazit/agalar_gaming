@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManagerSc : MonoBehaviour
@@ -298,6 +297,10 @@ public class GameManagerSc : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Time.timeScale = 1f;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Time.timeScale = 0.1f;
         }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {

@@ -19,10 +19,9 @@ public class FindikParSc : MonoBehaviour
         }
         if ((other.CompareTag("Enemy")) && !DegdiMi)
         {
-            DegdiMi = true;
             other.GetComponent<DusmanSc>().HasarAl(Damage);
             Destroy(gameObject);
-
+            DegdiMi = true;
         }
     }
 }

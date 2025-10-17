@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6868299496073970489}
   - component: {fileID: -539922045476607683}
   - component: {fileID: -2839920935574957889}
+  - component: {fileID: -7401290453283635392}
   m_Layer: 0
   m_Name: "f\u0131nd\u0131k.002"
   m_TagString: Untagged
@@ -109,7 +110,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.2202695, y: 0.2689578, z: 0.36514363}
   m_Center: {x: -0.054499533, y: -0.00818283, z: -0.013101161}
@@ -153,5 +154,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FindikParSc
   Damage: 50
-  lifeTime: 6
+  lifeTime: 10
   DegdiMi: 0
+--- !u!64 &-7401290453283635392
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5046105071223592571}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3816456306268022934, guid: 64c9e4459e7d1104f9c2e320360fc03c, type: 3}

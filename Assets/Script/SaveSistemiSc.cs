@@ -14,7 +14,7 @@ public class SaveSistemiSc : MonoBehaviour
             PlayerPrefs.SetInt("Level", 1);
             PlayerPrefs.Save();
         }
-        PlayerPrefs.Save();
+
     }
     public int GetCurrentLevel()
     {

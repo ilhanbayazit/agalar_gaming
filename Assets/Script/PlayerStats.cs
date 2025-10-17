@@ -75,7 +75,11 @@ public class PlayerStats : MonoBehaviour
         }
         TextGuncelle();
     }
-
+    public void CanEkle(int Miktar)
+    {
+        CanSayisi = Miktar;
+        TextGuncelle();
+    }
     public void TextGuncelle()
     {
         AltinText.text = AltinSayisi.ToString();

@@ -20,9 +20,8 @@ public class BulletSc : MonoBehaviour
         {
             DegdiMi = true;
 
-            // HIT NOKTASI
             Vector3 hitPos = other.ClosestPoint(transform.position);
-            // FX'i sahneye bas ve süre bitince yok et
+         
             if (fxPrefab != null)
             {
                 var fx = Instantiate(fxPrefab, hitPos, Quaternion.identity);

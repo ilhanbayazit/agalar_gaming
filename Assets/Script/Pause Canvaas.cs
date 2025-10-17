@@ -1,4 +1,7 @@
 using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +14,8 @@ public class PauseCanvaas : MonoBehaviour
 
     public bool OyunDurduMu = false;
     public static PauseCanvaas Instance;
-  public  GameObject SonPanel;
+    public GameObject SonPanel;
+
 
     private void Awake()
     {
@@ -34,7 +38,7 @@ public class PauseCanvaas : MonoBehaviour
     public void KazanmaPanelAc()
     {
         KazanmaPanel.SetActive(true);
-        SonPanel= KazanmaPanel;
+        SonPanel = KazanmaPanel;
         Time.timeScale = 0f;
         OyunDurduMu = true;
         if (BuildManagerSc.aktif != null)
@@ -47,7 +51,7 @@ public class PauseCanvaas : MonoBehaviour
     {
         if (OyunDurduMu) return;
         PausePanel.SetActive(true);
-        SonPanel= PausePanel;
+        SonPanel = PausePanel;
         OyunDurduMu = true;
         Time.timeScale = 0f;
         if (BuildManagerSc.aktif != null)
@@ -74,13 +78,24 @@ public class PauseCanvaas : MonoBehaviour
         SceneManager.LoadScene(0);
         SesManagerSc.Instance.Durdur();
     }
+    public void btnReklamIzleDevamEt()
+    {
+        AdsManagerSc.Instance.ShowRewarded(() =>
+        {
+            LevelManager.instance.RestartFromPrevWave();
+            SonPanel.SetActive(false);
+            OyunDurduMu = false;
+
+        });
+    }
 
     public void btnNextLevel()
     {
         SceneManager.LoadScene(++LevelManager.instance.Level);
         Time.timeScale = 1f;
     }
-    public void  btnAyarlarAcKapa()
+
+    public void btnAyarlarAcKapa()
     {
         bool ac = !AyarlarPanel.activeSelf;
         AyarlarPanel.SetActive(ac);

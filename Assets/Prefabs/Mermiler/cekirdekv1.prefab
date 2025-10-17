@@ -109,7 +109,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -151,3 +151,4 @@ MonoBehaviour:
   fxPrefab: {fileID: 5069108850427389983, guid: 487132003693c394d8aa79a3d883ab4d, type: 3}
   lifeTime: 1.5
   DegdiMi: 0
+  EkstraHasar: 0

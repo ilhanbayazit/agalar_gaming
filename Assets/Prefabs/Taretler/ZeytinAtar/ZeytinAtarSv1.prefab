@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81e72d4f8184b4db4233352aa9533f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZeytinAtarSc
-  range: 6
+  range: 7
   shotsPerSecond: 0.8
   bulletPrefab: {fileID: 2696695551386859956, guid: a8e9fde492239e54d9cb1696561a09f4, type: 3}
   firePoint: {fileID: 7658573075771424318}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
-  buildCost: 150
+  buildCost: 160
   SatisFiyati: 100
   nextLevelPrefab: {fileID: 5554203301616329007, guid: 1a1b44e7d88179a41b25bc10238ec654, type: 3}
   EkstraHasar: 0

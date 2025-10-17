@@ -13,6 +13,10 @@ public class LevelManager : MonoBehaviour
     PlayerStats playerStats;
     GameManagerSc gameManager;
     public static LevelManager instance;
+
+    List<Wave> aktifPlan;
+    Coroutine dalgaCR;
+    int currentWaveIx = 0;
     private void Awake()
     {
         instance = this;
@@ -21,8 +25,8 @@ public class LevelManager : MonoBehaviour
     {
         playerStats = PlayerStats.Instance;
         gameManager = gamemngr.GetComponent<GameManagerSc>();
-        var plan = PlanSeviyesi(Level);
-        StartCoroutine(BaslatDalgalar(plan));
+        aktifPlan = PlanSeviyesi(Level);
+        dalgaCR = StartCoroutine(BaslatDalgalarFrom(0));
     }
 
 
@@ -49,15 +53,15 @@ public class LevelManager : MonoBehaviour
     }
 
     // ---------------- Ana akış ----------------
-    IEnumerator BaslatDalgalar(List<Wave> waves)
+    IEnumerator BaslatDalgalarFrom(int startIndex)
     {
-        for (int w = 0; w < waves.Count; w++)
+        var waves = aktifPlan;
+        for (int w = startIndex; w < waves.Count; w++)
         {
-            // >>> UI: genel wave ilerlemesi
+            currentWaveIx = w;
             if (playerStats) playerStats.SetWave(w + 1, waves.Count);
 
             var wave = waves[w];
-
             foreach (var p in wave.planlar)
                 StartCoroutine(HatSpawn(p));
 
@@ -75,16 +79,33 @@ public class LevelManager : MonoBehaviour
                     yield return new WaitUntil(() => enemyRoot.transform.childCount == 0);
 
                 OyunBittiTetikle();
-                yield break; // artık tüm iş bitti, coroutineden çık
+                yield break;
             }
         }
     }
 
+    public void RestartFromPrevWave()
+    {
+        int hedef = Mathf.Max(0, currentWaveIx - 1);
+        if (dalgaCR != null) StopAllCoroutines();
+
+        var enemyRoot = GameObject.Find("Dusmanlar");
+        if (enemyRoot)
+        {
+            for (int i = enemyRoot.transform.childCount - 1; i >= 0; i--)
+                Destroy(enemyRoot.transform.GetChild(i).gameObject);
+        }
+
+        dalgaCR = StartCoroutine(BaslatDalgalarFrom(hedef));
+    }
+  
+
+
     private void OyunBittiTetikle()
     {
         PauseCanvaas.Instance.KazanmaPanelAc();
-        SesManagerSc.Instance.Cal("KazanmaSesi",1f);
-        if (Level== SaveSistemiSc.Instance.GetCurrentLevel())
+        SesManagerSc.Instance.Cal("KazanmaSesi", 1f);
+        if (Level == SaveSistemiSc.Instance.GetCurrentLevel())
         {
             SaveSistemiSc.Instance.LevelAtla();
         }
@@ -162,6 +183,7 @@ public class LevelManager : MonoBehaviour
             case 4: return PlanLevel4();
             case 5: return PlanLevel5();
             case 6: return PlanLevel6();
+            case 7: return PlanLevel7();
 
             default: return PlanLevel3();
         }
@@ -200,10 +222,10 @@ public class LevelManager : MonoBehaviour
     {
         return new List<Wave>
         {
-            WG(10f, Ka(0,6,3.6f,0.8f), Si(0,3,2.6f,2f) ),
+            WG(10f, Ka(0,6,3.6f,0.8f),Ke(0,4,2.0f,12f)),
 
-            WG(11f, Ka(0,4,3.2f,0.8f), Si(0,4,2.4f,0.8f),
-               Ka(1,4,3.2f,0.8f), Si(1,4,2.4f,0.8f) ),
+            WG(11f, Ka(0,2,1f,0.8f), 
+               Ka(1,4,3.2f,0.8f) ),
 
             WG(13f, Ke(0,4,2.0f,0.6f), Ka(0,5,3.0f,0.6f), Si(0,5,2.2f,0.6f),
                Ke(1,4,2.0f,0.6f), Ka(1,5,3.0f,0.6f), Si(1,5,2.2f,0.6f) ),
@@ -283,46 +305,91 @@ public class LevelManager : MonoBehaviour
         return new List<Wave>
     {
         WG(6f,
-            Hb(0,1,3.6f,2.6f), Ka(0,5,3.0f,0.4f),
-            Ka(1,12,1.0f,0.8f)
-        ),
-
-        WG(6f,
-            Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f),
-            Hb(1,1,3.6f,6.9f), Ka(1,7,2.8f,0.8f)
-        ),
-
-        WG(6f,
-            Hb(0,2,3.2f,6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f),  Ar(0,1,2.4f,7f),
-            Hb(1,2,3.4f,6f), Or(1,2,2.8f,1.2f), Ka(1,8,2.6f,0.8f),  Ar(1,1,2.4f,7f)
-        ),
-
-        WG(10f,
-            Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f), 
-            Hb(1,3,3.2f,1.0f), Or(1,3,2.6f,1.2f), Ka(1,9,2.4f,0.8f), Ke(1,6,1.9f,1.1f), Ar(1,2,2.3f,6f)
-        ),
-
-        WG(11f,
-            Hb(0,5,2.8f,0.6f), Or(0,3,2.4f,0.9f), Ka(0,10,2.2f,0.4f), Ke(0,8,1.8f,0.7f), Si(0,2,2.0f,0.5f), Ar(0,3,2.2f,7f),
-            Hb(1,4,3.0f,1.0f), Or(1,3,2.4f,1.2f), Ka(1,10,2.2f,0.8f), Ke(1,8,1.8f,1.1f), Si(1,2,2.0f,0.9f), Ar(1,3,2.2f,7f)
+            Bo(0,1,3.6f,5f), Ka(0,5,3.0f,0.4f),
+            Ka(1,6,2f,0.8f)
         ),
 
         WG(12f,
-            Hb(0,6,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,10,1.7f,0.7f), Si(0,2,1.9f,0.5f), Ar(0,4,2.1f,10f),
-            Hb(1,5,2.8f,1.0f), Or(1,4,2.3f,1.2f), Ka(1,12,2.0f,0.8f), Ke(1,10,1.7f,1.1f), Si(1,2,1.9f,0.9f), Ar(1,3,2.1f,10f)
+            Ka(0,5,2.8f,0.4f),Bo(0,1,3.6f,2.6f),
+            Hb(1,1,3.6f,6.9f), Ka(1,5,2.8f,0.8f)
         ),
 
-        WG(13f,
-            Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f), Ar(0,5,2.0f,9f),
-            Hb(1,6,2.6f,1.0f), Or(1,5,2.2f,1.2f), Ka(1,14,1.9f,0.8f), Ke(1,12,1.6f,1.1f), Si(1,3,1.8f,0.9f), Ar(1,4,2.0f,9f)
+        WG(12f,
+            Hb(0,1,3.2f,6f), Or(0,1,2.8f,0.9f), Ka(0,8,2.6f,0.4f),  Bo(0,1,3.6f,2.6f),
+            Bo(1,1,3.6f,2.6f),Or(1,1,2.8f,1.2f), Ka(1,8,2.6f,0.8f)
         ),
 
-        WG(14f,
-            Hb(0,8,2.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,10f),
-            Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,16,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f), Ar(1,5,1.9f,10f)
+        WG(15f,
+            Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f),Bo(0,3,3.6f,2.6f),
+             Ka(1,9,2.4f,0.8f), Ke(1,6,1.9f,1.1f)
+        ),
+
+        WG(18f,
+            Hb(0,3,2.8f,0.6f), Or(0,3,2.4f,0.9f), Ka(0,10,2.2f,0.4f), Ke(0,8,1.8f,0.7f),  Bo(0,3,3.6f,2.6f),
+            Hb(1,3,3.0f,15f), Or(1,3,2.4f,1.2f), Ka(1,10,2.2f,0.8f),  Si(1,20,0.5f,0.9f)
+        ),
+
+        WG(19f,
+            Hb(0,5,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,6,1.7f,0.7f), Si(0,2,1.9f,0.5f), 
+            Hb(1,5,2.8f,1.0f), Or(1,4,2.3f,1.2f), Ka(1,12,2.0f,0.8f), Ke(1,6,1.7f,1.1f), Si(1,2,1.9f,0.9f)
+        ),
+
+        WG(17f,
+            Hb(0,3,5f,0.6f),Bo(0,3,4f,6f), Or(0,5,2.2f,0.9f), Ka(0,7,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f), 
+            Hb(1,3,5f,1.0f),Bo(1,3,4f,6f), Or(1,5,2.2f,1.2f), Ka(1,7,1.9f,0.8f),  Si(1,3,1.8f,0.9f)
+        ),
+
+        WG(18f,
+            Hb(0,8,2.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,8,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f),
+            Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,8,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f) 
+        ),
+         WG(14f,
+            Bo(0,20,2.7f,0f),
+             Bo(1,20,2.7f,0f)
         ),
     };
     }
+    List<Wave> PlanLevel7()
+    {
+        return new List<Wave>
+    {
+        WG(8f,
+             Ka(0,10,1.0f,0.4f), Or(0,2,2.8f,0.9f),Hb(0,1,1f,6f)
+        ),
 
+        WG(6f,
+            Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f),Ar(0,2,2.4f,7f)
+        ),
+
+        WG(6f,
+            Hb(0,2,3.2f,6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f),  Ar(0,1,2.4f,7f)
+        ),
+
+        WG(10f,
+            Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f),Bo(0,5,3f,0f)
+        ),
+
+        WG(15f,
+            Hb(0,5,2.8f,0.6f), Or(0,3,2.4f,0.9f), Ka(0,10,2.2f,0.4f), Ke(0,8,1.8f,0.7f), Si(0,2,2.0f,0.5f), Ar(0,3,2.2f,7f),Bo(0,2,3f,8f)
+        ),
+
+        WG(12f,
+            Hb(0,4,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,6,2.0f,0.4f), Ke(0,10,1.7f,0.7f), Si(0,2,1.9f,0.5f), Ar(0,4,2.1f,10f),Bo(0,4,3f,8f)
+        ),
+
+        WG(13f,
+            Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f), Ar(0,5,2.0f,9f),Bo(0,6,3f,08f)
+        ),
+
+        WG(14f,
+            Hb(0,8,2.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,10f),Bo(0,6,3f,08f)
+
+        ),
+         WG(14f,
+            Hb(0,14,2.0f,5f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,10f)
+
+        ),
+    };
+    }
 
 }

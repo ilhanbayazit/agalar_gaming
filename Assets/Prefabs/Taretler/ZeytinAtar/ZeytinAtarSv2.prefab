@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81e72d4f8184b4db4233352aa9533f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZeytinAtarSc
-  range: 6
+  range: 7
   shotsPerSecond: 0.8
   bulletPrefab: {fileID: 2696695551386859956, guid: a8e9fde492239e54d9cb1696561a09f4, type: 3}
   firePoint: {fileID: 8998906188645905814}

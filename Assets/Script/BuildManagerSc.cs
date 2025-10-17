@@ -221,6 +221,4 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
     #endregion
 
-
-
 }
