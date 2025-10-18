@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af071b223c646ea46b2f3f728f1668f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeytim
-  Damage: 120
+  Damage: 100
   SekmeGucu: 4
   SekmeSuresi: 0.12
   lifeTime: 4

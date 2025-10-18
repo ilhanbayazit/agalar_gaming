@@ -3,12 +3,15 @@
 public class FindikSc : MonoBehaviour
 {
     [SerializeField] float Damage;
+    public int EkstraHasar = 0;
+    public int FindikParcasiHasari = 0;
 
     public float lifeTime;      // Merminin yok olma süresi
     bool DegdiMi = false;
     void Start()
     {
         Destroy(gameObject, lifeTime);
+        Damage += EkstraHasar;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -60,6 +63,7 @@ public class FindikSc : MonoBehaviour
 
 
             GameObject go = Instantiate(prefab, spawnPos, Quaternion.identity);
+            go.GetComponent<FindikParSc>().EkstraHasar= FindikParcasiHasari;
             if (FindikParcalariParent == null)
             { FindikParcalariParent = GetirVeyaOlusturFindikParcalariParentParent(); }
             go.transform.SetParent(FindikParcalariParent,true);

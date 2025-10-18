@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7921325817522015311}
   - component: {fileID: -1722345055914261393}
   m_Layer: 0
-  m_Name: "f\u0131nd\u0131katarv2"
+  m_Name: FindikAtarSv1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
   buildCost: 200
   SatisFiyati: 70
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 1252598867742122597, guid: 940c003ae52b2a54fa5918a7798dac5c, type: 3}
   EkstraHasar: 0
   menzil: 9
 --- !u!1 &5222408765504713799

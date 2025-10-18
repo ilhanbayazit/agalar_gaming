@@ -1072,6 +1072,9 @@ MonoBehaviour:
   BaslangicAltini: 1000
   AltinText: {fileID: 224962468}
   CanSayisiText: {fileID: 294452401}
+  waveText: {fileID: 0}
+  itemFormat: wave {0}/{1}
+  separator: ' , '
 --- !u!114 &355133653
 MonoBehaviour:
   m_ObjectHideFlags: 0

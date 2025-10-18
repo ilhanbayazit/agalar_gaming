@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +9,7 @@ public class DusmanSc : MonoBehaviour
     GameObject WayPointsParent;
     [SerializeField] List<Transform> WayPoints = new List<Transform>();
     int currentIndex = 0;                // Şu anki hedef waypoint
-    public float speed = 3f;             // Hız
+    public float speed ;             // Hız
     public float arriveDistance = 0.5f;  // Hedefe yaklaşma mesafesi
 
 
@@ -38,6 +38,7 @@ public class DusmanSc : MonoBehaviour
     [SerializeField] Vector3 KonumOfSet;
 
     Vector3 spawnStart;
+    private bool SekiyorMu;
 
     private void Start()
     {
@@ -46,44 +47,46 @@ public class DusmanSc : MonoBehaviour
         hedefFill = (float)can / maxCan;
     }
 
+
+    private float toplamYol = 0f;
+
     public void WaypointleriAyarla(List<Transform> wp)
     {
         WayPoints = wp;
         currentIndex = 0;
-    }
 
+        toplamYol = 0f;
+        if (wp != null && wp.Count > 0)
+        {
+            toplamYol += Vector3.Distance(spawnStart, wp[0].position);
+            for (int i = 1; i < wp.Count; i++)
+                toplamYol += Vector3.Distance(wp[i - 1].position, wp[i].position);
+        }
+
+    }
 
     public float IlerlemeSkoru()
     {
-        if (WayPoints == null || WayPoints.Count == 0) return float.NegativeInfinity;
+        if (WayPoints == null || WayPoints.Count == 0) return float.PositiveInfinity;
 
         int idx = Mathf.Clamp(currentIndex, 0, WayPoints.Count - 1);
-        float t = 0f; // [0,1] arası segment ilerleme
 
-        if (idx == 0)
-        {
-            float seg = Vector3.Distance(spawnStart, WayPoints[0].position);
-            float rem = Vector3.Distance(transform.position, WayPoints[0].position);
-            t = seg > 0.0001f ? 1f - Mathf.Clamp01(rem / seg) : 0f;
-        }
-        else
-        {
-            Vector3 a = WayPoints[idx - 1].position;
-            Vector3 b = WayPoints[idx].position;
-            float seg = Vector3.Distance(a, b);
-            float rem = Vector3.Distance(transform.position, b);
-            t = seg > 0.0001f ? 1f - Mathf.Clamp01(rem / seg) : 0f;
-        }
+        float kalan = 0f;
+        kalan += Vector3.Distance(transform.position, WayPoints[idx].position);
+        for (int i = idx; i < WayPoints.Count - 1; i++)
+            kalan += Vector3.Distance(WayPoints[i].position, WayPoints[i + 1].position);
 
-        return idx + t; // büyük olan daha ileride
+        return kalan;
     }
+
+
 
     private void Update()
     {
         HedefeGit();
         GuncelleBarlar();
         HedefeBak();
-      if(Stats==null) Debug.Log("bis");
+
     }
 
     private void HedefeGit()
@@ -144,10 +147,9 @@ public class DusmanSc : MonoBehaviour
                 Stats.GetComponent<PlayerStats>().AltinEkle(Odul);
                 oldu = true;
             }
-
             OlmeEffecti();
-            Destroy(gameObject);
             SesManagerSc.Instance.Cal("OlumSesi", 0.3f);
+            Destroy(gameObject);
         }
     }
 
@@ -179,21 +181,32 @@ public class DusmanSc : MonoBehaviour
             Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
         }
     }
+
+    float normalSpeed;
+    Coroutine sekmeCR;
     public void YoldaSek(float kuvvet, float SekmeSuresi)
     {
         if (!gameObject.activeInHierarchy) return;
 
-        StartCoroutine(Sekme());
+        if (sekmeCR != null) StopCoroutine(sekmeCR);
+        sekmeCR = StartCoroutine(Sekme());
 
         IEnumerator Sekme()
         {
-            float old = speed;
-            speed = -speed * kuvvet;          // hızı -kuvvet ile çarp
-            yield return new WaitForSeconds(SekmeSuresi); // 0.5 sn böyle kalsın
-            speed = old;                      // normale dön
+            if (normalSpeed == 0f) normalSpeed = Mathf.Abs(speed);
+            speed = -normalSpeed * kuvvet;
+            yield return new WaitForSeconds(SekmeSuresi);
+            speed = normalSpeed;
+            sekmeCR = null;
         }
-
     }
+
+
+
+
+
+
+
 
 
 }

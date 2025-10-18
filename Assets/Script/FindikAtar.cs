@@ -21,7 +21,7 @@ public class FindikAtar : MonoBehaviour
 
     void Update()
     {
-        FindClosestEnemy();
+        FindUzakEnemy();
         if (currentTarget != null)
         {
             LookAtTarget();
@@ -29,6 +29,26 @@ public class FindikAtar : MonoBehaviour
         }
     }
 
+    void FindUzakEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        Transform best = null;
+        float bestScore = float.PositiveInfinity; // en AZ kalan yol
+        float rangeSqr = range * range;
+
+        foreach (var e in enemies)
+        {
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+            var sc = e.GetComponent<DusmanSc>(); if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s < bestScore) { bestScore = s; best = e.transform; }
+        }
+
+        currentTarget = best;
+        targetAimPoint = ResolveAimPoint(currentTarget);
+    }
     void FindClosestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -100,7 +120,9 @@ public class FindikAtar : MonoBehaviour
         while (fireTimer >= interval)
         {
             fireTimer -= interval;
-            ZeytinAt();
+
+
+            FindikAt();
         }
 
     }
@@ -110,7 +132,7 @@ public class FindikAtar : MonoBehaviour
     [SerializeField] float MaxHiz = 120f;      // Güvenlik / üst sınır
     [SerializeField] float GucCarpani = 1f;    // İstersen genel güç çarpanı
 
-    void ZeytinAt()
+    void FindikAt()
     {
         if (currentTarget == null) return;
 
@@ -149,7 +171,16 @@ public class FindikAtar : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(v0.normalized, Vector3.up);
         rot *= Quaternion.Euler(MermiOfSet); // kendi ofsetini koru
 
+
+      
         GameObject bullet = Instantiate(bulletPrefab, p0, rot);
+
+        if (bullet.TryGetComponent<FindikSc>(out var ab))
+        {
+            TowerInfo a =gameObject.GetComponent<TowerInfo>();
+            ab.EkstraHasar = a.EkstraHasar;
+            ab.FindikParcasiHasari = a.FindikParcalariEkstraHasar;
+        }
 
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {

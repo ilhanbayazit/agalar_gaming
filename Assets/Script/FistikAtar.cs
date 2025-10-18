@@ -90,48 +90,19 @@ public class FistikAtar : MonoBehaviour
     }
     void FindUzakEnemy()
     {
-
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] flyingEnemies = GameObject.FindGameObjectsWithTag("FlyingEnemy");
 
         Transform best = null;
-        float bestScore = float.NegativeInfinity;
+        float bestScore = float.PositiveInfinity; // en AZ kalan yol
         float rangeSqr = range * range;
-
-        foreach (var e in flyingEnemies)
-        {
-            // opsiyonel menzil
-            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
-
-            var sc = e.GetComponent<DusmanSc>();
-            if (sc == null) continue;
-
-            float s = sc.IlerlemeSkoru();
-            if (s > bestScore)
-            {
-                bestScore = s;
-                best = e.transform;
-            }
-        }
 
         foreach (var e in enemies)
         {
-            // opsiyonel menzil
             if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
-
-            var sc = e.GetComponent<DusmanSc>();
-            if (sc == null) continue;
+            var sc = e.GetComponent<DusmanSc>(); if (sc == null) continue;
 
             float s = sc.IlerlemeSkoru();
-            if (s > bestScore)
-            {
-                bestScore = s;
-                best = e.transform;
-            }
-
-
-            currentTarget = best;
-
+            if (s < bestScore) { bestScore = s; best = e.transform; }
         }
 
         currentTarget = best;

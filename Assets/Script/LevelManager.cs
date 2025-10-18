@@ -98,7 +98,7 @@ public class LevelManager : MonoBehaviour
 
         dalgaCR = StartCoroutine(BaslatDalgalarFrom(hedef));
     }
-  
+
 
 
     private void OyunBittiTetikle()
@@ -144,7 +144,6 @@ public class LevelManager : MonoBehaviour
             case DusmanTuru.Ari: gameManager.AriSpawn(yol); break;
             case DusmanTuru.Yusufcuk: gameManager.YusufcukSpawn(yol); break;
             case DusmanTuru.BokBocegi: gameManager.BokBocegiSpawn(yol); break;
-
         }
     }
 
@@ -184,12 +183,12 @@ public class LevelManager : MonoBehaviour
             case 5: return PlanLevel5();
             case 6: return PlanLevel6();
             case 7: return PlanLevel7();
+            case 8: return PlanLevel8();
 
             default: return PlanLevel3();
         }
     }
 
-    // ----- LEVEL 1 (tek yol: 0, sadece Karınca; 5/10/20/30) -----
     List<Wave> PlanLevel1()
     {
         var waves = new List<Wave>
@@ -203,7 +202,6 @@ public class LevelManager : MonoBehaviour
         return waves;
     }
 
-    // ----- LEVEL 2 (Sivri + Karınca, iki yol) -----
     List<Wave> PlanLevel2()
     {
         return new List<Wave>
@@ -217,14 +215,13 @@ public class LevelManager : MonoBehaviour
         };
     }
 
-    // ----- LEVEL 3 (Kene + Karınca + Sivri; W1'de kene yok) -----
     List<Wave> PlanLevel3()
     {
         return new List<Wave>
         {
             WG(10f, Ka(0,6,3.6f,0.8f),Ke(0,4,2.0f,12f)),
 
-            WG(11f, Ka(0,2,1f,0.8f), 
+            WG(11f, Ka(0,2,1f,0.8f),
                Ka(1,4,3.2f,0.8f) ),
 
             WG(13f, Ke(0,4,2.0f,0.6f), Ka(0,5,3.0f,0.6f), Si(0,5,2.2f,0.6f),
@@ -248,7 +245,6 @@ public class LevelManager : MonoBehaviour
         };
     }
 
-    // ----- LEVEL 4 (karınca + kene + örümcek ağırlıklı, karışık; az sivri) -----
     List<Wave> PlanLevel4()
     {
         return new List<Wave>
@@ -300,6 +296,7 @@ public class LevelManager : MonoBehaviour
         WG(6f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f) ),
     };
     }
+
     List<Wave> PlanLevel6()
     {
         return new List<Wave>
@@ -330,18 +327,18 @@ public class LevelManager : MonoBehaviour
         ),
 
         WG(19f,
-            Hb(0,5,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,6,1.7f,0.7f), Si(0,2,1.9f,0.5f), 
+            Hb(0,5,2.6f,0.6f), Or(0,4,2.3f,0.9f), Ka(0,12,2.0f,0.4f), Ke(0,6,1.7f,0.7f), Si(0,2,1.9f,0.5f),
             Hb(1,5,2.8f,1.0f), Or(1,4,2.3f,1.2f), Ka(1,12,2.0f,0.8f), Ke(1,6,1.7f,1.1f), Si(1,2,1.9f,0.9f)
         ),
 
         WG(17f,
-            Hb(0,3,5f,0.6f),Bo(0,3,4f,6f), Or(0,5,2.2f,0.9f), Ka(0,7,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f), 
+            Hb(0,3,5f,0.6f),Bo(0,3,4f,6f), Or(0,5,2.2f,0.9f), Ka(0,7,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f),
             Hb(1,3,5f,1.0f),Bo(1,3,4f,6f), Or(1,5,2.2f,1.2f), Ka(1,7,1.9f,0.8f),  Si(1,3,1.8f,0.9f)
         ),
 
         WG(18f,
             Hb(0,8,2.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,8,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f),
-            Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,8,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f) 
+            Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,8,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f)
         ),
          WG(14f,
             Bo(0,20,2.7f,0f),
@@ -386,10 +383,105 @@ public class LevelManager : MonoBehaviour
 
         ),
          WG(14f,
-            Hb(0,14,2.0f,5f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,10f)
+            Hb(0,14,2.0f,5f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f), Ar(0,6,1.9f,10f),Bo(0,6,3f,15f)
 
         ),
     };
     }
+
+    // ----- LEVEL 8 (3 yol, 12 wave; W1-2'de Sivri/Ari YOK; karınca farm odaklı) -----
+    List<Wave> PlanLevel8()
+    {
+        return new List<Wave>
+    {
+        // W1 (senin verdiğin; Sivri/Ari/Kene yok)  ≈G: 6*10*3 + 3*15*3 + 1*20 + 1*30 = 180 + 135 + 20 + 30 = 365
+        WG(6f,
+            Ka(0,6,2.6f,0.4f), Or(0,3,2.8f,0.9f), Bo(0,1,2.6f,12f),
+            Ka(1,6,2.5f,0.8f), Or(1,3,2.8f,1.2f), Hb(1,1,3.6f,6f),
+            Ka(2,6,2.7f,0.6f), Or(2,3,2.8f,1.2f)
+        ),
+
+        // W2 – yer odaklı “farm” (Sivri/Ari yok), Karınca bol  ≈G: ~ (Ka ~360) + (Ke ~120) + (Or ~90) + (Hb ~30) ≈ 600+
+        WG(6f,
+            Ka(0,12,2.4f,0.4f), Ke(0,6,1.8f,0.7f), Or(0,2,2.6f,1.1f),
+            Ka(1,12,2.3f,0.8f), Hb(1,1,3.4f,1.3f), Ke(1,8,1.8f,1.1f),
+            Ka(2,12,2.3f,0.6f), Ke(2,6,1.8f,0.9f), Or(2,2,2.6f,1.2f)
+        ),
+
+        // W3 – hava tanıtımı (Sivri/Ari az)  ≈G: orta
+        WG(6f,
+            Ka(0,8,2.3f,0.4f), Ke(0,6,1.8f,0.7f), Si(0,2,2.2f,1.0f), Ar(0,1,2.3f,1.4f),
+            Ka(1,8,2.3f,0.8f), Or(1,3,2.5f,1.0f),
+            Ka(2,8,2.3f,0.6f), Ke(2,5,1.8f,0.9f), Ar(2,1,2.3f,1.5f)
+        ),
+
+        // W4 – Bok (900 HP) ağırlığı, hava yok  ≈G: yüksek (Bok 20’ler)
+        WG(6f,
+            Bo(0,5,2.2f,0.5f), Si(0,8,2.2f,0.8f), Ke(0,6,1.7f,1.0f),
+            Bo(1,6,2.1f,0.9f), Ka(1,6,2.3f,1.1f), Or(1,3,2.3f,1.3f),
+            Bo(2,5,2.2f,0.7f), Ka(2,7,2.2f,0.9f), Hb(2,1,3.2f,1.4f)
+        ),
+
+        // W5 – Kene patlaması (HP 120, altın 3): sayıyı artır ama akış serin  ≈G: orta
+        WG(6f,
+            Ke(0,18,1.5f,0.5f), Ka(0,6,2.2f,0.8f),
+            Ke(1,20,1.5f,0.9f), Ka(1,5,2.3f,1.1f),
+            Ke(2,16,1.6f,0.7f), Ka(2,6,2.1f,1.0f), Or(2,2,2.3f,1.3f)
+        ),
+
+        // W6 – Hamam (1200 HP) yoğun; hava yok  ≈G: orta-yüksek
+   
+        WG(6f,
+            Hb(0,4,3.0f,0.6f), Ka(0,8,2.3f,0.4f), Or(0,3,2.4f,0.9f),
+            Hb(1,3,3.2f,0.9f), Ke(1,8,1.7f,1.1f), Bo(1,3,2.3f,1.3f),
+            Hb(2,4,3.0f,0.7f), Ka(2,7,2.3f,0.5f), Or(2,2,2.4f,1.0f)
+        ),
+
+        // W7 – Örümcek baskısı; sınırlı hava  ≈G: orta
+        WG(6f,
+            Or(0,6,2.1f,0.6f), Ka(0,8,2.0f,0.4f), Ke(0,6,1.7f,0.9f),
+            Or(1,7,2.0f,0.9f), Ka(1,6,2.1f,1.1f), Bo(1,3,2.2f,1.3f),
+            Or(2,6,2.1f,0.7f), Ka(2,7,2.0f,0.5f), Ke(2,5,1.7f,1.0f)
+        ),
+
+        // W8 – Karınca sürüsü (hava yok), oyuncu rahat farmlasın  ≈G: yüksek (saf Ka)
+        WG(1f,
+            Ka(0,18,1.9f,0.4f),Bo(0,3,2.2f,1.3f),
+            Ka(1,18,1.8f,0.8f), Or(1,3,2.1f,1.2f),
+            Ka(2,18,1.8f,0.6f),Bo(2,3,2.2f,1.3f)
+        ),
+
+        // W9 – Hava dalgası (Sivri/Ari yüksek), yer düşük  ≈G: orta
+        WG(6f,
+            Si(0,8,1.9f,0.6f), Ar(0,11,1.7f,0.9f), Ka(0,4,2.3f,1.2f),
+            Si(1,7,1.8f,0.8f), Ar(1,11,1.7f,1.1f), Ke(1,3,1.9f,1.3f),
+            Si(2,9,1.9f,0.7f), Ar(2,11,1.7f,1.0f), Or(2,2,2.2f,1.3f)
+        ),
+
+        // W10 – Yer baskısı (Bok + Karınca), hava yok  ≈G: yüksek
+        WG(6f,
+            Bo(0,7,2.0f,0.5f), Ka(0,12,1.9f,0.7f), Ke(0,4,1.8f,1.0f),
+            Bo(1,8,1.9f,0.9f), Ka(1,10,1.9f,1.1f), Or(1,3,2.0f,1.3f),
+            Bo(2,7,2.0f,0.7f), Ka(2,11,1.9f,0.9f), Hb(2,2,3.0f,1.4f)
+        ),
+
+        // W11 – “Miniboss” hissi: Hamam + Örümcek; hava çok sınırlı  ≈G: yüksek
+        WG(7f,
+            Hb(0,5,2.8f,0.6f), Or(0,5,2.0f,0.9f), Ka(0,6,2.0f,0.4f),Bo(0,5,1.9f,1.1f),
+            Hb(1,4,2.9f,0.9f), Or(1,5,2.0f,1.1f), Ke(1,5,1.7f,1.3f),Bo(1,2,1.9f,1.1f),
+            Hb(2,5,2.8f,0.7f), Or(2,4,2.0f,1.0f), Ka(2,5,2.0f,0.5f),Bo(2,2,0.1f,0f)
+        ),
+
+        // W12 – Final karışımı (hepsi var ama patlama yok; dengeli)  ≈G: yüksek
+        WG(7f,
+            Ka(0,6,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Or(0,14,1.9f,1.0f), Si(0,4,1.8f,1.3f), Ar(0,4,1.9f,1.5f), Bo(0,6,1.9f,1.1f), Hb(0,3,1f,1.7f),
+            Ka(1,6,1.9f,0.8f), Ke(1,10,1.6f,1.0f), Or(1,14,1.9f,1.2f), Si(1,3,1.8f,1.4f), Ar(1,4,1.9f,1.6f), Bo(1,6,1.9f,1.3f), Hb(1,3,1f,1.8f),
+            Ka(2,6,1.9f,0.6f), Ke(2, 9,1.6f,0.9f), Or(2,14,1.9f,1.1f), Si(2,4,1.8f,1.3f), Ar(2,3,1.9f,1.5f), Bo(2,6,1.9f,1.2f), Hb(2,3,1f,1.7f)
+        ),
+    };
+    }
+
+
+
 
 }

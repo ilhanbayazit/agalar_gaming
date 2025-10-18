@@ -23,12 +23,32 @@ public class ZeytinAtarSc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindClosestEnemy();
+        FindUzakEnemy();
         if (currentTarget != null)
         {
             LookAtTarget();
             Fire();
         }
+    }
+    void FindUzakEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        Transform best = null;
+        float bestScore = float.PositiveInfinity; // en AZ kalan yol
+        float rangeSqr = range * range;
+
+        foreach (var e in enemies)
+        {
+            if ((e.transform.position - transform.position).sqrMagnitude > rangeSqr) continue;
+            var sc = e.GetComponent<DusmanSc>(); if (sc == null) continue;
+
+            float s = sc.IlerlemeSkoru();
+            if (s < bestScore) { bestScore = s; best = e.transform; }
+        }
+
+        currentTarget = best;
+        targetAimPoint = ResolveAimPoint(currentTarget);
     }
     void FindClosestEnemy()
     {
@@ -126,8 +146,5 @@ public class ZeytinAtarSc : MonoBehaviour
 
         }
     }
-
-
-
   
 }

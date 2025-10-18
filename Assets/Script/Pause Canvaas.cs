@@ -80,11 +80,12 @@ public class PauseCanvaas : MonoBehaviour
     }
     public void btnReklamIzleDevamEt()
     {
-        AdsManagerSc.Instance.ShowRewarded(() =>
+        AdsManagerSc.Instance.ShowRewardedInterstitial(() =>
         {
             LevelManager.instance.RestartFromPrevWave();
             SonPanel.SetActive(false);
             OyunDurduMu = false;
+            Time.timeScale = 1f;
 
         });
     }
@@ -92,6 +93,7 @@ public class PauseCanvaas : MonoBehaviour
     public void btnNextLevel()
     {
         SceneManager.LoadScene(++LevelManager.instance.Level);
+      
         Time.timeScale = 1f;
     }
 

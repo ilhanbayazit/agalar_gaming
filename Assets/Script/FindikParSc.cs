@@ -3,11 +3,14 @@ using UnityEngine;
 public class FindikParSc : MonoBehaviour
 {
     [SerializeField] float Damage;
-    public float lifeTime;      // Merminin yok olma süresi
+    public float lifeTime;     
     [SerializeField] bool DegdiMi = false;
+    public int EkstraHasar;
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
+        Damage += EkstraHasar;
     }
 
     void OnTriggerEnter(Collider other)
