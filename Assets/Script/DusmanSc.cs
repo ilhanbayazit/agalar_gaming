@@ -9,12 +9,12 @@ public class DusmanSc : MonoBehaviour
     GameObject WayPointsParent;
     [SerializeField] List<Transform> WayPoints = new List<Transform>();
     int currentIndex = 0;                // Şu anki hedef waypoint
-    public float speed ;             // Hız
+    public float speed;             // Hız
     public float arriveDistance = 0.5f;  // Hedefe yaklaşma mesafesi
 
 
     [Header("Can Ayarları")]
-    [SerializeField] float maxCan = 100;
+    [SerializeField] public float maxCan = 100;
     [SerializeField] public float can = 100;
     private float hedefFill;
 
@@ -34,7 +34,7 @@ public class DusmanSc : MonoBehaviour
 
     [Header("Effect")]
     [SerializeField] ParticleSystem fxPrefab;
-    [SerializeField] Vector3 BoyutCarpan = new Vector3(1,1,1);
+    [SerializeField] Vector3 BoyutCarpan = new Vector3(1, 1, 1);
     [SerializeField] Vector3 KonumOfSet;
 
     Vector3 spawnStart;
@@ -78,7 +78,13 @@ public class DusmanSc : MonoBehaviour
 
         return kalan;
     }
+    public void BaslangicIndexAyarla(int i)
+    {
+        if (WayPoints == null || WayPoints.Count == 0) return;
 
+        currentIndex = Mathf.Clamp(i, 0, WayPoints.Count - 1);
+        transform.position = WayPoints[currentIndex].position; // istersen satırı kaldırabilirsin
+    }
 
 
     private void Update()
@@ -172,7 +178,7 @@ public class DusmanSc : MonoBehaviour
     {
         if (fxPrefab != null)
         {
-            var fx = Instantiate(fxPrefab, transform.position+ KonumOfSet, Quaternion.identity);
+            var fx = Instantiate(fxPrefab, transform.position + KonumOfSet, Quaternion.identity);
             fx.Play();
             var main = fx.main;
             main.scalingMode = ParticleSystemScalingMode.Hierarchy;
@@ -184,8 +190,9 @@ public class DusmanSc : MonoBehaviour
 
     float normalSpeed;
     Coroutine sekmeCR;
+    [SerializeField] bool boss=false;
     public void YoldaSek(float kuvvet, float SekmeSuresi)
-    {
+    {if (boss) return;
         if (!gameObject.activeInHierarchy) return;
 
         if (sekmeCR != null) StopCoroutine(sekmeCR);

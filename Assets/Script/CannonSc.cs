@@ -113,7 +113,7 @@ public class CannonSc : MonoBehaviour
     }
     void LookAtTarget()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         Vector3 hedefPos = targetAimPoint.position;
 
@@ -128,7 +128,7 @@ public class CannonSc : MonoBehaviour
 
     void Fire()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         fireTimer += Time.deltaTime;
         float interval = 1f / Mathf.Max(0.0001f, shotsPerSecond);
@@ -147,7 +147,7 @@ public class CannonSc : MonoBehaviour
 
     void KurdanAt()
     {
-        Vector3 dir = currentTarget.position - firePoint.position;
+        Vector3 dir = targetAimPoint.position - firePoint.position;
         if (dir.sqrMagnitude < 0.0001f) return;
 
         Quaternion finalRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
@@ -161,7 +161,7 @@ public class CannonSc : MonoBehaviour
         }
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
-            Vector3 dir1 = currentTarget.position - Rotator.position;
+            Vector3 dir1 = targetAimPoint.position - Rotator.position;
             dir1.Normalize();
             
             rb.AddForce(dir1 * okHizi, ForceMode.VelocityChange);

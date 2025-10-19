@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GameManagerSc : MonoBehaviour
 {
+    static public GameManagerSc Instance;
 
     [SerializeField] GameObject Karinca;
     [SerializeField] GameObject Kene;
@@ -13,12 +15,14 @@ public class GameManagerSc : MonoBehaviour
     [SerializeField] GameObject Yusufcuk;
     [SerializeField] GameObject BokBocegi;
 
+    [SerializeField] GameObject KraliceKarinca;
 
     Transform DusmanlarParent;
 
 
     void Awake()
     {
+        Instance = this;
         foreach (var r in Routes)
             SeritleriOlustur(r);
     }
@@ -33,8 +37,50 @@ public class GameManagerSc : MonoBehaviour
         //     DusmanSpawnHizlandirma();
         dusmanspawnkontrol();
         OyunHizlandirma();
-        
+
     }
+
+
+    #region Yumurta icin
+    int EnYakinWpIndex(List<Transform> lane, Vector3 pos)
+    {
+        int best = 0; float bestS = float.PositiveInfinity;
+        for (int i = 0; i < lane.Count; i++)
+        {
+            float s = (lane[i].position - pos).sqrMagnitude;
+            if (s < bestS) { bestS = s; best = i; }
+        }
+        return best;
+    }
+
+    int EnYakinSeritIndex(RouteConfig r, Vector3 pos, bool isFly)
+    {
+        int best = 0; float bestS = float.PositiveInfinity;
+        for (int i = 0; i < seritSayisi; i++)
+        {
+            var lane = isFly ? r.lanesFly[i] : r.lanes[i];
+            int idx = EnYakinWpIndex(lane, pos);
+            float s = (lane[idx].position - pos).sqrMagnitude;
+            if (s < bestS) { bestS = s; best = i; }
+        }
+        return best;
+    }
+
+    // Yumurtadan konumlu karınca spawn
+    public void KarincaSpawnFromPos(Vector3 pos, int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = EnYakinSeritIndex(r, pos, false);
+        var lane = SeciliLane(r, serit, false);
+        int startIdx = EnYakinWpIndex(lane, pos);
+
+        var go = Instantiate(Karinca, pos, Karinca.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(lane);
+        d.BaslangicIndexAyarla(startIdx); // DusmanSc’ye eklenecek
+    }
+    #endregion
+
     Transform GetirVeyaOlusturDusmanlarParent()
     {
         var obj = GameObject.Find("Dusmanlar");
@@ -112,6 +158,15 @@ public class GameManagerSc : MonoBehaviour
         var go = Instantiate(BokBocegi, r.SpawnPoint.position, BokBocegi.transform.localRotation, DusmanlarParent);
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
+
+    public void KraliceSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(KraliceKarinca, r.SpawnPoint.position, KraliceKarinca.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, 1, false));
     }
 
     #endregion

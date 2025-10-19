@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
 
 
     // ---------------- Dinamik veri yapıları ----------------
-    enum DusmanTuru { Kene, Karinca, Sivri, Orumcek, HamamBocegi, BokBocegi, Yusufcuk, Ari }
+    enum DusmanTuru { Kene, Karinca, Sivri, Orumcek, HamamBocegi, BokBocegi, Yusufcuk, Ari, KraliceKarinca }
 
     [System.Serializable]
     struct SpawnPlan
@@ -144,6 +144,7 @@ public class LevelManager : MonoBehaviour
             case DusmanTuru.Ari: gameManager.AriSpawn(yol); break;
             case DusmanTuru.Yusufcuk: gameManager.YusufcukSpawn(yol); break;
             case DusmanTuru.BokBocegi: gameManager.BokBocegiSpawn(yol); break;
+            case DusmanTuru.KraliceKarinca: gameManager.KraliceSpawn(yol); break;
         }
     }
 
@@ -158,6 +159,7 @@ public class LevelManager : MonoBehaviour
     SpawnPlan Bo(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.BokBocegi, a, i, o);
     SpawnPlan Yu(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Yusufcuk, a, i, o);
     SpawnPlan Ar(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.Ari, a, i, o);
+    SpawnPlan KK(int yol, int a, float i, float o = 0f) => new SpawnPlan(yol, DusmanTuru.KraliceKarinca, a, i, o);
 
     Wave W(params SpawnPlan[] p)
     {
@@ -185,7 +187,7 @@ public class LevelManager : MonoBehaviour
             case 7: return PlanLevel7();
             case 8: return PlanLevel8();
 
-            default: return PlanLevel3();
+            default: return null;
         }
     }
 
@@ -211,7 +213,7 @@ public class LevelManager : MonoBehaviour
             W( Si(0,6,1.9f,0.8f), Ka(0,3,2.8f,0.8f),  Si(1,4,1.9f,0.8f), Ka(1,4,2.8f,0.8f) ),
             W( Si(0,8,1.6f,0.6f), Ka(0,6,2.4f,0.6f),  Si(1,6,1.6f,0.6f), Ka(1,6,2.4f,0.6f) ),
             W( Si(0,16,1.15f,0.35f), Ka(0,16,1.80f,0.35f),  Si(1,16,1.15f,0.35f), Ka(1,16,1.80f,0.35f) ),
-            W( Si(0,20,1.05f,0.25f), Ka(0,20,1.70f,0.25f),  Si(1,20,1.05f,0.25f), Ka(1,20,1.70f,0.25f) ),
+            W( Si(0,20,1.05f,0.25f), Ka(0,20,1.70f,0.25f),  Si(1,20,1.05f,0.25f), Ka(1,20,1.70f,0.25f) ), 
         };
     }
 
@@ -279,6 +281,7 @@ public class LevelManager : MonoBehaviour
     {
         return new List<Wave>
     {
+
         WG(7f,Or(0,2,3.2f,0.6f), Ka(0,5,3.0f,0.4f)),
 
          WG(6f,Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f)),
@@ -293,7 +296,12 @@ public class LevelManager : MonoBehaviour
 
         WG(6f,Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f)),
 
-        WG(6f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f) ),
+        WG(8f,Hb(0,9,2f,0.6f), Or(0,8,2.2f,0.9f), Ka(0,10,1.9f,0.4f), Ke(0,20,1.6f,0.7f), Si(0,18,1.8f,0.5f)),
+
+        WG(24f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,14,1.5f,0.7f), Si(0,4,1.7f,0.5f) ),
+
+        WG(7f,KK(0,1,0f,2f))
+
     };
     }
 

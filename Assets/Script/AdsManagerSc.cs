@@ -1,4 +1,5 @@
-﻿using GoogleMobileAds.Api;
+﻿
+using GoogleMobileAds.Api;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -213,4 +214,5 @@ string rewardedId = "unused";
     }
 
     #endregion
+
 }

@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6450549922852579399
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -166.43507
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 102.90567
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -110.05895
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0000000754979
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      propertyPath: m_Name
+      value: "kar\u0131ncayumurta1"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6636956174513292498}
+  m_SourcePrefab: {fileID: 100100000, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+--- !u!1 &6144490077067154710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b26985ad37356184d8cff193475eff3e, type: 3}
+  m_PrefabInstance: {fileID: 6450549922852579399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6636956174513292498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144490077067154710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca8b8491a4e6774cb6634c77329cec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YumurtaSc
+  CatlamaSuresi: 4

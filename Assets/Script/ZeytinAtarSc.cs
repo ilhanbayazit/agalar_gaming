@@ -99,7 +99,7 @@ public class ZeytinAtarSc : MonoBehaviour
 
     void LookAtTarget()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         Vector3 hedefPos = targetAimPoint.position;
 
@@ -126,7 +126,7 @@ public class ZeytinAtarSc : MonoBehaviour
     }
     void ZeytinAt()
     {
-        Vector3 dir = currentTarget.position - firePoint.position;
+        Vector3 dir = targetAimPoint.position - firePoint.position;
         if (dir.sqrMagnitude < 0.0001f) return;
 
         Quaternion finalRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
@@ -138,7 +138,7 @@ public class ZeytinAtarSc : MonoBehaviour
         // Rigidbody üzerinden hedefe doğru kuvvet uygula
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
-            Vector3 dir1 = currentTarget.position - Rotator.position;
+            Vector3 dir1 = targetAimPoint.position - Rotator.position;
             dir1.Normalize();
 
             // Hedefe doğru kuvvet uygula

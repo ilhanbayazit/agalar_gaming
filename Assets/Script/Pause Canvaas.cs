@@ -1,7 +1,4 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -78,6 +75,8 @@ public class PauseCanvaas : MonoBehaviour
         SceneManager.LoadScene(0);
         SesManagerSc.Instance.Durdur();
     }
+
+
     public void btnReklamIzleDevamEt()
     {
         AdsManagerSc.Instance.ShowRewardedInterstitial(() =>

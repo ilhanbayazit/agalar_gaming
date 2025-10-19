@@ -2210,9 +2210,10 @@ MonoBehaviour:
   Sivri: {fileID: 4155381756006756480, guid: 441b2192b52e8294eabd8c10afe47785, type: 3}
   Orumcek: {fileID: 6048158074086913661, guid: 871674cc10e6ea144ae24790b31b17dc, type: 3}
   HamamBocegi: {fileID: 5679296776675540834, guid: 460dc2cf32b2f334fb466ec3f9f71d24, type: 3}
-  Ari: {fileID: 0}
-  Yusufcuk: {fileID: 0}
-  BokBocegi: {fileID: 0}
+  Ari: {fileID: 2283382578638374298, guid: e514bf2344d553044aebf561b9b46f58, type: 3}
+  Yusufcuk: {fileID: 7231895927812793029, guid: e8c07f9937fa6cc42b4fb462fc0bf5e4, type: 3}
+  BokBocegi: {fileID: 2066198572499668492, guid: 1c6e22e21b17411498a3d6c2d5701b87, type: 3}
+  KraliceKarinca: {fileID: 217530411132722499, guid: 0b82cd693bd790d44833cdfef9ad60a5, type: 3}
   Routes:
   - Ad: Yol 1
     MerkezWaypointParent: {fileID: 195912476}

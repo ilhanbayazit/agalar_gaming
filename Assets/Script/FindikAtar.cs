@@ -112,7 +112,7 @@ public class FindikAtar : MonoBehaviour
 
     void Fire()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         fireTimer += Time.deltaTime;
         float interval = 1f / Mathf.Max(0.0001f, shotsPerSecond);
@@ -134,10 +134,10 @@ public class FindikAtar : MonoBehaviour
 
     void FindikAt()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         Vector3 p0 = firePoint.position;
-        Vector3 p1 = currentTarget.position;
+        Vector3 p1 = targetAimPoint.position;
 
         // XZ düzleminde yatay yön
         Vector3 to = p1 - p0;

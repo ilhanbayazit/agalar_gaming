@@ -1590,6 +1590,7 @@ MonoBehaviour:
   Ari: {fileID: 2283382578638374298, guid: e514bf2344d553044aebf561b9b46f58, type: 3}
   Yusufcuk: {fileID: 7231895927812793029, guid: e8c07f9937fa6cc42b4fb462fc0bf5e4, type: 3}
   BokBocegi: {fileID: 2066198572499668492, guid: 1c6e22e21b17411498a3d6c2d5701b87, type: 3}
+  KraliceKarinca: {fileID: 0}
   Routes:
   - Ad: Yol 1
     MerkezWaypointParent: {fileID: 808175875}
@@ -2042,7 +2043,7 @@ Transform:
   m_GameObject: {fileID: 1689146634}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46715835, y: 0, z: 0, w: 0.8841737}
-  m_LocalPosition: {x: -2.982996, y: 1.4, z: -0.81}
+  m_LocalPosition: {x: -3.14, y: 1.4, z: -0.81}
   m_LocalScale: {x: 0.083333336, y: 0.083333336, z: 0.08333333}
   m_ConstrainProportionsScale: 0
   m_Children: []

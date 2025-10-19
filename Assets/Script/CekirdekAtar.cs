@@ -115,7 +115,7 @@ public class CekirdekAtar : MonoBehaviour
 
     void Fire()
     {
-        if (currentTarget == null) return;
+        if (targetAimPoint == null) return;
 
         fireTimer += Time.deltaTime;
         float interval = 1f / Mathf.Max(0.0001f, shotsPerSecond);
@@ -130,7 +130,7 @@ public class CekirdekAtar : MonoBehaviour
     int fireIndex = 0;
     void CekirdekAt()
     {
-        if (firePoints == null || firePoints.Length == 0 || currentTarget == null) return;
+        if (firePoints == null || firePoints.Length == 0 || targetAimPoint == null) return;
 
         Transform fp = null;
         int n = firePoints.Length;
@@ -142,7 +142,7 @@ public class CekirdekAtar : MonoBehaviour
         }
         if (!fp) return;
 
-        Vector3 dir = currentTarget.position - fp.position;
+        Vector3 dir = targetAimPoint.position - fp.position;
         if (dir.sqrMagnitude < 1e-6f) return;
         dir.Normalize();
 
