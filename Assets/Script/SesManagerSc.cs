@@ -4,7 +4,7 @@ using UnityEngine;
 public class SesManagerSc : MonoBehaviour
 {
     public static SesManagerSc Instance;
-    [SerializeField] AudioSource src;
+    [SerializeField] public AudioSource src;
     [SerializeField] AudioClip[] clips;
     Dictionary<string, AudioClip> map;
 

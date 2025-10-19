@@ -10,6 +10,7 @@ public class KraliceKarinca : MonoBehaviour
     {
         Anim = GetComponent<Animator>();
         YuruAc();
+        CanvasYokEt();
         InvokeRepeating(nameof(Yumurtla), 8f, 5f);
     }
 
@@ -74,5 +75,10 @@ public class KraliceKarinca : MonoBehaviour
         gameObject.GetComponent<DusmanSc>().speed = 1;
     }
 
+    public void CanvasYokEt()
+    {
+        PlayerStats.Instance.gameObject.transform.GetChild(0).gameObject.transform.GetChild(4).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        PlayerStats.Instance.gameObject.transform.GetChild(0).gameObject.transform.GetChild(4).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+    }
 
 }

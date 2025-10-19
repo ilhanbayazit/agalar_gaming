@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEditor.PackageManager;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManagerSc : MonoBehaviour
@@ -162,12 +162,22 @@ public class GameManagerSc : MonoBehaviour
 
     public void KraliceSpawn(int routeIndex)
     {
+        StartCoroutine(KraliceDogumu(routeIndex));
+    }
+
+    IEnumerator KraliceDogumu(int routeIndex)
+    {
+        SesManagerSc.Instance.Durdur();
+        SesManagerSc.Instance.Cal("BossMuzik", 0.5f);
+        yield return new WaitUntil(() => !SesManagerSc.Instance.src.isPlaying);
         var r = Routes[routeIndex];
         int serit = RastgeleSeritNotRepeat(r);
         var go = Instantiate(KraliceKarinca, r.SpawnPoint.position, KraliceKarinca.transform.localRotation, DusmanlarParent);
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, 1, false));
+        SesManagerSc.Instance.RandomSarkiCal();
     }
+
 
     #endregion
 
