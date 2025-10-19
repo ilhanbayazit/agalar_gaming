@@ -47,9 +47,7 @@ public class DusmanSc : MonoBehaviour
         hedefFill = (float)can / maxCan;
     }
 
-
     private float toplamYol = 0f;
-
     public void WaypointleriAyarla(List<Transform> wp)
     {
         WayPoints = wp;

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4388475581268036134
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.06489495
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.06489495
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.213
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.676
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.733
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000019470718
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      propertyPath: m_Name
+      value: misirtanesi
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2169875870506351862}
+  m_SourcePrefab: {fileID: 100100000, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+--- !u!1 &3469907634050054007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a65e07bc5f59dd439537d9d6289779d, type: 3}
+  m_PrefabInstance: {fileID: 4388475581268036134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2169875870506351862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469907634050054007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7e74dd0f164264da6baa9d3e492e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MisirSc
+  Damage: 60
+  fxPrefab: {fileID: 5069108850427389983, guid: 487132003693c394d8aa79a3d883ab4d, type: 3}
+  lifeTime: 3
+  DegdiMi: 0
+  EkstraHasar: 0
