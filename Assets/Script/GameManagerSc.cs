@@ -167,16 +167,29 @@ public class GameManagerSc : MonoBehaviour
 
     IEnumerator KraliceDogumu(int routeIndex)
     {
-        SesManagerSc.Instance.Durdur();
-        SesManagerSc.Instance.Cal("BossMuzik", 0.5f);
-        yield return new WaitUntil(() => !SesManagerSc.Instance.src.isPlaying);
-        var r = Routes[routeIndex];
-        int serit = RastgeleSeritNotRepeat(r);
-        var go = Instantiate(KraliceKarinca, r.SpawnPoint.position, KraliceKarinca.transform.localRotation, DusmanlarParent);
-        var d = go.GetComponent<DusmanSc>();
-        d.WaypointleriAyarla(SeciliLane(r, 1, false));
-        SesManagerSc.Instance.RandomSarkiCal();
+        // Ek spawner başladı → LevelManager'a kilit koy
+        LevelManager.instance.EkSpawnBasladi();
+        try
+        {
+            SesManagerSc.Instance.Durdur();
+            SesManagerSc.Instance.Cal("BossMuzik", 0.5f);
+            yield return new WaitUntil(() => !SesManagerSc.Instance.src.isPlaying);
+
+            var r = Routes[routeIndex];
+            int serit = RastgeleSeritNotRepeat(r);
+            var go = Instantiate(KraliceKarinca, r.SpawnPoint.position, KraliceKarinca.transform.localRotation, DusmanlarParent);
+            var d = go.GetComponent<DusmanSc>();
+            d.WaypointleriAyarla(SeciliLane(r, 1, false));
+
+            SesManagerSc.Instance.RandomSarkiCal();
+        }
+        finally
+        {
+            // Ek spawner bitti → kilidi çöz (kraliçe sahneye eklendi)
+            LevelManager.instance.EkSpawnBitti();
+        }
     }
+
 
 
     #endregion

@@ -1,4 +1,5 @@
-﻿
+﻿#if UNITY_ANDROID
+
 using GoogleMobileAds.Api;
 using System;
 using UnityEngine;
@@ -216,3 +217,4 @@ string rewardedId = "unused";
     #endregion
 
 }
+#endif

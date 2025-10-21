@@ -79,6 +79,7 @@ public class PauseCanvaas : MonoBehaviour
 
     public void btnReklamIzleDevamEt()
     {
+#if UNITY_ANDROID
         AdsManagerSc.Instance.ShowRewardedInterstitial(() =>
         {
             LevelManager.instance.RestartFromPrevWave();
@@ -87,6 +88,8 @@ public class PauseCanvaas : MonoBehaviour
             Time.timeScale = 1f;
 
         });
+#endif
+
     }
 
     public void btnNextLevel()

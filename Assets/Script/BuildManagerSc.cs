@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -7,12 +8,14 @@ using UnityEngine.UI;
 
 public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 {
+    public static BuildManagerSc aktif;
     [SerializeField] GameObject KurdanAtar;
     [SerializeField] GameObject Tuzluk;
     [SerializeField] GameObject ZeytinAtar;
     [SerializeField] GameObject FindikAtar;
     [SerializeField] GameObject CekirdekAtar;
     [SerializeField] GameObject FistikAtar;
+    [SerializeField] GameObject HavaSavunmasi;
 
     [SerializeField] GameObject canvas;
     GameObject panelSatinAlim;
@@ -23,7 +26,11 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
     PlayerStats Stats;
     GameObject Bina;
     bool BosMu = true;
-   public static BuildManagerSc aktif;
+
+    [SerializeField] Image yukseltImage;
+    Sprite yukseltImageDefault;
+    [SerializeField] Sprite kilitfoto;
+
     void Awake()
     {
         panelSatinAlim = CocukBul(canvas.transform, "SatinAlimEkrani");
@@ -35,12 +42,14 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
             if (t.name == ad) return t.gameObject;
         return null;
     }
-
     void Start()
     {
-        Stats = plyrsts.GetComponent<PlayerStats>(); 
+        Stats = plyrsts.GetComponent<PlayerStats>();
         atama();
+        yukseltImageDefault = yukseltImage != null ? yukseltImage.sprite : null;
     }
+
+
     void OnMouseDown()
     {
         if (aktif != null && aktif != this) return;
@@ -51,9 +60,9 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         if (aktif != null && aktif != this) return;
         CanvasGuncelle();
     }
+
     void CanvasGuncelle()
     {
-        
         if (!canvas) return;
         if (PauseCanvaas.Instance.OyunDurduMu) return;
         if (aktif != null && aktif != this) return;
@@ -62,14 +71,38 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         if (panelSatinAlim) panelSatinAlim.SetActive(BosMu);
         if (panelYukseltSat) panelYukseltSat.SetActive(!BosMu);
 
-        // Artık bu aktif
         aktif = this;
+
+        // nextLevelPrefab durumuna göre ikon + renk (para yeterse yeşil, yetmezse kırmızı)
+        if (!BosMu && yukseltImage != null)
+        {
+            var cur = Bina ? Bina.GetComponent<TowerInfo>() : null;
+
+            if (cur == null || cur.nextLevelPrefab == null)
+            {
+                yukseltImage.sprite = kilitfoto;
+                // kilitliyken nötr renk
+                var c = yukseltImage.color; yukseltImage.color = new Color(1f, 1f, 1f, c.a);
+            }
+            else
+            {
+                if (yukseltImageDefault != null)
+                    yukseltImage.sprite = yukseltImageDefault;
+
+                var nextInfo = cur.nextLevelPrefab.GetComponent<TowerInfo>();
+                if (nextInfo != null)
+                {
+                    bool afford = Stats.AltinSayisi >= nextInfo.buildCost;
+                    var c = yukseltImage.color;
+                    yukseltImage.color = afford ? new Color(0.8f, 1f, 0.8f, c.a)   // yeşil ton
+                                                : new Color(1f, 0.8f, 0.8f, c.a); // kırmızı ton
+                }
+            }
+        }
 
         StopAllCoroutines();
         StartCoroutine(CanvasKapat());
     }
-
-
 
     public void PanelKapat()
     {
@@ -112,6 +145,8 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
     public void SpawnFindikAtar() => Spawn(FindikAtar);
     public void SpawnTuzluk() => Spawn(Tuzluk);
     public void SpawnFistikAtar() => Spawn(FistikAtar);
+    public void SpawnHavaSavunmasi() => Spawn(HavaSavunmasi);
+
 
     void Spawn(GameObject prefab)
     {
@@ -129,12 +164,9 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         PanelKapat();
     }
 
-
-
-
+    // --- Yukselt() ---
     public void Yukselt()
     {
-
         if (Bina == null) return;
 
         var cur = Bina.GetComponent<TowerInfo>();
@@ -152,7 +184,31 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         BuildingEffect();
         aktifInfo = Bina.GetComponent<TowerInfo>();
         Stats.AltinSil(nextInfo.buildCost);
-        //      CanvasGuncelle(); // istersen paneli güncelle
+
+        // ikon + renk güncelle (bir sonraki seviyenin bedeline göre)
+        if (yukseltImage != null)
+        {
+            var cur2 = Bina ? Bina.GetComponent<TowerInfo>() : null;
+            if (cur2 == null || cur2.nextLevelPrefab == null)
+            {
+                yukseltImage.sprite = kilitfoto;
+                var c0 = yukseltImage.color; yukseltImage.color = new Color(1f, 1f, 1f, c0.a);
+            }
+            else
+            {
+                if (yukseltImageDefault != null)
+                    yukseltImage.sprite = yukseltImageDefault;
+
+                var nextInfo2 = cur2.nextLevelPrefab.GetComponent<TowerInfo>();
+                if (nextInfo2 != null)
+                {
+                    bool afford2 = Stats.AltinSayisi >= nextInfo2.buildCost;
+                    var c = yukseltImage.color;
+                    yukseltImage.color = afford2 ? new Color(0.8f, 1f, 0.8f, c.a)
+                                                 : new Color(1f, 0.8f, 0.8f, c.a);
+                }
+            }
+        }
 
         PanelKapat();
     }
@@ -160,14 +216,14 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
     [SerializeField] ParticleSystem fxPrefab;
     public void BuildingEffect()
     {
-            if (fxPrefab != null)
-            {
-                var fx = Instantiate(fxPrefab, transform.position , Quaternion.identity);
-                fx.Play();
-                var main = fx.main;
-                main.scalingMode = ParticleSystemScalingMode.Hierarchy;
-                Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
-            }
+        if (fxPrefab != null)
+        {
+            var fx = Instantiate(fxPrefab, transform.position, Quaternion.identity);
+            fx.Play();
+            var main = fx.main;
+            main.scalingMode = ParticleSystemScalingMode.Hierarchy;
+            Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
+        }
     }
 
     #region Kilit Mekanizmasi
@@ -175,9 +231,9 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
     [System.Serializable]
     public struct Slot
     {
-        public int minLevel;   
-        public Button button;  
-        public Sprite locked;  
+        public int minLevel;
+        public Button button;
+        public Sprite locked;
     }
 
     [SerializeField] Slot[] slots;

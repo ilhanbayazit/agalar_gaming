@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 4888153271221547546}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.368, z: -0.567}
+  m_LocalPosition: {x: -0.03, y: 0.268, z: -0.425}
   m_LocalScale: {x: 0.23611109, y: 0.23611109, z: 0.23611109}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,6 +504,7 @@ MonoBehaviour:
   fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
   BoyutCarpan: {x: 1, y: 1, z: 1}
   KonumOfSet: {x: 0, y: 0.4, z: 0}
+  boss: 0
 --- !u!65 &-8824037549556312775
 BoxCollider:
   m_ObjectHideFlags: 0

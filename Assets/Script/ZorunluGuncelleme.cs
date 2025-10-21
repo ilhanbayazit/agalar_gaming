@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID
+
+using UnityEngine;
 using Google.Play.AppUpdate;
 using Google.Play.Common;
 using System.Collections;
@@ -52,3 +54,4 @@ public class ZorunluGuncelleme : MonoBehaviour
         catch { Application.OpenURL("https://play.google.com/store/apps/details?id=" + pkg); }
     }
 }
+#endif

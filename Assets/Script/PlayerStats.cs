@@ -86,5 +86,6 @@ public class PlayerStats : MonoBehaviour
         CanSayisiText.text = CanSayisi.ToString();
     }
  
+   
 
 }

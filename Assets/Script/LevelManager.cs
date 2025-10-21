@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,20 +18,67 @@ public class LevelManager : MonoBehaviour
     List<Wave> aktifPlan;
     Coroutine dalgaCR;
     int currentWaveIx = 0;
+
+    float minFill = 0.05f; // başlangıçta görünür doluluk
+    int ekSpawnSayaci = 0;
+    GameObject baslatGO;     // transform.GetChild(0)
+    Image baslatImg;         // baslatGO üzerindeki Image
+    bool startIsteği;        // butondan "başlat" isteği
+    [SerializeField] List<GameObject> baslatGOs = new List<GameObject>();
+    List<Image> baslatImgs = new List<Image>();
+
     private void Awake()
     {
         instance = this;
     }
+    public void EkSpawnBasladi()
+    {
+        ekSpawnSayaci++;
+    }
+    public void EkSpawnBitti()
+    {
+        ekSpawnSayaci = Mathf.Max(0, ekSpawnSayaci - 1);
+    }
+
+
     void Start()
     {
         playerStats = PlayerStats.Instance;
         gameManager = gamemngr.GetComponent<GameManagerSc>();
         aktifPlan = PlanSeviyesi(Level);
+
+        if (baslatGOs.Count == 0)
+        {
+            foreach (var img in GetComponentsInChildren<Image>(true))
+                if (img.gameObject.name.Contains("WaveStart"))
+                    baslatGOs.Add(img.gameObject);
+        }
+
+        baslatImgs.Clear();
+        foreach (var go in baslatGOs)
+        {
+            if (!go) continue;
+            var c = go.GetComponent<Canvas>();
+            if (c) c.worldCamera = Camera.main;
+            var img = go.GetComponent<Image>();
+            if (img) baslatImgs.Add(img);
+            go.SetActive(true);
+        }
+
+        // Başlangıçta MAX doldur (görünsün)
+        BaslatUI_SetFill(1f);
         dalgaCR = StartCoroutine(BaslatDalgalarFrom(0));
+
     }
 
 
-    // ---------------- Dinamik veri yapıları ----------------
+
+    public void DalgayiBaslat()
+    {
+        startIsteği = true; // sadece istek işaretle
+    }
+
+
     enum DusmanTuru { Kene, Karinca, Sivri, Orumcek, HamamBocegi, BokBocegi, Yusufcuk, Ari, KraliceKarinca }
 
     [System.Serializable]
@@ -56,8 +104,12 @@ public class LevelManager : MonoBehaviour
     IEnumerator BaslatDalgalarFrom(int startIndex)
     {
         var waves = aktifPlan;
+
         for (int w = startIndex; w < waves.Count; w++)
         {
+            if (w == startIndex)
+                yield return BekleVeGoster(0f, true); // ilk wave: sadece tık
+
             currentWaveIx = w;
             if (playerStats) playerStats.SetWave(w + 1, waves.Count);
 
@@ -70,18 +122,63 @@ public class LevelManager : MonoBehaviour
                 tahmin = Mathf.Max(tahmin, p.ofset + TahminSureTek(p.adet, p.aralik));
 
             yield return new WaitForSeconds(tahmin + 5f);
-            yield return new WaitForSeconds(wave.waveArasi);
 
-            if (w == waves.Count - 1)
+            while (ekSpawnSayaci > 0) // (kraliçe vb. ek spawner kilidi)
+                yield return null;
+
+            if (w < waves.Count - 1)
             {
-                var enemyRoot = GameObject.Find("Dusmanlar");
-                if (enemyRoot != null)
-                    yield return new WaitUntil(() => enemyRoot.transform.childCount == 0);
+                yield return BekleVeGoster(wave.waveArasi, false); // sonraki wave isteği (tüm butonlar senkron)
+                continue;
+            }
 
-                OyunBittiTetikle();
-                yield break;
+            var enemyRoot = GameObject.Find("Dusmanlar");
+            if (enemyRoot != null)
+                yield return new WaitUntil(() => enemyRoot.transform.childCount == 0 && ekSpawnSayaci == 0);
+
+            OyunBittiTetikle();
+            yield break;
+        }
+    }
+
+    IEnumerator BekleVeGoster(float sure, bool clickOnly)
+    {
+        BaslatUI_SetActive(true);
+        BaslatUI_SetFill(1f);   // Wave başında MAX
+
+        startIsteği = false;
+
+        if (clickOnly)
+        {
+            // İlk wave: sadece tık bekle (doluluk max kalır)
+            while (!startIsteği) yield return null;
+        }
+        else
+        {
+            // Sayaç: MAX→0'a doğru azalsın (istersen sabit 1 de bırakabilirsin)
+            float t = 0f;
+            while (t < sure && !startIsteği)
+            {
+                t += Time.deltaTime;
+                BaslatUI_SetFill(Mathf.Lerp(1f, 0f, Mathf.Clamp01(t / sure)));
+                yield return null;
             }
         }
+
+        BaslatUI_SetActive(false);
+        startIsteği = false;
+    }
+
+    void BaslatUI_SetActive(bool state)
+    {
+        foreach (var go in baslatGOs)
+            if (go) go.SetActive(state);
+    }
+    void BaslatUI_SetFill(float fill)
+    {
+        float v = Mathf.Max(minFill, fill);
+        foreach (var img in baslatImgs)
+            if (img) img.fillAmount = v;
     }
 
     public void RestartFromPrevWave()
@@ -284,7 +381,7 @@ public class LevelManager : MonoBehaviour
 
          WG(6f,Hb(0,1,3.4f,6.6f), Ka(0,7,2.8f,0.4f)),
 
-         WG(12f,Hb(0,3,3.2f,0.6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f)),
+         WG(8f,Hb(0,3,3.2f,0.6f), Or(0,2,2.8f,0.9f), Ka(0,8,2.6f,0.4f)),
 
         WG(12f, Hb(0,4,3.0f,0.6f), Or(0,3,2.6f,0.9f), Ka(0,9,2.4f,0.4f), Ke(0,6,1.9f,0.7f) ),
 
@@ -294,9 +391,9 @@ public class LevelManager : MonoBehaviour
 
         WG(6f,Hb(0,7,2.5f,0.6f), Or(0,5,2.2f,0.9f), Ka(0,14,1.9f,0.4f), Ke(0,12,1.6f,0.7f), Si(0,3,1.8f,0.5f)),
 
-        WG(8f,Hb(0,9,2f,0.6f), Or(0,8,2.2f,0.9f), Ka(0,10,1.9f,0.4f), Ke(0,20,1.6f,0.7f), Si(0,18,1.8f,0.5f)),
-
-        WG(30f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,35,0.5f,0.7f), Si(0,4,1.7f,0.5f) ),
+        WG(8f,Hb(0,12,1.5f,0.6f), Or(0,8,2.2f,0.9f), Ka(0,10,1.9f,0.4f), Ke(0,30,0.5f,10f), Si(0,18,0.5f,15f)),
+        
+        WG(20f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,45,0.2f,20f), Si(0,10,1.7f,0.5f) ),
 
         WG(12f,KK(0,1,0f,2f),Ka(0,1,1f,30f))
 
@@ -347,8 +444,8 @@ public class LevelManager : MonoBehaviour
             Hb(1,7,2.5f,1.0f), Or(1,6,2.0f,1.2f), Ka(1,8,1.8f,0.8f), Ke(1,14,1.5f,1.1f), Si(1,4,1.7f,0.9f)
         ),
          WG(14f,
-            Bo(0,20,2.7f,0f),
-             Bo(1,20,2.7f,0f)
+            Bo(0,20,2f,0f),
+             Bo(1,20,2f,0f)
         ),
     };
     }
@@ -486,8 +583,6 @@ public class LevelManager : MonoBehaviour
         ),
     };
     }
-
-
 
 
 }

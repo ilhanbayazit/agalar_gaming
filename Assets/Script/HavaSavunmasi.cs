@@ -7,7 +7,7 @@ public class HavaSavunmasi : MonoBehaviour
     [SerializeField] float shotsPerSecond; // saniyede kaç atış
     [SerializeField] GameObject bulletPrefab;        // Mermi prefabı
     [SerializeField] Transform firePoint;            // Merminin çıkış noktası
-    [SerializeField] float DonusHizi = 5f;   
+    [SerializeField] float DonusHizi = 5f;
     [SerializeField] float AtesHizi = 18f;       // Hedefe dönüş hızı
     [SerializeField] Vector3 AciOfset;
     TowerInfo towerinfo;
@@ -20,11 +20,11 @@ public class HavaSavunmasi : MonoBehaviour
     [SerializeField] Vector3 MermiOfSet;
     private void Start()
     {
-        towerinfo=gameObject.GetComponent<TowerInfo>();
+        towerinfo = gameObject.GetComponent<TowerInfo>();
     }
     void Update()
     {
-        // FindClosestEnemy();
+        //    FindClosestEnemy();
         FindUzakEnemy();
         if (currentTarget != null)
         {
@@ -117,8 +117,6 @@ public class HavaSavunmasi : MonoBehaviour
         Quaternion hedefPitch = Quaternion.Euler(pitchDeg, 0f, 0f);
         RotatorX.localRotation = Quaternion.Slerp(RotatorX.localRotation, hedefPitch, DonusHizi * Time.deltaTime);
     }
-
-
     void Fire()
     {
         if (targetAimPoint == null) return;
@@ -129,8 +127,6 @@ public class HavaSavunmasi : MonoBehaviour
         while (fireTimer >= interval)
         {
             fireTimer -= interval;
-
-
             MisirAt();
         }
 
