@@ -232,22 +232,22 @@ MonoBehaviour:
   - minLevel: 1
     button: {fileID: 1576526739427597871}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 3
+  - minLevel: 1
     button: {fileID: 1576526739427643719}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 2
+  - minLevel: 1
     button: {fileID: 1576526739427572933}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 4
+  - minLevel: 1
     button: {fileID: 1576526739427638321}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 5
+  - minLevel: 1
     button: {fileID: 1576526739427565521}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 6
+  - minLevel: 1
     button: {fileID: 1576526739427610425}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
-  - minLevel: 7
+  - minLevel: 1
     button: {fileID: 5794095036542696157}
     locked: {fileID: 21300000, guid: df016436edbcd8b4a9af1a23eb028824, type: 3}
 --- !u!1 &409840411277927637
