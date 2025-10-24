@@ -204,6 +204,7 @@ public class LevelManager : MonoBehaviour
         {
             SaveSistemiSc.Instance.LevelAtla();
         }
+
     }
 
     IEnumerator HatSpawn(SpawnPlan p)
@@ -395,7 +396,7 @@ public class LevelManager : MonoBehaviour
         
         WG(20f,Hb(0,14,1.4f,0.6f), Or(0,6,2.0f,0.9f), Ka(0,16,1.8f,0.4f), Ke(0,45,0.2f,20f), Si(0,10,1.7f,0.5f) ),
 
-        WG(12f,KK(0,1,0f,2f),Ka(0,1,1f,30f))
+        WG(12f,KK(0,1,0f,2f),Ka(0,1,1f,40f))
 
     };
     }

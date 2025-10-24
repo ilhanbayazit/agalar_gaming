@@ -192,4 +192,6 @@ MonoBehaviour:
   SatisFiyati: 400
   nextLevelPrefab: {fileID: 0}
   EkstraHasar: 0
+  FindikParcalariEkstraHasar: 0
   menzil: 4
+  level: 3

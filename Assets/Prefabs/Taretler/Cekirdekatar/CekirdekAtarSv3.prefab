@@ -412,9 +412,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
   buildCost: 350
   SatisFiyati: 450
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 1709919865580985215, guid: 8455f6e8c2a80ab46a52c1aa49d78412, type: 3}
   EkstraHasar: 2
+  FindikParcalariEkstraHasar: 0
   menzil: 7
+  level: 3
 --- !u!114 &7447519910700780423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +444,8 @@ MonoBehaviour:
   Rotator: {fileID: 8946573810608506187}
   Namlu: {fileID: 1873269399683796836}
   Namlu2: {fileID: 7243388403039251318}
+  Namlu3: {fileID: 0}
+  Namlu4: {fileID: 0}
   NamluDonusHizi: 720
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 0, y: 90, z: 90}

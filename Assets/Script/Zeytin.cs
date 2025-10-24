@@ -5,11 +5,14 @@ public class Zeytim : MonoBehaviour
     [SerializeField] float Damage;
     [SerializeField] float SekmeGucu;
     [SerializeField] float SekmeSuresi;
-    [SerializeField] float lifeTime;      
+    [SerializeField] float lifeTime;
+    public int EkstraHasar = 0;
     bool DegdiMi = false;
     void Start()
     {
         Destroy(gameObject, lifeTime);
+        Damage += EkstraHasar;
+
     }
 
     void OnTriggerEnter(Collider other)

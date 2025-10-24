@@ -164,7 +164,9 @@ MonoBehaviour:
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 1252598867742122597, guid: 940c003ae52b2a54fa5918a7798dac5c, type: 3}
   EkstraHasar: 0
+  FindikParcalariEkstraHasar: 0
   menzil: 9
+  level: 1
 --- !u!1 &5222408765504713799
 GameObject:
   m_ObjectHideFlags: 0

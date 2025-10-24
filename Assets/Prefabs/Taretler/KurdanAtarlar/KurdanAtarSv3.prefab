@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65d94626d6e86a94b9272993dcbfb9df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.628447
+      value: 17.781105
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65d94626d6e86a94b9272993dcbfb9df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000019073486
+      value: 0.0020887682
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65d94626d6e86a94b9272993dcbfb9df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.112232
+      value: 10.432833
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 65d94626d6e86a94b9272993dcbfb9df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -146,7 +146,9 @@ MonoBehaviour:
   range: 6
   shotsPerSecond: 1
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
-  firePoint: {fileID: 2700264283720435793}
+  firePoint1: {fileID: 2700264283720435793}
+  firePoint2: {fileID: 0}
+  firePoint3: {fileID: 0}
   DonusHizi: 5
   okHizi: 20
   Rotator: {fileID: 719316305201181038}
@@ -171,6 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
   buildCost: 300
   SatisFiyati: 300
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 3907799674798710342, guid: dfc0da511db2b3d468101d9230dde82e, type: 3}
   EkstraHasar: 50
+  FindikParcalariEkstraHasar: 0
   menzil: 6
+  level: 3

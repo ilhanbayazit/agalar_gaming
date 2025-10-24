@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8e55e42bf353054bbb7f85349e9a0f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.793053
+      value: 16.438501
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8e55e42bf353054bbb7f85349e9a0f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000019073486
+      value: -0.0017336225
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8e55e42bf353054bbb7f85349e9a0f0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.693775
+      value: 10.240484
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8e55e42bf353054bbb7f85349e9a0f0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -146,7 +146,9 @@ MonoBehaviour:
   range: 6
   shotsPerSecond: 1
   bulletPrefab: {fileID: 4863704568439550461, guid: db4924e98adccde4b9a4c70740e08e31, type: 3}
-  firePoint: {fileID: 4186083972171055795}
+  firePoint1: {fileID: 4186083972171055795}
+  firePoint2: {fileID: 0}
+  firePoint3: {fileID: 0}
   DonusHizi: 5
   okHizi: 20
   Rotator: {fileID: 1946424597016667582}
@@ -173,4 +175,6 @@ MonoBehaviour:
   SatisFiyati: 200
   nextLevelPrefab: {fileID: 8221607702510707303, guid: adbc00430e2858047abd8146164c2529, type: 3}
   EkstraHasar: 25
+  FindikParcalariEkstraHasar: 0
   menzil: 6
+  level: 2

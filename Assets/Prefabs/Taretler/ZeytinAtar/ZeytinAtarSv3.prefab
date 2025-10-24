@@ -166,6 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
   buildCost: 450
   SatisFiyati: 500
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 7533175807599389926, guid: 937c4736461bae446bb1de36627b5ec5, type: 3}
   EkstraHasar: 100
+  FindikParcalariEkstraHasar: 0
   menzil: 6
+  level: 3

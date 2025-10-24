@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,6 +31,11 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
     [SerializeField] Image yukseltImage;
     Sprite yukseltImageDefault;
     [SerializeField] Sprite kilitfoto;
+
+    [SerializeField] TextMeshProUGUI YukseltmeMaliyeti;
+    [Header("Seviye Gorselleri")]
+    [SerializeField] UnityEngine.UI.Image seviyeImage;
+    [SerializeField] Sprite seviye1, seviye2, seviye3, seviye4;
 
     void Awake()
     {
@@ -73,7 +79,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
         aktif = this;
 
-        // nextLevelPrefab durumuna göre ikon + renk (para yeterse yeşil, yetmezse kırmızı)
+        // Yükselt ikon + renk
         if (!BosMu && yukseltImage != null)
         {
             var cur = Bina ? Bina.GetComponent<TowerInfo>() : null;
@@ -81,7 +87,6 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
             if (cur == null || cur.nextLevelPrefab == null)
             {
                 yukseltImage.sprite = kilitfoto;
-                // kilitliyken nötr renk
                 var c = yukseltImage.color; yukseltImage.color = new Color(1f, 1f, 1f, c.a);
             }
             else
@@ -94,11 +99,33 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
                 {
                     bool afford = Stats.AltinSayisi >= nextInfo.buildCost;
                     var c = yukseltImage.color;
-                    yukseltImage.color = afford ? new Color(0.8f, 1f, 0.8f, c.a)   // yeşil ton
-                                                : new Color(1f, 0.8f, 0.8f, c.a); // kırmızı ton
+                    yukseltImage.color = afford ? new Color(0.8f, 1f, 0.8f, c.a)
+                                                : new Color(1f, 0.8f, 0.8f, c.a);
                 }
             }
         }
+
+        // Yükseltme maliyeti metni
+        if (!BosMu && YukseltmeMaliyeti != null)
+        {
+            var cur = Bina ? Bina.GetComponent<TowerInfo>() : null;
+            if (cur != null && cur.nextLevelPrefab != null)
+            {
+                var nextInfo = cur.nextLevelPrefab.GetComponent<TowerInfo>();
+                YukseltmeMaliyeti.text = nextInfo != null ? nextInfo.buildCost.ToString() : "-";
+            }
+            else
+            {
+                YukseltmeMaliyeti.text = "MAX";
+            }
+        }
+        else if (YukseltmeMaliyeti != null)
+        {
+            YukseltmeMaliyeti.text = "";
+        }
+
+        // Seviye görseli
+        SeviyeGorselGuncelle();
 
         StopAllCoroutines();
         StartCoroutine(CanvasKapat());
@@ -185,7 +212,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
         aktifInfo = Bina.GetComponent<TowerInfo>();
         Stats.AltinSil(nextInfo.buildCost);
 
-        // ikon + renk güncelle (bir sonraki seviyenin bedeline göre)
+        // ikon + renk güncelle
         if (yukseltImage != null)
         {
             var cur2 = Bina ? Bina.GetComponent<TowerInfo>() : null;
@@ -210,6 +237,24 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        // Yükseltme maliyeti metni (bir SONRAKİ seviye için)
+        if (YukseltmeMaliyeti != null)
+        {
+            var cur3 = Bina ? Bina.GetComponent<TowerInfo>() : null;
+            if (cur3 != null && cur3.nextLevelPrefab != null)
+            {
+                var nextInfo3 = cur3.nextLevelPrefab.GetComponent<TowerInfo>();
+                YukseltmeMaliyeti.text = nextInfo3 != null ? nextInfo3.buildCost.ToString() : "-";
+            }
+            else
+            {
+                YukseltmeMaliyeti.text = "MAX";
+            }
+        }
+
+        // Seviye görseli
+        SeviyeGorselGuncelle();
+
         PanelKapat();
     }
 
@@ -225,6 +270,35 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
             Destroy(fx.gameObject, main.duration + main.startLifetime.constantMax);
         }
     }
+
+    void SeviyeGorselGuncelle()
+    {
+        if (seviyeImage == null) return;
+
+        var cur = Bina ? Bina.GetComponent<TowerInfo>() : null;
+        if (cur == null)
+        {
+            seviyeImage.sprite = null;
+            return;
+        }
+
+        Sprite hedef = null;
+        switch (cur.level)
+        {
+            case 1: hedef = seviye1; break;
+            case 2: hedef = seviye2; break;
+            case 3: hedef = seviye3; break;
+            default: hedef = seviye4; break; // 4 ve üstü
+        }
+
+        seviyeImage.sprite = hedef;
+    }
+
+
+
+
+
+
 
     #region Kilit Mekanizmasi
 

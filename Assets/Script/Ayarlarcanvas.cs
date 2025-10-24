@@ -14,7 +14,7 @@ public class Ayarlarcanvas : MonoBehaviour
 
     void Start()
     {
-        if (muzikDuzeyi) MuzikSesAyarla(muzikDuzeyi.value);
+        if (muzikDuzeyi) MuzikSesAyarla(sonSes);
     }
     public void MuzikSesAyarla(float Value)
     {
@@ -25,7 +25,6 @@ public class Ayarlarcanvas : MonoBehaviour
     void ImageKontrol(float v)
     {
         SesIcon.GetComponent<Image>().sprite = v <= 0.0001f ? sessizSprite : sesliSprite;
-    
     }
 
     public void SesIconTikla()

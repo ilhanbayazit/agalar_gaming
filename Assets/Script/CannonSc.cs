@@ -8,7 +8,9 @@ public class CannonSc : MonoBehaviour
     public float range = 15f;               // Menzil
     [SerializeField] float shotsPerSecond = 2f; // saniyede kaç atış
     public GameObject bulletPrefab;        // Mermi prefabı
-    public Transform firePoint;            // Merminin çıkış noktası
+    public Transform firePoint1;            // Merminin çıkış noktası
+    public Transform firePoint2;            // Merminin çıkış noktası
+    public Transform firePoint3;            // Merminin çıkış noktası
     public float DonusHizi = 5f;       // Hedefe dönüş hızı
     [SerializeField] float okHizi = 10f;
 
@@ -123,9 +125,11 @@ public class CannonSc : MonoBehaviour
         Quaternion hedefRot = Quaternion.LookRotation(dir.normalized, Vector3.up) * Quaternion.Euler(AciOfset);
         Rotator.rotation = Quaternion.Slerp(Rotator.rotation, hedefRot, DonusHizi * Time.deltaTime);
     }
-
-
-
+    void KurdanAt()
+    {
+        if (!firePoint1 || targetAimPoint == null) return;
+        KurdanAtFrom(firePoint1);
+    }
     void Fire()
     {
         if (targetAimPoint == null) return;
@@ -136,34 +140,39 @@ public class CannonSc : MonoBehaviour
         while (fireTimer >= interval)
         {
             fireTimer -= interval;
+
+            // Ana namlu
             KurdanAt();
+
+            // Seviye 4+: 2 ve 3. namlular da aynı anda
+            if (towerinfo != null && towerinfo.level >= 4)
+            {
+                if (firePoint2) KurdanAtFrom(firePoint2);
+                if (firePoint3) KurdanAtFrom(firePoint3);
+            }
             GeriTep();
         }
-
     }
 
-
-
-
-    void KurdanAt()
+    void KurdanAtFrom(Transform fp)
     {
-        Vector3 dir = targetAimPoint.position - firePoint.position;
+        if (!fp || targetAimPoint == null) return;
+
+        Vector3 dir = targetAimPoint.position - fp.position;
         if (dir.sqrMagnitude < 0.0001f) return;
 
         Quaternion finalRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
-
         finalRot *= Quaternion.Euler(MermiOfSet);
 
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
+        GameObject bullet = Instantiate(bulletPrefab, fp.position, finalRot);
+
         if (bullet.TryGetComponent<BulletSc>(out var ab))
-        {
-         ab.EkstraHasar=towerinfo.EkstraHasar;
-        }
+            ab.EkstraHasar = towerinfo.EkstraHasar;
+
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
             Vector3 dir1 = targetAimPoint.position - Rotator.position;
             dir1.Normalize();
-            
             rb.AddForce(dir1 * okHizi, ForceMode.VelocityChange);
         }
     }

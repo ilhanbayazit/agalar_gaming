@@ -19,8 +19,13 @@ public class ZeytinAtarSc : MonoBehaviour
     [Header("Mermi Ayarlari")]
     [SerializeField] Vector3 MermiOfSet;
     [SerializeField] float ZeytinHizi = 10f;
+    TowerInfo towerinfo;
 
-    // Update is called once per frame
+    // Update is called once per frame3
+    private void Start()
+    {
+        towerinfo = GetComponent<TowerInfo>();
+    }
     void Update()
     {
         FindUzakEnemy();
@@ -135,6 +140,10 @@ public class ZeytinAtarSc : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, finalRot);
 
+        if (bullet.TryGetComponent<Zeytim>(out var ab))
+        {
+            ab.EkstraHasar = towerinfo.EkstraHasar;
+        }
         // Rigidbody üzerinden hedefe doğru kuvvet uygula
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {

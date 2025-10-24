@@ -140,6 +140,7 @@ MonoBehaviour:
   EkstraHasar: 75
   FindikParcalariEkstraHasar: 25
   menzil: 9
+  level: 2
 --- !u!114 &7340483394762725123
 MonoBehaviour:
   m_ObjectHideFlags: 0
