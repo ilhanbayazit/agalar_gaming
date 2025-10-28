@@ -14,7 +14,7 @@ public class HerkulSc : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.GetComponent<DusmanSc>().can < gameObject.GetComponent<DusmanSc>().maxCan * 0.3&&YuruyorMu)
+        if (gameObject.GetComponent<DusmanSc>().can < gameObject.GetComponent<DusmanSc>().maxCan * 0.45&&YuruyorMu)
         {
             Chargelen();
         }

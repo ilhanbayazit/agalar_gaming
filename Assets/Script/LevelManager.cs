@@ -608,7 +608,7 @@ public class LevelManager : MonoBehaviour
         ),
 
         // W3 – hava tanıtımı (Sivri/Ari az)
-        WG(6f,
+        WG(9f,
             Ka(0,8,2.2f,0.4f), HH(0,1,1f,0.7f), Si(0,2,2.1f,1.0f), Ar(0,1,2.2f,1.4f),
             Ka(1,8,2.2f,0.8f), Or(1,3,2.4f,1.0f),
             Ka(2,8,2.2f,0.6f),  Ar(2,1,2.2f,6f)
@@ -686,7 +686,7 @@ public class LevelManager : MonoBehaviour
 
         // W14 – Büyük final: hepsi var; aralıklar sıkı, adetler dengeli
         WG(7f,
-            Ka(0,16,1.8f,0.4f), Ke(0,12,1.5f,0.7f), Or(0,6,1.9f,1.0f), Si(0,6,1.7f,1.2f), Ar(0,6,1.8f,1.4f), Bo(0,6,1.8f,1.1f), Hb(0,4,2.7f,1.7f),
+            Ka(0,16,1.8f,0.4f), Ke(0,12,1.5f,0.7f), Or(0,6,1.9f,1.0f), Si(0,6,1.7f,1.2f), Ar(0,6,1.8f,1.4f), Bo(0,6,1.8f,1.1f), Hb(0,4,2.7f,1.7f), HH(0,4,2.7f,1.7f),
             Ka(1,15,1.8f,0.8f), Ke(1,11,1.5f,1.0f), Or(1,6,1.9f,1.2f), Si(1,5,1.7f,1.3f), Ar(1,6,1.8f,1.5f), Bo(1,6,1.8f,1.3f), Hb(1,4,2.7f,1.8f),
             Ka(2,17,1.8f,0.6f), Ke(2,10,1.5f,0.9f), Or(2,6,1.9f,1.1f),  Bo(2,5,1.8f,1.2f), Hb(2,4,2.7f,1.7f)
         ),
