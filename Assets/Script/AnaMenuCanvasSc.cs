@@ -108,6 +108,13 @@ public class AnaMenuCanvasSc : MonoBehaviour
             LevelAc(8);
         }
     }
+    public void btnBolum9()
+    {
+        if (PlayerPrefs.GetInt("Level", 0) >= 9)
+        {
+            LevelAc(9);
+        }
+    }
     #endregion
 
 

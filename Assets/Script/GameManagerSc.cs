@@ -14,6 +14,7 @@ public class GameManagerSc : MonoBehaviour
     [SerializeField] GameObject Ari;
     [SerializeField] GameObject Yusufcuk;
     [SerializeField] GameObject BokBocegi;
+    [SerializeField] GameObject HerkulBocegi;
 
     [SerializeField] GameObject KraliceKarinca;
 
@@ -159,12 +160,18 @@ public class GameManagerSc : MonoBehaviour
         var d = go.GetComponent<DusmanSc>();
         d.WaypointleriAyarla(SeciliLane(r, serit, false));
     }
-
+    public void HerkulBocegiSpawn(int routeIndex)
+    {
+        var r = Routes[routeIndex];
+        int serit = RastgeleSeritNotRepeat(r);
+        var go = Instantiate(HerkulBocegi, r.SpawnPoint.position, HerkulBocegi.transform.localRotation, DusmanlarParent);
+        var d = go.GetComponent<DusmanSc>();
+        d.WaypointleriAyarla(SeciliLane(r, serit, false));
+    }
     public void KraliceSpawn(int routeIndex)
     {
         StartCoroutine(KraliceDogumu(routeIndex));
     }
-
     IEnumerator KraliceDogumu(int routeIndex)
     {
         // Ek spawner başladı → LevelManager'a kilit koy
@@ -193,7 +200,6 @@ public class GameManagerSc : MonoBehaviour
 
 
     #endregion
-
 
 
     #region YolOlusturma
@@ -308,8 +314,6 @@ public class GameManagerSc : MonoBehaviour
     }
     #endregion
 
-
-
     void dusmanspawnkontrol()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -343,6 +347,10 @@ public class GameManagerSc : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             YusufcukSpawn(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            HerkulBocegiSpawn(0);
         }
     }
     void DusmanSpawn()
@@ -390,6 +398,5 @@ public class GameManagerSc : MonoBehaviour
             Time.timeScale -= 0.5f;
         }
     }
-
 
 }

@@ -161,7 +161,7 @@ public class BuildManagerSc : MonoBehaviour, IPointerClickHandler
 
     IEnumerator CanvasKapat()
     {
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(99f);
         if (canvas && canvas.activeSelf) canvas.SetActive(false);
         if (aktif == this) aktif = null;
     }
