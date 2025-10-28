@@ -874,7 +874,7 @@ MonoBehaviour:
   fxPrefab: {fileID: 1729233292683671624, guid: e7c28559bed33d644962e2cd86049928, type: 3}
   BoyutCarpan: {x: 2, y: 2, z: 2}
   KonumOfSet: {x: 0, y: 0, z: 0}
-  boss: 0
+  boss: 1
 --- !u!65 &3429083531014059946
 BoxCollider:
   m_ObjectHideFlags: 0
