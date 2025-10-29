@@ -7,6 +7,7 @@ public class AnaMenuCanvasSc : MonoBehaviour
     [SerializeField] GameObject AnamenuPanel;
     [SerializeField] GameObject BolumlerPanel;
     [SerializeField] GameObject AyarlarPanel;
+    [SerializeField] GameObject Guide;
     SaveSistemiSc save;
 
 
@@ -35,8 +36,16 @@ public class AnaMenuCanvasSc : MonoBehaviour
         AyarlarPanel.SetActive(false);
         AnamenuPanel.SetActive(true);
     }
-
-
+    public void GuideCikis()
+    {
+        Guide.SetActive(false);
+        AnamenuPanel.SetActive(true);
+    }
+    public void GuideAc()
+    {
+        Guide.SetActive(true);
+        AnamenuPanel.SetActive(false);
+    }
     #region Bolumler 
     public void btnBolumlerCikis()
     {

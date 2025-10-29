@@ -127,6 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 6
+  Ad: HavaSavunmasi
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: bf4dc43bc5e74634c8fdeb0210fdce5d, type: 3}
+  Hasar: 100
+  SaldiriHizi: 1
   buildCost: 160
   SatisFiyati: 120
   nextLevelPrefab: {fileID: 0}

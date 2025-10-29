@@ -240,6 +240,8 @@ MonoBehaviour:
   Rotator: {fileID: 8361040435224755035}
   Namlu: {fileID: 8716875599317315967}
   Namlu2: {fileID: 0}
+  Namlu3: {fileID: 0}
+  Namlu4: {fileID: 0}
   NamluDonusHizi: 720
   AciOfset: {x: 0, y: 90, z: 0}
   MermiOfSet: {x: 0, y: 90, z: 90}
@@ -255,6 +257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 1
+  Ad: CekirdekAtar
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: 7a0354393459bb34e817fdd73660b05c, type: 3}
+  Hasar: 7
+  SaldiriHizi: 6
   buildCost: 80
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 1031553008197441620, guid: d24a78f43df514148b5ce0469844ddd7, type: 3}

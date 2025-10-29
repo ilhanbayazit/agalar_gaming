@@ -227,6 +227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 2
+  Ad: Tuzluk
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: 34d16d1acc37eff4195bf0bec2243c24, type: 3}
+  Hasar: 60
+  SaldiriHizi: 1
   buildCost: 120
   SatisFiyati: 95
   nextLevelPrefab: {fileID: 682835340124662183, guid: f890df033a43dc6459efe7d4105900e4, type: 3}

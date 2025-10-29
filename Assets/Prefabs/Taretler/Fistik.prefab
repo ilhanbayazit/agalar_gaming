@@ -890,6 +890,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 5
+  Ad: FistikAtar
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: df247646151087d4eb0f487e65b78b2c, type: 3}
+  Hasar: 700
+  SaldiriHizi: 0.2
   buildCost: 250
   SatisFiyati: 150
   nextLevelPrefab: {fileID: 0}

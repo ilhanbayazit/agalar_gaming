@@ -164,10 +164,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 3
+  Ad: ZeytinAtar
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: ce1fc44467d8c2a448f647af251b7c03, type: 3}
+  Hasar: 100
+  SaldiriHizi: 0.8
   buildCost: 160
   SatisFiyati: 100
   nextLevelPrefab: {fileID: 5554203301616329007, guid: 1a1b44e7d88179a41b25bc10238ec654, type: 3}
   EkstraHasar: 0
   FindikParcalariEkstraHasar: 0
-  menzil: 6
+  menzil: 7
   level: 1

@@ -171,6 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3530087666f680b43a0c9fce74249eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerInfo
+  Id: 0
+  Ad: KurdanAtar
+  Icon: {fileID: 0}
+  BuyukGorsel: {fileID: 21300000, guid: 2eb2783a093822e478d5243c38d982b7, type: 3}
+  Hasar: 50
+  SaldiriHizi: 1
   buildCost: 100
   SatisFiyati: 70
   nextLevelPrefab: {fileID: 7553006560277175051, guid: 1072a76ca3f032c41ab2d4178b125aa6, type: 3}
